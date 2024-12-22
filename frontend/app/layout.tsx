@@ -1,3 +1,4 @@
+import { SmoothLayout } from "@/layout/smooth-layout"
 import "./globals.css"
 
 import type { Metadata } from "next"
@@ -21,10 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${alexandria.variable} antialiased`}>
-        {children}
-        {/* <SmoothLayout>
+        <SmoothLayout>
           <div>{children}</div>
-        </SmoothLayout> */}
+        </SmoothLayout>
       </body>
     </html>
   )
