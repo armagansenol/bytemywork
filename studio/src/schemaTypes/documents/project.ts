@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import React from 'react'
 
 export default defineType({
   name: 'project',
@@ -139,11 +140,13 @@ export default defineType({
             select: {
               title: 'title',
               description: 'description',
+              component: 'component',
             },
-            prepare({title, description}) {
+            prepare({title, description, component}) {
               return {
-                title: title || 'Text Section',
-                subtitle: description,
+                title: title || 'Untitled Text Block',
+                subtitle: description?.substring(0, 50) + (description?.length > 50 ? '...' : ''),
+                media: () => React.createElement('span', {style: {fontSize: '1.5em'}}, 'T'),
               }
             },
           },
