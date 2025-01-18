@@ -120,7 +120,13 @@ export const getProjectQuery = defineQuery(`
         "url": asset->url,
         "width": asset->metadata.dimensions.width,
         "height": asset->metadata.dimensions.height,
+        "alt": alt
       }
+    },
+    _type == "textBlock" => {
+      component,
+      title,
+      description
     }
   }
   }

@@ -1,5 +1,5 @@
 import { Link } from "@/sanity.types"
-import { dataset, projectId, studioUrl } from "@/sanity/lib/api"
+import { dataset, projectId, studioUrl } from "./api"
 import { createDataAttribute, CreateDataAttributeProps } from "next-sanity"
 
 // const imageBuilder = createImageUrlBuilder({
@@ -35,14 +35,6 @@ export function linkResolver(link: Link | undefined) {
   switch (link.linkType) {
     case "href":
       return link.href || null
-    case "page":
-      if (link?.page && typeof link.page === "string") {
-        return `/${link.page}`
-      }
-    case "post":
-      if (link?.post && typeof link.post === "string") {
-        return `/posts/${link.post}`
-      }
     default:
       return null
   }

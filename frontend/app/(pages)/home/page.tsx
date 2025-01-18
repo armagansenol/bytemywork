@@ -7,8 +7,8 @@ import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
-import { sanityFetch } from "@/sanity/lib/live"
-import { settingsQuery } from "@/sanity/lib/queries"
+import { sanityFetch } from "@/lib/sanity/live"
+import { settingsQuery } from "@/lib/sanity/queries"
 
 export default async function Home() {
   const { data: settings } = await sanityFetch({

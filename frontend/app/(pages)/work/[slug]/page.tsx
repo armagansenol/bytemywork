@@ -2,17 +2,40 @@ import Footer from "@/components/shared/footer"
 import Header from "@/components/shared/header"
 import { ImageGrid } from "@/components/shared/image-grid"
 import { Img } from "@/components/utility/img"
-import { sanityFetch } from "@/sanity/lib/live"
-import { getProjectQuery } from "@/sanity/lib/queries"
+import { sanityFetch } from "@/lib/sanity/live"
+import { getProjectQuery } from "@/lib/sanity/queries"
 import Link from "next/link"
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
+type ImageGridBlock = {
+  component: "ImageGrid"
+  items?: Array<{
+    url: string | null
+    width: number | null
+    height: number | null
+    alt: string | null
+  }>
+}
+
+type TextBlock = {
+  component: "TextBlock"
+  title: string
+  description: string
+}
+
+type Block = ImageGridBlock | TextBlock
+
 export default async function Page(props: Props) {
   const params = await props.params
   const [{ data: project }] = await Promise.all([sanityFetch({ query: getProjectQuery, params })])
+
+  console.log(
+    "project",
+    project?.body?.map((block) => block)
+  )
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -72,23 +95,31 @@ export default async function Page(props: Props) {
         </section>
         <section className="container mx-auto">
           <div className="space-y-12">
-            {Array.isArray(project?.body) &&
-              project.body.length > 0 &&
-              project.body.map((block, index) => {
+            {((project?.body || []) as Block[]).map((block: Block, index) => {
+              if (block.component === "ImageGrid") {
                 const gridItems =
                   block.items?.map((item) => ({
                     url: item.url || "",
                     width: String(item.width || 0),
                     height: String(item.height || 0),
-                    // alt: item.alt || "Project Image",
+                    alt: item.alt || "",
                   })) || []
-
                 return (
                   <div key={index}>
                     <ImageGrid items={gridItems} />
                   </div>
                 )
-              })}
+              }
+              if (block.component === "TextBlock") {
+                return (
+                  <div key={index} className="max-w-3xl mx-auto">
+                    <h2 className="text-3xl font-bold mb-6">{block.title}</h2>
+                    <div className="whitespace-pre-wrap text-gray-300">{block.description}</div>
+                  </div>
+                )
+              }
+              return null
+            })}
           </div>
         </section>
       </main>

@@ -1,8 +1,8 @@
 import Footer from "@/components/shared/footer"
 import Header from "@/components/shared/header"
-import { sanityFetch } from "@/sanity/lib/live"
-import { getProjectsQuery } from "@/sanity/lib/queries"
-import Image from "next/image"
+import { Img } from "@/components/utility/img"
+import { sanityFetch } from "@/lib/sanity/live"
+import { getProjectsQuery } from "@/lib/sanity/queries"
 import Link from "next/link"
 
 export default async function Page() {
@@ -25,10 +25,11 @@ export default async function Page() {
             {projects.map((project, index) => (
               <Link key={index} className="flex flex-col items-start" href={`/work/${project.slug?.current}`}>
                 <div className={`relative w-full h-[500px]`}>
-                  <Image
+                  <Img
                     src={project.heroImage?.asset?.url as string}
                     alt={project.heroImage?.alt as string}
-                    fill
+                    width={1000}
+                    height={1000}
                     className="object-cover rounded-lg"
                   />
                 </div>
