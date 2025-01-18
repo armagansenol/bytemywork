@@ -19,11 +19,7 @@ export default defineType({
       type: 'string',
       initialValue: 'url',
       options: {
-        list: [
-          {title: 'URL', value: 'href'},
-          {title: 'Page', value: 'page'},
-          {title: 'Post', value: 'post'},
-        ],
+        list: [{title: 'URL', value: 'href'}],
         layout: 'radio',
       },
     }),
@@ -37,36 +33,6 @@ export default defineType({
         Rule.custom((value, context: any) => {
           if (context.parent?.linkType === 'href' && !value) {
             return 'URL is required when Link Type is URL'
-          }
-          return true
-        }),
-    }),
-    defineField({
-      name: 'page',
-      title: 'Page',
-      type: 'reference',
-      to: [{type: 'page'}],
-      hidden: ({parent}) => parent?.linkType !== 'page',
-      validation: (Rule) =>
-        // Custom validation to ensure page reference is provided if the link type is 'page'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'page' && !value) {
-            return 'Page reference is required when Link Type is Page'
-          }
-          return true
-        }),
-    }),
-    defineField({
-      name: 'post',
-      title: 'Post',
-      type: 'reference',
-      to: [{type: 'post'}],
-      hidden: ({parent}) => parent?.linkType !== 'post',
-      validation: (Rule) =>
-        // Custom validation to ensure post reference is provided if the link type is 'post'
-        Rule.custom((value, context: any) => {
-          if (context.parent?.linkType === 'post' && !value) {
-            return 'Post reference is required when Link Type is Post'
           }
           return true
         }),

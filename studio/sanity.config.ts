@@ -29,22 +29,26 @@ const homeLocation = {
   href: '/',
 } satisfies DocumentLocation
 
-// Add better typing for document types
-type DocumentTypes = 'page' | 'post'
+// Improve type safety with a more comprehensive DocumentTypes
+type DocumentTypes = 'page' | 'post' | 'settings'
+type SluggedDocument = {
+  slug?: {current?: string}
+  name?: string
+  title?: string
+}
 
-// Enhance the resolveHref function with better typing and error handling
-function resolveHref(documentType?: DocumentTypes, slug?: string): string | undefined {
-  if (!slug) return undefined
+// Enhanced resolveHref with better type safety and path handling
+function resolveHref(documentType?: DocumentTypes, doc?: SluggedDocument): string | undefined {
+  const slug = doc?.slug?.current
+  if (!slug || !documentType) return undefined
 
-  switch (documentType) {
-    case 'post':
-      return `/posts/${slug}`
-    case 'page':
-      return slug === 'home' ? '/' : `/${slug}`
-    default:
-      console.warn('Unsupported document type:', documentType)
-      return undefined
+  const paths = {
+    post: `/posts/${slug}`,
+    page: slug === 'home' ? '/' : `/${slug}`,
+    settings: '/settings',
   }
+
+  return paths[documentType] || undefined
 }
 
 // Main Sanity configuration
@@ -59,7 +63,7 @@ export default defineConfig({
     // Presentation tool configuration for Visual Editing
     presentationTool({
       previewUrl: {
-        origin: SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000',
+        origin: SANITY_STUDIO_PREVIEW_URL,
         preview: '/api/preview',
       },
       resolve: {
@@ -71,18 +75,14 @@ export default defineConfig({
           },
           {
             route: '/:slug',
-            filter: '_type == "page" && slug.current == $slug',
-          },
-          {
-            route: '/posts/:slug',
-            filter: '_type == "post" && slug.current == $slug',
+            filter: '_type in ["page", "post"] && slug.current == $slug',
           },
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
         locations: {
           settings: defineLocations({
             locations: [homeLocation],
-            message: 'This document is used on all pages',
+            message: 'This document is used globally',
             tone: 'positive',
           }),
           page: defineLocations({
@@ -94,11 +94,9 @@ export default defineConfig({
               locations: [
                 {
                   title: doc?.name || 'Untitled',
-                  href: resolveHref('page', doc?.slug),
+                  href: resolveHref('page', doc || undefined),
                 },
-              ]
-                .filter(Boolean)
-                .filter((loc): loc is DocumentLocation => Boolean(loc.href)),
+              ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
             }),
           }),
           post: defineLocations({
@@ -110,13 +108,8 @@ export default defineConfig({
               locations: [
                 {
                   title: doc?.title || 'Untitled',
-                  href: resolveHref('post', doc?.slug),
-                  children: [
-                    {
-                      title: 'Preview',
-                      href: resolveHref('post', doc?.slug),
-                    },
-                  ],
+                  href: resolveHref('post', doc || undefined),
+                  children: [{title: 'Preview', href: resolveHref('post', doc || undefined)}],
                 },
                 homeLocation,
               ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
