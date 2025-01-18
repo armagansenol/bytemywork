@@ -29,16 +29,20 @@ const homeLocation = {
   href: '/',
 } satisfies DocumentLocation
 
-// resolveHref() is a convenience function that resolves the URL
-// path for different document types and used in the presentation tool.
-function resolveHref(documentType?: string, slug?: string): string | undefined {
+// Add better typing for document types
+type DocumentTypes = 'page' | 'post'
+
+// Enhance the resolveHref function with better typing and error handling
+function resolveHref(documentType?: DocumentTypes, slug?: string): string | undefined {
+  if (!slug) return undefined
+
   switch (documentType) {
     case 'post':
-      return slug ? `/posts/${slug}` : undefined
+      return `/posts/${slug}`
     case 'page':
-      return slug ? `/${slug}` : undefined
+      return slug === 'home' ? '/' : `/${slug}`
     default:
-      console.warn('Invalid document type:', documentType)
+      console.warn('Unsupported document type:', documentType)
       return undefined
   }
 }
@@ -55,21 +59,23 @@ export default defineConfig({
     // Presentation tool configuration for Visual Editing
     presentationTool({
       previewUrl: {
-        origin: SANITY_STUDIO_PREVIEW_URL,
-        previewMode: {
-          enable: '/api/draft-mode/enable',
-        },
+        origin: SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000',
+        preview: '/api/preview',
       },
       resolve: {
         // The Main Document Resolver API provides a method of resolving a main document from a given route or route pattern. https://www.sanity.io/docs/presentation-resolver-api#57720a5678d9
         mainDocuments: defineDocuments([
           {
+            route: '/',
+            filter: '_type == "page" && slug.current == "home"',
+          },
+          {
             route: '/:slug',
-            filter: `_type == "page" && slug.current == $slug || _id == $slug`,
+            filter: '_type == "page" && slug.current == $slug',
           },
           {
             route: '/posts/:slug',
-            filter: `_type == "post" && slug.current == $slug || _id == $slug`,
+            filter: '_type == "post" && slug.current == $slug',
           },
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
@@ -88,9 +94,11 @@ export default defineConfig({
               locations: [
                 {
                   title: doc?.name || 'Untitled',
-                  href: resolveHref('page', doc?.slug)!,
+                  href: resolveHref('page', doc?.slug),
                 },
-              ],
+              ]
+                .filter(Boolean)
+                .filter((loc): loc is DocumentLocation => Boolean(loc.href)),
             }),
           }),
           post: defineLocations({
@@ -102,13 +110,16 @@ export default defineConfig({
               locations: [
                 {
                   title: doc?.title || 'Untitled',
-                  href: resolveHref('post', doc?.slug)!,
+                  href: resolveHref('post', doc?.slug),
+                  children: [
+                    {
+                      title: 'Preview',
+                      href: resolveHref('post', doc?.slug),
+                    },
+                  ],
                 },
-                {
-                  title: 'Home',
-                  href: '/',
-                } satisfies DocumentLocation,
-              ].filter(Boolean) as DocumentLocation[],
+                homeLocation,
+              ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
             }),
           }),
         },
