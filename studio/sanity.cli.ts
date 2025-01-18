@@ -7,7 +7,12 @@
 
 import {defineCliConfig} from 'sanity/cli'
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || '<your project ID>'
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID
+
+console.log('projectId', projectId)
+if (!projectId) {
+  throw new Error('Missing environment variable: SANITY_STUDIO_PROJECT_ID')
+}
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 export default defineCliConfig({

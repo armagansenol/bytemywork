@@ -68,73 +68,9 @@ export type Geopoint = {
   alt?: number
 }
 
-export type Project = {
-  _id: string
-  _type: 'project'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  projectName?: string
-  slug?: Slug
-  description?: string
-  companyName?: string
-  heroImage?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  client?: string
-  date?: string
-  deliverables?: Array<string>
-  websiteUrl?: string
-  body?: Array<
-    | {
-        component?: string
-        items?: Array<{
-          image?: {
-            asset?: {
-              _ref: string
-              _type: 'reference'
-              _weak?: boolean
-              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-            }
-            hotspot?: SanityImageHotspot
-            crop?: SanityImageCrop
-            _type: 'image'
-          }
-          alt?: string
-          width?: string
-          height?: string
-          _type: 'imageItem'
-          _key: string
-        }>
-        _type: 'imageGrid'
-        _key: string
-      }
-    | {
-        component?: string
-        items?: Array<{
-          heading?: string
-          content?: string
-          _type: 'textItem'
-          _key: string
-        }>
-        _type: 'textBlock'
-        _key: string
-      }
-  >
-}
-
 export type CallToAction = {
   _type: 'callToAction'
-  heading?: string
+  heading: string
   text?: string
   buttonText?: string
   link?: Link
@@ -142,20 +78,8 @@ export type CallToAction = {
 
 export type Link = {
   _type: 'link'
-  linkType?: 'href' | 'page' | 'post'
+  linkType?: 'href'
   href?: string
-  page?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'page'
-  }
-  post?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'post'
-  }
   openInNewTab?: boolean
 }
 
@@ -173,20 +97,8 @@ export type InfoSection = {
     style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
     listItem?: 'bullet' | 'number'
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
+      linkType?: 'href'
       href?: string
-      page?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
-      post?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'post'
-      }
       openInNewTab?: boolean
       _type: 'link'
       _key: string
@@ -207,20 +119,8 @@ export type BlockContent = Array<{
   style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
   listItem?: 'bullet' | 'number'
   markDefs?: Array<{
-    linkType?: 'href' | 'page' | 'post'
+    linkType?: 'href'
     href?: string
-    page?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'page'
-    }
-    post?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'post'
-    }
     openInNewTab?: boolean
     _type: 'link'
     _key: string
@@ -230,37 +130,17 @@ export type BlockContent = Array<{
   _key: string
 }>
 
-export type Page = {
+export type Project = {
   _id: string
-  _type: 'page'
+  _type: 'project'
   _createdAt: string
   _updatedAt: string
   _rev: string
-  name?: string
-  slug?: Slug
-  heading?: string
-  subheading?: string
-  pageBuilder?: Array<
-    | ({
-        _key: string
-      } & CallToAction)
-    | ({
-        _key: string
-      } & InfoSection)
-  >
-}
-
-export type Post = {
-  _id: string
-  _type: 'post'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  slug?: Slug
-  content?: BlockContent
-  excerpt?: string
-  coverImage?: {
+  projectName: string
+  slug: Slug
+  description: string
+  companyName: string
+  heroImage?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -272,40 +152,41 @@ export type Post = {
     alt?: string
     _type: 'image'
   }
+  client?: string
   date?: string
-  author?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'person'
-  }
-}
-
-export type Person = {
-  _id: string
-  _type: 'person'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  firstName?: string
-  lastName?: string
-  picture?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  deliverables?: Array<string>
+  websiteUrl?: string
+  body?: Array<
+    | {
+        component?: string
+        items?: Array<{
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+          _key: string
+        }>
+        _type: 'imageGrid'
+        _key: string
+      }
+    | {
+        component?: string
+        title?: string
+        description?: string
+        _type: 'textBlock'
+        _key: string
+      }
+  >
 }
 
 export type Slug = {
   _type: 'slug'
-  current?: string
+  current: string
   source?: string
 }
 
@@ -315,7 +196,7 @@ export type Settings = {
   _createdAt: string
   _updatedAt: string
   _rev: string
-  title?: string
+  title: string
   description?: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -326,7 +207,7 @@ export type Settings = {
     style?: 'normal'
     listItem?: never
     markDefs?: Array<{
-      href?: string
+      href: string
       _type: 'link'
       _key: string
     }>
@@ -347,6 +228,13 @@ export type Settings = {
     metadataBase?: string
     _type: 'image'
   }
+  highlightedProjects: Array<{
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    _key: string
+    [internalGroqTypeReferenceTo]?: 'project'
+  }>
 }
 
 export type SanityImageCrop = {
@@ -446,7 +334,7 @@ export type SanityAssistOutputField = {
 
 export type SanityAssistInstructionContext = {
   _type: 'sanity.assist.instruction.context'
-  reference?: {
+  reference: {
     _ref: string
     _type: 'reference'
     _weak?: boolean
@@ -479,7 +367,7 @@ export type AssistInstructionContext = {
 
 export type SanityAssistInstructionUserInput = {
   _type: 'sanity.assist.instruction.userInput'
-  message?: string
+  message: string
   description?: string
 }
 
@@ -547,14 +435,11 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | Project
   | CallToAction
   | Link
   | InfoSection
   | BlockContent
-  | Page
-  | Post
-  | Person
+  | Project
   | Slug
   | Settings
   | SanityImageCrop

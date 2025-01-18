@@ -77,6 +77,23 @@ export default defineType({
           name: 'imageGrid',
           title: 'Image Grid',
           type: 'object',
+          preview: {
+            select: {
+              image1: 'items.0.asset',
+              image2: 'items.1.asset',
+              image3: 'items.2.asset',
+              component: 'component',
+            },
+            prepare({image1, image2, image3, component}) {
+              const images = [image1, image2, image3].filter(Boolean)
+              return {
+                title: component,
+                media: images[0],
+                imageUrls: images,
+                subtitle: `Image grid (${images.length} images)`,
+              }
+            },
+          },
           fields: [
             defineField({
               name: 'component',
@@ -93,6 +110,43 @@ export default defineType({
               validation: (Rule) => Rule.max(3),
             }),
           ],
+        }),
+        defineField({
+          name: 'textBlock',
+          title: 'Text Block',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'component',
+              title: 'Component',
+              type: 'string',
+              initialValue: 'TextBlock',
+              readOnly: true,
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 3,
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              description: 'description',
+            },
+            prepare({title, description}) {
+              return {
+                title: title || 'Text Section',
+                subtitle: description,
+              }
+            },
+          },
         }),
       ],
     }),
