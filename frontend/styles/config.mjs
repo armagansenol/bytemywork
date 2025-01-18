@@ -4,24 +4,25 @@ const colors = {
   white: "#ffffff",
   red: "#e30613",
   raven: "#0b0b0b",
-  deepDaigiWhite: "#eae6e5",
+  "deep-daigi-white": "#eae6e5",
+  "namara-grey": "#7B7B7B",
 }
 
 const themes = {
   light: {
-    primary: colors.deepDaigiWhite,
+    primary: colors["deep-daigi-white"],
     secondary: colors.raven,
     contrast: colors.red,
   },
   dark: {
     primary: colors.raven,
-    secondary: colors.deepDaigiWhite,
+    secondary: colors["deep-daigi-white"],
     contrast: colors.red,
   },
   red: {
     primary: colors.red,
     secondary: colors.raven,
-    contrast: colors.deepDaigiWhite,
+    contrast: colors["deep-daigi-white"],
   },
 }
 
@@ -39,18 +40,6 @@ const themeNames = Object.keys(themes)
 
 const config = {
   themes,
-  columns: {
-    mobile: 4,
-    desktop: 8,
-  },
-  gaps: {
-    mobile: 4,
-    desktop: 4,
-  },
-  margins: {
-    mobile: 4,
-    desktop: 4,
-  },
 }
 
 export { breakpoints, colors, config, screens, themeNames, themes }

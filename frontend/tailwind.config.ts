@@ -1,4 +1,8 @@
 import type { Config } from "tailwindcss"
+import { colors } from "./styles/config.mjs"
+
+import aspectRatio from "@tailwindcss/aspect-ratio"
+import animate from "tailwindcss-animate"
 
 const config: Config = {
   darkMode: ["class"],
@@ -9,6 +13,26 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        "24": "repeat(24, minmax(0, 1fr))",
+      },
+      gridTemplateRows: {
+        "24": "repeat(24, minmax(0, 1fr))",
+      },
+      gridColumn: {
+        "span-13": "span 13 / span 13",
+        "span-14": "span 14 / span 14",
+        "span-15": "span 15 / span 15",
+        "span-16": "span 16 / span 16",
+        "span-17": "span 17 / span 17",
+        "span-18": "span 18 / span 18",
+        "span-19": "span 19 / span 19",
+        "span-20": "span 20 / span 20",
+        "span-21": "span 21 / span 21",
+        "span-22": "span 22 / span 22",
+        "span-23": "span 23 / span 23",
+        "span-24": "span 24 / span 24",
+      },
       container: {
         center: true,
       },
@@ -56,6 +80,7 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        ...colors,
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -64,6 +89,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate, aspectRatio],
 }
 export default config

@@ -3,7 +3,7 @@ import { Logo } from "./icons"
 
 export default function Header() {
   return (
-    <header className="container flex justify-between items-center p-6">
+    <header className="container flex justify-between items-center py-4">
       <nav>
         <ul className="flex space-x-8">
           <li>

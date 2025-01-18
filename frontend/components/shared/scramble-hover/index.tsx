@@ -32,6 +32,7 @@ export const ScrambleHover: React.FC<ScrambleHoverProps> = ({
   const [displayText, setDisplayText] = useState(text)
   const [isHovering, setIsHovering] = useState(false)
   const [isScrambling, setIsScrambling] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [revealedIndices, setRevealedIndices] = useState(new Set<number>())
 
   useEffect(() => {
@@ -110,11 +111,7 @@ export const ScrambleHover: React.FC<ScrambleHoverProps> = ({
         if (sequential) {
           if (revealedIndices.size < text.length) {
             const nextIndex = getNextIndex()
-            setRevealedIndices((prev) => {
-              const next = new Set(prev)
-              next.add(nextIndex)
-              return next
-            })
+            revealedIndices.add(nextIndex)
             setDisplayText(shuffleText(text))
           } else {
             clearInterval(interval)
@@ -132,7 +129,7 @@ export const ScrambleHover: React.FC<ScrambleHoverProps> = ({
       }, scrambleSpeed)
     } else {
       setDisplayText(text)
-      setRevealedIndices(new Set())
+      revealedIndices.clear()
     }
 
     return () => {

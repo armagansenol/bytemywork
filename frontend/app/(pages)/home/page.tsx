@@ -54,10 +54,10 @@ export default async function Home() {
               <h3 className="text-4xl font-bold">
                 <ScrambleHover
                   text={"WEB DESIGN"}
-                  scrambleSpeed={100}
-                  maxIterations={4}
+                  scrambleSpeed={60}
+                  sequential={true}
+                  revealDirection="start"
                   useOriginalCharsOnly={false}
-                  className="cursor-pointer"
                   characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
                 />
               </h3>

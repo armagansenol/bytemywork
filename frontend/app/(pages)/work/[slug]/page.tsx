@@ -1,10 +1,15 @@
-import Footer from "@/components/shared/footer"
-import Header from "@/components/shared/header"
 import { ImageGrid } from "@/components/shared/image-grid"
+import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
+import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/lib/sanity/live"
 import { getProjectQuery } from "@/lib/sanity/queries"
 import Link from "next/link"
+
+import s from "./project-detail.module.css"
+
+import cn from "clsx"
+import ScrambleIn from "@/components/shared/scramble-in"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -38,92 +43,99 @@ export default async function Page(props: Props) {
   )
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Header />
-      <main className="container mx-auto px-6 py-12 space-y-10">
-        <section>
-          <Link href="/work" className="inline-block mb-16 hover:text-gray-300 transition-colors">
-            [ BACK TO WORKS ]
-          </Link>
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+    <Wrapper theme="dark">
+      <section className="container mx-auto">
+        <div className="grid grid-cols-24 gap-8 pt-8">
+          <div className="col-span-9 space-y-24">
+            <Link className="text-sm text-namara-grey" href="/work">
+              [ BACK TO WORKS ]
+            </Link>
             <div className="space-y-8">
-              <h1 className="text-5xl md:text-7xl font-bold leading-none tracking-tighter">{project?.projectName}</h1>
-              <p className="text-lg text-gray-300 max-w-xl">
-                {project?.description} - {project?.companyName}
+              <h1 className="text-5xl md:text-7xl font-normal leading-none tracking-tighter">
+                <ScrambleIn
+                  text={`${project?.projectName}`}
+                  scrambleSpeed={50}
+                  scrambledLetterCount={5}
+                  autoStart={true}
+                />
+              </h1>
+              <p className="text-lg font-light">
+                <ScrambleIn
+                  text={`${project?.description}`}
+                  scrambleSpeed={5}
+                  scrambledLetterCount={5}
+                  autoStart={true}
+                />
               </p>
             </div>
-            <div className="relative">
+          </div>
+          <div className={cn(s.heroImage, "col-span-15 relative")}>
+            <div className="relative aspect-w-4 aspect-h-3">
               <Img
                 src={project?.heroImage?.url as string}
                 alt={project?.heroImage?.alt as string}
                 width={project?.heroImage?.width as number}
                 height={project?.heroImage?.height as number}
-                className="w-full object-cover rounded-lg"
+                className="object-cover"
               />
-              <Link href="/" className="absolute bottom-4 right-4 hover:text-gray-300 transition-colors">
-                [ START A PROJECT ]
-              </Link>
             </div>
+            <Link href="/" className="absolute bottom-4 right-4">
+              [ START A PROJECT ]
+            </Link>
           </div>
-          <div className="grid md:grid-cols-4 gap-8 mt-24 pt-12">
+        </div>
+        <div className="grid grid-cols-24 gap-8 py-20">
+          <div className="col-span-15 col-start-10 flex justify-between">
             <div>
-              <h2 className="text-lg font-medium mb-4">CLIENT</h2>
-              <p className="text-gray-400">{project?.client}</p>
+              <h2 className="text-md font-medium mb-4">CLIENT</h2>
+              <p className="text-sm font-light text-namara-grey">{project?.client}</p>
             </div>
             <div>
-              <h2 className="text-lg font-medium mb-4">DATE</h2>
-              <p className="text-gray-400">{project?.date}</p>
+              <h2 className="text-md font-medium mb-4">DATE</h2>
+              <p className="text-sm font-light text-namara-grey">{project?.date}</p>
             </div>
             <div>
-              <h2 className="text-lg font-medium mb-4">DELIVERABLES</h2>
-              {Array.isArray(project?.deliverables) && project.deliverables.length > 0 ? (
-                <ul className="space-y-2 text-gray-400">
+              <h2 className="text-md font-medium mb-4">DELIVERABLES</h2>
+              {Array.isArray(project?.deliverables) && project.deliverables.length > 0 && (
+                <ul className="space-y-2 text-sm font-light text-namara-grey">
                   {project.deliverables.map((item, index) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>
-              ) : (
-                <p className="text-gray-400">No deliverables specified</p>
               )}
             </div>
-            <div className="text-right">
+            <div>
               <Link href={project?.websiteUrl as string} className="inline-block hover:text-gray-300 transition-colors">
                 [ VISIT WEBSITE ]
               </Link>
             </div>
           </div>
-        </section>
-        <section className="container mx-auto">
-          <div className="space-y-12">
-            {((project?.body || []) as Block[]).map((block: Block, index) => {
-              if (block.component === "ImageGrid") {
-                const gridItems =
-                  block.items?.map((item) => ({
-                    url: item.url || "",
-                    width: String(item.width || 0),
-                    height: String(item.height || 0),
-                    alt: item.alt || "",
-                  })) || []
-                return (
-                  <div key={index}>
-                    <ImageGrid items={gridItems} />
-                  </div>
-                )
-              }
-              if (block.component === "TextBlock") {
-                return (
-                  <div key={index} className="max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold mb-6">{block.title}</h2>
-                    <div className="whitespace-pre-wrap text-gray-300">{block.description}</div>
-                  </div>
-                )
-              }
-              return null
-            })}
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </section>
+      <section className="container mx-auto">
+        <div className="space-y-4">
+          {((project?.body || []) as Block[]).map((block: Block, index) => {
+            if (block.component === "ImageGrid") {
+              const gridItems =
+                block.items?.map((item) => ({
+                  url: item.url || "",
+                  width: String(item.width || 0),
+                  height: String(item.height || 0),
+                  alt: item.alt || "",
+                })) || []
+              return (
+                <div key={index}>
+                  <ImageGrid items={gridItems} />
+                </div>
+              )
+            }
+            if (block.component === "TextBlock") {
+              return <TextBlock key={index} heading={block.title} content={block.description} />
+            }
+            return null
+          })}
+        </div>
+      </section>
+    </Wrapper>
   )
 }

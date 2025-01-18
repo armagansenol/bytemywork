@@ -27,7 +27,14 @@ export function ProjectCard({ title, tags, description, image, slug }: ProjectCa
         <button className="cursor-pointer flex items-center gap-2">
           <span className="block"> [ </span>
           <span className="block">
-            <ScrambleHover text="CLICK TO VIEW" />
+            <ScrambleHover
+              text={"CLICK TO VIEW"}
+              scrambleSpeed={40}
+              sequential={true}
+              revealDirection="start"
+              useOriginalCharsOnly={false}
+              characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
+            />
           </span>
           <span className="block"> ] </span>
         </button>

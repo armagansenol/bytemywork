@@ -14,7 +14,7 @@ export function ImageGrid({ items }: ImageGridProps) {
 
   return (
     <div
-      className={cn("grid gap-12", {
+      className={cn("grid gap-4", {
         "grid-cols-1": items.length === 1,
         "grid-cols-2": items.length === 2,
         "grid-cols-2 md:grid-cols-3": items.length === 3,
