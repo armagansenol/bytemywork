@@ -14,8 +14,6 @@ export default async function Page(props: Props) {
   const params = await props.params
   const [{ data: project }] = await Promise.all([sanityFetch({ query: getProjectQuery, params })])
 
-  console.log(props)
-
   return (
     <div className="min-h-screen bg-black text-white">
       <Header />

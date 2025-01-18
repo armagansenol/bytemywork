@@ -3,7 +3,7 @@ import { LogoText } from "./icons"
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-28">
+    <footer className="py-28">
       <div className="container px-6 flex flex-col items-stretch gap-5">
         <nav className="mb-16">
           <ul className="flex space-x-8">

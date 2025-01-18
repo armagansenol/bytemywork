@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --header-height: desktop-vw(84px);
+  --header-height-v2: desktop-vw(90px);
+
+  @include-media ('mobile') {
+    --header-height: mobile-vw(64px);
+    --header-height-v2: mobile-vw(60px);
+  }
+}
+
+/* @layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
+
+html {
+  font-family: var(--font-crimson-pro), Arial, Helvetica, sans-serif;
+  pointer-events: auto;
+  scrollbar-width: thin;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+/* Core styles that shouldn't be reset */
+body {
+  min-height: 100vh;
+  overscroll-behavior: none;
+  background-color: var(--theme-primary);
+  color: var(--theme-secondary);
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root,
+#__next {
+  overscroll-behavior: none;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  overflow: hidden;
+  position: relative;
+  z-index: z-index("main");
+}
+
+a,
+button,
+input,
+label,
+textarea,
+select {
+  color: inherit;
+  cursor: pointer;
+}
+
+*::selection {
+  background-color: var(--pekin-chicken);
+  color: var(--pine-needle);
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: default;
+}
+
+sup {
+  font-size: xx-small;
+  vertical-align: super;
+}
+
+.gsap-marker-end,
+.gsap-marker-start,
+.gsap-marker-scroller-end,
+.gsap-marker-scroller-start {
+  z-index: z-index("gsap-markers") !important;
+}
+
+.input-required {
+  color: var(--error) !important;
+  transition: 200ms all ease;
+
+  * {
+    color: var(--error) !important;
+    transition: 200ms all ease;
+  }
+}
+
+.animated-underline {
+  position: relative;
+  --color: var(--pekin-chicken);
+  --ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 0.1ch;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color);
+    transform-origin: right;
+    transform: scaleX(1) translateZ(0);
+    transition: transform 600ms var(--ease) 200ms;
+    will-change: transform;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0.1ch;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color);
+    transform-origin: left;
+    transform: scaleX(0) translateZ(0);
+    transition: transform 600ms var(--ease);
+    will-change: transform;
+  }
+
+  @include hover {
+    &:hover {
+      &:before {
+        transform: scaleX(0) translateZ(0);
+        transition: transform 600ms var(--ease);
+      }
+    }
+
+    &:hover {
+      &:after {
+        transform: scaleX(1) translateZ(0);
+        transition: transform 600ms var(--ease) 200ms;
+      }
+    }
+  }
+}
+
+.animated-underline-single {
+  position: relative;
+  --color: var(--pekin-chicken);
+  --ease: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0.1ch;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color);
+    transform-origin: left;
+    transform: scaleX(0) translateZ(0);
+    transition: transform 400ms var(--ease);
+    will-change: transform;
+  }
+
+  @include hover {
+    &:hover {
+      &:after {
+        transform: scaleX(1) translateZ(0);
+        transition: transform 400ms var(--ease) 200ms;
+      }
+    }
+  }
+}
+
+.inherit-dims {
+  height: inherit;
+  width: inherit;
+}
+
+.c-p {
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  a {
+    cursor: pointer;
+  }
+}
+
+.add-header-height {
+  margin-top: var(--header-height);
+}
