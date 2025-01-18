@@ -1,6 +1,4 @@
-import page from './documents/page'
 import person from './documents/person'
-import post from './documents/post'
 import project from './documents/project'
 
 import blockContent from './objects/blockContent'
@@ -16,8 +14,6 @@ export const schemaTypes = [
   // Singletons
   settings,
   // Documents
-  page,
-  post,
   person,
   // Objects
   blockContent,
