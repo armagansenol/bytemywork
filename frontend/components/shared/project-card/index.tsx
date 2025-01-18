@@ -13,7 +13,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ title, tags, description, image, slug }: ProjectCardProps) {
   return (
-    <Link className="grid md:grid-cols-2 gap-8 items-start" href={`/work/${slug}`}>
+    <Link className="cursor-pointer grid md:grid-cols-2 gap-8 items-start" href={`/work/${slug}`}>
       <div className="space-y-6">
         <h2 className="text-2xl font-bold">{title}</h2>
         <div className="flex gap-4">
