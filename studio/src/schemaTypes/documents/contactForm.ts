@@ -65,7 +65,15 @@ export default defineType({
       date: 'submittedAt',
     },
     prepare({title, subtitle, date}) {
-      const formattedDate = date ? new Date(date).toLocaleDateString() : 'No date'
+      const formattedDate = date
+        ? new Date(date).toLocaleString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          })
+        : 'No date'
       return {
         title: title || 'Unnamed Submission',
         subtitle: `${formattedDate} - ${subtitle}`,
