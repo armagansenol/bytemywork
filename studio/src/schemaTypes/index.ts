@@ -1,3 +1,4 @@
+import contactForm from './documents/contactForm'
 import project from './documents/project'
 
 import blockContent from './objects/blockContent'
@@ -14,6 +15,7 @@ export const schemaTypes = [
   settings,
   // Documents
   project,
+  contactForm,
   // Objects
   blockContent,
   infoSection,

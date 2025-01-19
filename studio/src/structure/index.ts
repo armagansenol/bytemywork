@@ -17,4 +17,5 @@ export const structure: StructureResolver = (S: any) =>
         .title('Site Settings')
         .child(S.document().schemaType('settings').documentId('siteSettings'))
         .icon(CogIcon),
+      S.documentTypeListItem('contactForm').title('Contact Form Submissions'),
     ])

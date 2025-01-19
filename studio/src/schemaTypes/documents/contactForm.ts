@@ -1,0 +1,75 @@
+import {defineField, defineType} from 'sanity'
+
+export default defineType({
+  name: 'contactForm',
+  type: 'document',
+  title: 'Contact Form Submissions',
+  icon: () => '📬',
+  description: 'Submissions from the website contact form',
+  readOnly: true,
+  fields: [
+    defineField({
+      name: 'submittedAt',
+      type: 'datetime',
+      title: 'Submitted At',
+      initialValue: new Date().toISOString(),
+      readOnly: true,
+    }),
+    defineField({
+      name: 'name',
+      type: 'string',
+      title: 'Name',
+      readOnly: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'email',
+      type: 'string',
+      title: 'Email',
+      readOnly: true,
+      validation: (Rule) => Rule.required().email(),
+    }),
+    defineField({
+      name: 'phone',
+      type: 'string',
+      title: 'Phone',
+      readOnly: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'budget',
+      type: 'string',
+      title: 'Budget',
+      readOnly: true,
+      options: {
+        list: [
+          {title: '< 100.000₺', value: '<100000'},
+          {title: '100.000₺ - 200.000₺', value: '100000-200000'},
+          {title: '> 200.000₺', value: '>200000'},
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'projectDetails',
+      type: 'text',
+      title: 'Project Details',
+      readOnly: true,
+      validation: (Rule) => Rule.required(),
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'email',
+      date: 'submittedAt',
+    },
+    prepare({title, subtitle, date}) {
+      const formattedDate = date ? new Date(date).toLocaleDateString() : 'No date'
+      return {
+        title: title || 'Unnamed Submission',
+        subtitle: `${formattedDate} - ${subtitle}`,
+      }
+    },
+  },
+})
