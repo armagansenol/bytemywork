@@ -1,22 +1,16 @@
-import s from "./home.module.css"
-
-import cn from "clsx"
-
 import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
+import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/lib/sanity/live"
 import { settingsQuery } from "@/lib/sanity/queries"
-import ScrambleIn from "@/components/shared/scramble-in"
 
 export default async function Home() {
   const { data: settings } = await sanityFetch({
     query: settingsQuery,
   })
-
-  console.log("settings", settings?.highlightedProjects)
 
   return (
     <Wrapper theme="dark">
@@ -41,7 +35,7 @@ export default async function Home() {
           [ PLAY SHOWREEL ]
         </button>
       </section>
-      <section className="container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-24">
+      <section className="container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-24 border-b border-dynamic-black">
         <div className="col-span-12 space-y-4">
           <h2 className="text-base font-semibold">OUR CAPABILITIES</h2>
           <p className="text-sm max-w-md font-light">
@@ -102,7 +96,7 @@ export default async function Home() {
           </h3>
         </div>
       </section>
-      <section className="container-section py-16 space-y-32">
+      <section className="container-section py-24 space-y-32">
         {settings?.highlightedProjects?.map((project, index) => (
           <ProjectCard
             key={index}

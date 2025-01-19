@@ -136,4 +136,4 @@ const ScrambleIn = forwardRef<ScrambleInHandle, ScrambleInProps>(
 )
 
 ScrambleIn.displayName = "ScrambleIn"
-export default ScrambleIn
+export { ScrambleIn }

@@ -1,10 +1,10 @@
 import s from "./project-detail.module.css"
 
-import ScrambleIn from "@/components/shared/scramble-in"
 import cn from "clsx"
 import Link from "next/link"
 
 import { ImageGrid } from "@/components/shared/image-grid"
+import { ScrambleIn } from "@/components/shared/scramble-in"
 import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
