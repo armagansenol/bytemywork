@@ -2,12 +2,13 @@
 
 import s from "./wrapper.module.css"
 
-import type { themeNames } from "@/styles/config.mjs"
 import cn from "clsx"
 import type { LenisOptions } from "lenis"
+
+import { Footer } from "@/components/shared/footer"
+import type { themeNames } from "@/styles/config.mjs"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
-import Footer from "../shared/footer"
 import Header from "../shared/header"
 import { SmoothScroll } from "../smooth-scroll"
 

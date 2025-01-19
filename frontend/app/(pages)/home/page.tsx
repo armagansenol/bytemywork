@@ -42,15 +42,15 @@ export default async function Home() {
           </button>
         </section>
         <section className="px-6 py-24">
-          <div className="container grid md:grid-cols-2 gap-16">
-            <div>
-              <h2 className="text-base font-semibold mb-4">OUR CAPABILITIES</h2>
-              <p className="text-gray-400 max-w-xl font-light">
+          <div className="container grid grid-cols-24 gap-8">
+            <div className="col-span-12 space-y-4">
+              <h2 className="text-base font-semibold">OUR CAPABILITIES</h2>
+              <p className="text-sm max-w-xl font-light">
                 WE LOVE BEING A TRUSTED PARTNER IN THE DIGITAL WORLD FOR BRANDS AND STARTUPS. UNDERSTANDING YOUR NEEDS,
                 WE&apos;RE THERE WITH SOLUTIONS AT EVERY STEP.
               </p>
             </div>
-            <div className="space-y-1">
+            <div className="col-span-12 space-y-1">
               <h3 className="text-4xl font-bold">
                 <ScrambleHover
                   text={"WEB DESIGN"}
