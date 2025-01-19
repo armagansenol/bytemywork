@@ -28,7 +28,7 @@ interface ProjectCardProps extends VariantProps<typeof projectCardVariants> {
 export function ProjectCard({ title, tags, description, image, slug, layout }: ProjectCardProps) {
   return (
     <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/work/${slug}`}>
-      <div className={cn("flex flex-col gap-4 lg:gap-10", layout === "vertical" ? "w-full" : "col-span-12")}>
+      <div className={cn(layout === "vertical" ? "w-full" : "col-span-12", "lg:order-1 order-2 space-y-10")}>
         <div className="space-y-2">
           <h2 className="text-sm lg:text-base font-semibold">{title}</h2>
           <div className="flex flex-wrap gap-2 lg:gap-4">
@@ -55,7 +55,9 @@ export function ProjectCard({ title, tags, description, image, slug, layout }: P
           <span className="block"> ] </span>
         </button>
       </div>
-      <div className={cn("aspect-w-4 aspect-h-3", layout === "vertical" ? "w-full" : "col-span-12")}>
+      <div
+        className={cn("aspect-w-4 aspect-h-3", layout === "vertical" ? "w-full" : "col-span-12", "lg:order-2 order-1")}
+      >
         <Img className="object-cover rounded-lg" src={image} alt={title} width={500} height={500} />
       </div>
     </Link>
