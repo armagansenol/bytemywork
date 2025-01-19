@@ -1,5 +1,6 @@
 import { SmoothScroll } from "@/components/smooth-scroll"
 import { StyleVariables } from "@/lib/style-variables"
+import { Providers } from "@/providers"
 import { colors, themes } from "@/styles/config.mjs"
 import "@/styles/globals.css"
 
@@ -28,7 +29,9 @@ export default function RootLayout({
         <StyleVariables colors={colors} themes={themes} />
       </head>
       <body className={`${alexandria.variable} antialiased`}>
-        <div className="font-alexandria">{children}</div>
+        <Providers>
+          <div className="font-alexandria">{children}</div>
+        </Providers>
         <SmoothScroll root={true} />
       </body>
     </html>

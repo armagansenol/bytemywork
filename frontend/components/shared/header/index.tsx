@@ -41,11 +41,18 @@ export function Header({ variant }: HeaderProps) {
               />
             </Link>
           </li>
-          {/* <li>
-            <Link href="/contact" className="hover:text-gray-300 transition-colors">
-              CONTACT
+          <li>
+            <Link href="/contact">
+              <ScrambleHover
+                text={"CONTACT"}
+                scrambleSpeed={60}
+                sequential={true}
+                revealDirection="start"
+                useOriginalCharsOnly={false}
+                characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
+              />
             </Link>
-          </li> */}
+          </li>
         </ul>
       </nav>
       {variant === "withLogo" && (
