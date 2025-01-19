@@ -6,7 +6,7 @@
   --header-height: desktop-vw(80px);
 
   @include-media ('mobile') {
-    --header-height: mobile-vw(60px);
+    --header-height: mobile-vw(70px);
   }
 }
 
@@ -171,4 +171,8 @@ sup {
 
 .add-header-height {
   margin-top: var(--header-height);
+}
+
+.container-section {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0;
 }

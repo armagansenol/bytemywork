@@ -14,17 +14,17 @@ export function ImageGrid({ items }: ImageGridProps) {
 
   return (
     <div
-      className={cn("grid gap-4", {
+      className={cn("grid gap-2 sm:gap-4", {
         "grid-cols-1": items.length === 1,
-        "grid-cols-2": items.length === 2,
-        "grid-cols-2 md:grid-cols-3": items.length === 3,
+        "grid-cols-1 sm:grid-cols-2": items.length === 2,
+        "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3": items.length === 3,
       })}
     >
       {items.slice(0, 3).map((image, index) => (
         <div
           key={index}
           className={cn("relative aspect-[4/3] overflow-hidden rounded-lg", {
-            "col-span-2 md:col-span-1": items.length === 3 && index === 0,
+            "sm:col-span-2 lg:col-span-1": items.length === 3 && index === 0,
           })}
         >
           <Image

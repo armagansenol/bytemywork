@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils"
 const projectCardVariants = cva("cursor-pointer", {
   variants: {
     layout: {
-      horizontal: "grid grid-cols-24 gap-8 items-start",
-      vertical: "flex flex-col-reverse gap-10",
+      horizontal: "grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 items-start",
+      vertical: "flex flex-col-reverse gap-6 lg:gap-10",
     },
   },
   defaultVariants: {
@@ -28,19 +28,19 @@ interface ProjectCardProps extends VariantProps<typeof projectCardVariants> {
 export function ProjectCard({ title, tags, description, image, slug, layout }: ProjectCardProps) {
   return (
     <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/work/${slug}`}>
-      <div className={cn("flex flex-col gap-10", layout === "vertical" ? "w-full" : "col-span-12")}>
+      <div className={cn("flex flex-col gap-4 lg:gap-10", layout === "vertical" ? "w-full" : "col-span-12")}>
         <div className="space-y-2">
-          <h2 className="text-base font-semibold">{title}</h2>
-          <div className="flex gap-4">
+          <h2 className="text-sm lg:text-base font-semibold">{title}</h2>
+          <div className="flex flex-wrap gap-2 lg:gap-4">
             {tags.map((tag, tagIndex) => (
-              <span key={tagIndex} className="text-sm text-namara-grey">
+              <span key={tagIndex} className="text-xs lg:text-sm text-namara-grey">
                 {tag}
               </span>
             ))}
           </div>
         </div>
-        <p className="font-light max-w-md">{description}</p>
-        <button className="cursor-pointer font-semibold flex items-center gap-2 mt-auto">
+        <p className="text-sm lg:text-base font-light max-w-md">{description}</p>
+        <button className="cursor-pointer font-semibold flex items-center gap-2 mt-auto text-sm lg:text-base">
           <span className="block"> [ </span>
           <span className="block">
             <ScrambleHover

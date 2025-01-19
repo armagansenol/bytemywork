@@ -8,5 +8,10 @@
     transform: translate(-50%, -50%);
     height: desktop-vw(40px);
     width: desktop-vw(40px);
+
+    @include-media ('mobile') {
+      height: mobile-vw(30px);
+      width: mobile-vw(30px);
+    }
   }
 }
