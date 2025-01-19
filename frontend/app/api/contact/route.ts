@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   try {
     const data = await request.json()
 
-    const sanityEndpoint = `https://${process.env.SANITY_PROJECT_ID}.api.sanity.io/v2022-03-07/data/mutate/${process.env.SANITY_DATASET}`
+    const sanityEndpoint = `https://${process.env.SANITY_PROJECT_ID}.api.sanity.io/v${process.env.SANITY_API_VERSION}/data/mutate/${process.env.SANITY_DATASET}`
 
     const doc = {
       mutations: [
