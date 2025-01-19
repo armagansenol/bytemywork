@@ -6,6 +6,7 @@ const colors = {
   raven: "#0b0b0b",
   "deep-daigi-white": "#eae6e5",
   "namara-grey": "#7B7B7B",
+  "dynamic-black": "#1D1D1D",
 }
 
 const themes = {
