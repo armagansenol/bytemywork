@@ -9,16 +9,17 @@ import { Footer } from "@/components/shared/footer"
 import type { themeNames } from "@/styles/config.mjs"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
-import Header from "../shared/header"
 import { SmoothScroll } from "../smooth-scroll"
+import { Header } from "@/components/shared/header"
 
 interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: (typeof themeNames)[number]
   lenis?: LenisOptions
   webgl?: boolean | object
+  headerVariant?: "withLogo" | "withoutLogo"
 }
 
-export function Wrapper({ children, theme = "dark", className, lenis, ...props }: WrapperProps) {
+export function Wrapper({ children, theme = "dark", className, lenis, headerVariant, ...props }: WrapperProps) {
   const pathname = usePathname()
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: we need to trigger on path change
@@ -28,7 +29,7 @@ export function Wrapper({ children, theme = "dark", className, lenis, ...props }
 
   return (
     <>
-      <Header />
+      <Header variant={headerVariant} />
       <main className={cn(s.main, className)} {...props}>
         {children}
         <script>{`document.documentElement.setAttribute('data-theme', '${theme}');`}</script>

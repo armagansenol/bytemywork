@@ -1,0 +1,12 @@
+.header {
+  height: var(--header-height);
+
+  .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: desktop-vw(40px);
+    width: desktop-vw(40px);
+  }
+}

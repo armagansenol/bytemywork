@@ -1,15 +1,15 @@
+import s from "./project-detail.module.css"
+
+import ScrambleIn from "@/components/shared/scramble-in"
+import cn from "clsx"
+import Link from "next/link"
+
 import { ImageGrid } from "@/components/shared/image-grid"
 import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/lib/sanity/live"
 import { getProjectQuery } from "@/lib/sanity/queries"
-import Link from "next/link"
-
-import s from "./project-detail.module.css"
-
-import cn from "clsx"
-import ScrambleIn from "@/components/shared/scramble-in"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -43,7 +43,7 @@ export default async function Page(props: Props) {
   )
 
   return (
-    <Wrapper theme="dark">
+    <Wrapper theme="dark" headerVariant="withLogo">
       <section className="container mx-auto">
         <div className="grid grid-cols-24 gap-8 pt-8">
           <div className="col-span-9 space-y-24">

@@ -9,6 +9,7 @@ import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/lib/sanity/live"
 import { settingsQuery } from "@/lib/sanity/queries"
+import ScrambleIn from "@/components/shared/scramble-in"
 
 export default async function Home() {
   const { data: settings } = await sanityFetch({
@@ -27,8 +28,15 @@ export default async function Home() {
                 <LogoText />
               </h1>
             </div>
-            <p className="text-xl mt-4 ml-auto">WEB DESIGN & DEV AGENCY</p>
-            <p className="max-w-xl mt-8">
+            <p className="text-xl font-light mt-4 ml-auto">
+              <ScrambleIn
+                text={"WEB DESIGN & DEV AGENCY"}
+                scrambleSpeed={50}
+                scrambledLetterCount={5}
+                autoStart={true}
+              />
+            </p>
+            <p className="max-w-lg text-base font-light mt-8">
               WE COMBINE STRATEGY AND CREATIVITY WITH THE POWER OF TECHNOLOGY TO OFFER SOLUTIONS THAT ADAPT TO EVERY
               PLATFORM IN THE DIGITAL SPACE.
             </p>
@@ -45,7 +53,7 @@ export default async function Home() {
           <div className="container grid grid-cols-24 gap-8">
             <div className="col-span-12 space-y-4">
               <h2 className="text-base font-semibold">OUR CAPABILITIES</h2>
-              <p className="text-sm max-w-xl font-light">
+              <p className="text-sm max-w-md font-light">
                 WE LOVE BEING A TRUSTED PARTNER IN THE DIGITAL WORLD FOR BRANDS AND STARTUPS. UNDERSTANDING YOUR NEEDS,
                 WE&apos;RE THERE WITH SOLUTIONS AT EVERY STEP.
               </p>
@@ -61,10 +69,46 @@ export default async function Home() {
                   characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
                 />
               </h3>
-              <h3 className="text-4xl font-bold">WEB DEVELOPMENT</h3>
-              <h3 className="text-4xl font-bold">BRANDING</h3>
-              <h3 className="text-4xl font-bold">CONTENT CREATION</h3>
-              <h3 className="text-4xl font-bold">MOTION DESIGN</h3>
+              <h3 className="text-4xl font-bold">
+                <ScrambleHover
+                  text={"WEB DEVELOPMENT"}
+                  scrambleSpeed={60}
+                  sequential={true}
+                  revealDirection="start"
+                  useOriginalCharsOnly={false}
+                  characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
+                />
+              </h3>
+              <h3 className="text-4xl font-bold">
+                <ScrambleHover
+                  text={"BRANDING"}
+                  scrambleSpeed={60}
+                  sequential={true}
+                  revealDirection="start"
+                  useOriginalCharsOnly={false}
+                  characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
+                />
+              </h3>
+              <h3 className="text-4xl font-bold">
+                <ScrambleHover
+                  text={"CONTENT CREATION"}
+                  scrambleSpeed={60}
+                  sequential={true}
+                  revealDirection="start"
+                  useOriginalCharsOnly={false}
+                  characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
+                />
+              </h3>
+              <h3 className="text-4xl font-bold">
+                <ScrambleHover
+                  text={"MOTION DESIGN"}
+                  scrambleSpeed={60}
+                  sequential={true}
+                  revealDirection="start"
+                  useOriginalCharsOnly={false}
+                  characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
+                />
+              </h3>
             </div>
           </div>
         </section>

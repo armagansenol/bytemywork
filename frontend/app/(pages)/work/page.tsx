@@ -8,10 +8,8 @@ export default async function Page() {
     query: getProjectsQuery,
   })
 
-  console.log("projects", projects)
-
   return (
-    <Wrapper theme="dark">
+    <Wrapper theme="dark" headerVariant="withLogo">
       <section className="container pt-16">
         <h1 className="text-3xl font-bold leading-snug">
           TRANSFORMING IDEAS INTO BYTES - <br /> EXPLORE OUR WORK!
