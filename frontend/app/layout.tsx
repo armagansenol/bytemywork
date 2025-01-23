@@ -29,9 +29,7 @@ export default function RootLayout({
         <StyleVariables colors={colors} themes={themes} />
       </head>
       <body className={`${alexandria.variable} antialiased`}>
-        <Providers>
-          <div className="font-alexandria">{children}</div>
-        </Providers>
+        <Providers>{children}</Providers>
         <SmoothScroll root={true} />
       </body>
     </html>

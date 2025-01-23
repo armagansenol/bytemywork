@@ -5,12 +5,12 @@ import Link from "next/link"
 
 import { ImageGrid } from "@/components/shared/image-grid"
 import { ScrambleIn } from "@/components/shared/scramble-in"
+import { ScrambleText } from "@/components/shared/scramble-text"
 import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/sanity/lib/live"
 import { getProjectQuery } from "@/sanity/lib/queries"
-import { ScrambleText } from "@/components/shared/scramble-text"
 
 type Props = {
   params: Promise<{ slug: string }>

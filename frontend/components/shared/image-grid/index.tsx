@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import cn from "clsx"
 import { ImageGridItem } from "@/types"
 import Image from "next/image"
 
@@ -32,7 +32,7 @@ export function ImageGrid({ items }: ImageGridProps) {
             alt="Project Image"
             width={parseInt(image.width)}
             height={parseInt(image.height)}
-            className="object-cover transition-transform duration-500 hover:scale-105 w-full h-full"
+            className="object-cover transition-transform duration-500 w-full h-full"
           />
         </div>
       ))}

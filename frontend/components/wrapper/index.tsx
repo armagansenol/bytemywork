@@ -2,15 +2,15 @@
 
 import s from "./wrapper.module.css"
 
+import type { themeNames } from "@/styles/config.mjs"
 import cn from "clsx"
 import type { LenisOptions } from "lenis"
-
-import { Footer } from "@/components/shared/footer"
-import type { themeNames } from "@/styles/config.mjs"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
-import { SmoothScroll } from "../smooth-scroll"
+
+import { Footer } from "@/components/shared/footer"
 import { Header } from "@/components/shared/header"
+import { SmoothScroll } from "@/components/smooth-scroll"
 
 interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: (typeof themeNames)[number]
