@@ -68,63 +68,6 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Project = {
-  _id: string;
-  _type: "project";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  projectName: string;
-  slug: Slug;
-  description: string;
-  companyName: string;
-  heroImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  client?: string;
-  date?: string;
-  deliverables?: Array<string>;
-  websiteUrl?: string;
-  body?: Array<{
-    component?: string;
-    items?: Array<{
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-      _key: string;
-    }>;
-    _type: "imageGrid";
-    _key: string;
-  } | {
-    component?: string;
-    title?: string;
-    description?: string;
-    _type: "textSection";
-    _key: string;
-  }>;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
 export type CallToAction = {
   _type: "callToAction";
   heading: string;
@@ -187,15 +130,40 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Person = {
+export type Deliverable = {
   _id: string;
-  _type: "person";
+  _type: "deliverable";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  firstName: string;
-  lastName: string;
-  picture: {
+  title: string;
+};
+
+export type ContactForm = {
+  _id: string;
+  _type: "contactForm";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  submittedAt?: string;
+  name: string;
+  email: string;
+  phone: string;
+  budget: "<100000" | "100000-200000" | ">200000";
+  projectDetails: string;
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  projectName: string;
+  slug: Slug;
+  description: string;
+  companyName: string;
+  heroImage?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -207,6 +175,45 @@ export type Person = {
     alt?: string;
     _type: "image";
   };
+  client?: string;
+  date?: string;
+  deliverables?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "deliverable";
+  }>;
+  websiteUrl?: string;
+  body?: Array<{
+    component?: string;
+    items?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }>;
+    _type: "imageGrid";
+    _key: string;
+  } | {
+    component?: string;
+    title?: string;
+    description?: string;
+    _type: "textBlock";
+    _key: string;
+  }>;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
 export type Settings = {
@@ -434,11 +441,11 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Project | Slug | CallToAction | Link | InfoSection | BlockContent | Person | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | Deliverable | ContactForm | Project | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    ...,    highlightedProjects[]->{      _id,      projectName,      slug,      description,      companyName,      heroImage {        asset-> {          url        },        alt      },      client,      date,      deliverables,      websiteUrl    }  }
+// Query: *[_type == "settings"][0]{    ...,    highlightedProjects[]->{      _id,      projectName,      "slug": slug.current,      description,      companyName,      heroImage {          ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,      },      client,      date,      deliverables[]->{        _id,        title      },      websiteUrl    }  }
 export type SettingsQueryResult = {
   _id: string;
   _type: "settings";
@@ -480,18 +487,31 @@ export type SettingsQueryResult = {
   highlightedProjects: Array<{
     _id: string;
     projectName: string;
-    slug: Slug;
+    slug: string;
     description: string;
     companyName: string;
     heroImage: {
-      asset: {
-        url: string | null;
-      } | null;
-      alt: string | null;
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      altText: string | null;
+      height: number | null;
+      url: string | null;
+      width: number | null;
     } | null;
     client: string | null;
     date: string | null;
-    deliverables: Array<string> | null;
+    deliverables: Array<{
+      _id: string;
+      title: string;
+    }> | null;
     websiteUrl: string | null;
   }>;
 } | null;
@@ -514,54 +534,42 @@ export type PostPagesSlugsResult = Array<never>;
 // Query: *[_type == "page" && defined(slug.current)]  {"slug": slug.current}
 export type PagesSlugsResult = Array<never>;
 // Variable: getProjectQuery
-// Query: *[_type == "project" && slug.current == $slug] [0] {    projectName,  slug,  description,  companyName,  "heroImage": heroImage{    "url": asset->url,    "width": asset->metadata.dimensions.width,    "height": asset->metadata.dimensions.height,    "alt": alt  },  client,  date,  deliverables,  websiteUrl,  body[]{    _type == "imageGrid" => {      component,      items[]{        "url": asset->url,        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "alt": alt      }    },    _type == "textBlock" => {      component,      title,      description    }  }  }
+// Query: *[_type == "project" && slug.current == $slug] [0] {    projectName,    slug,    description,    companyName,    heroImage {        ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    client,    date,    deliverables[]->{    _id,    title  },    websiteUrl,    body[]{      _type == "imageGrid" => {        component,        items[]{            ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,        }      },      _type == "textBlock" => {        component,        title,        description      }    }  }
 export type GetProjectQueryResult = {
   projectName: string;
   slug: Slug;
   description: string;
   companyName: string;
   heroImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    altText: string | null;
+    height: number | null;
     url: string | null;
     width: number | null;
-    height: number | null;
-    alt: string | null;
   } | null;
   client: string | null;
   date: string | null;
-  deliverables: Array<string> | null;
-  websiteUrl: string | null;
-  body: Array<{} | {
-    component: string | null;
-    items: Array<{
-      url: string | null;
-      width: number | null;
-      height: number | null;
-      alt: null;
-    }> | null;
+  deliverables: Array<{
+    _id: string;
+    title: string;
   }> | null;
-} | null;
-// Variable: getProjectsQuery
-// Query: *[_type == "project"]{  _id,  projectName,  slug,  description,  companyName,  heroImage{    asset->{      _id,      url    },    alt  },  client,  date,  deliverables,  websiteUrl,  body[]{    ...,    imageGrid{      ...,      items[]{        ...,        image{          asset->{            _id,            url          }        }      }    },    textBlock{      ...,      items[]{        ...      }    }  }}
-export type GetProjectsQueryResult = Array<{
-  _id: string;
-  projectName: string;
-  slug: Slug;
-  description: string;
-  companyName: string;
-  heroImage: {
-    asset: {
-      _id: string;
-      url: string | null;
-    } | null;
-    alt: string | null;
-  } | null;
-  client: string | null;
-  date: string | null;
-  deliverables: Array<string> | null;
   websiteUrl: string | null;
   body: Array<{
-    component?: string;
-    items?: Array<{
+    component: string | null;
+    title: string | null;
+    description: string | null;
+  } | {
+    component: string | null;
+    items: Array<{
       asset?: {
         _ref: string;
         _type: "reference";
@@ -572,19 +580,39 @@ export type GetProjectsQueryResult = Array<{
       crop?: SanityImageCrop;
       _type: "image";
       _key: string;
-    }>;
-    _type: "imageGrid";
-    _key: string;
-    imageGrid: null;
-    textBlock: null;
-  } | {
-    component?: string;
-    title?: string;
-    description?: string;
-    _type: "textSection";
-    _key: string;
-    imageGrid: null;
-    textBlock: null;
+      altText: string | null;
+      height: number | null;
+      url: string | null;
+      width: number | null;
+    }> | null;
+  }> | null;
+} | null;
+// Variable: getProjectsQuery
+// Query: *[_type == "project"]{  _id,  projectName,  "slug": slug.current,  description,  heroImage {      ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,  },  deliverables[]->{    _id,    title  }}
+export type GetProjectsQueryResult = Array<{
+  _id: string;
+  projectName: string;
+  slug: string;
+  description: string;
+  heroImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    altText: string | null;
+    height: number | null;
+    url: string | null;
+    width: number | null;
+  } | null;
+  deliverables: Array<{
+    _id: string;
+    title: string;
   }> | null;
 }>;
 
@@ -592,14 +620,14 @@ export type GetProjectsQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"settings\"][0]{\n    ...,\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      slug,\n      description,\n      companyName,\n      heroImage {\n        asset-> {\n          url\n        },\n        alt\n      },\n      client,\n      date,\n      deliverables,\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    ...,\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      \"slug\": slug.current,\n      description,\n      companyName,\n      heroImage {\n        \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n      },\n      client,\n      date,\n      deliverables[]->{\n        _id,\n        title\n      },\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
     "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n        }\n      }\n,\n      }\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n        }\n      }\n\n    }\n  },\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": PostQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
-    "\n  *[_type == \"project\" && slug.current == $slug] [0] {\n    projectName,\n  slug,\n  description,\n  companyName,\n  \"heroImage\": heroImage{\n    \"url\": asset->url,\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"alt\": alt\n  },\n  client,\n  date,\n  deliverables,\n  websiteUrl,\n  body[]{\n    _type == \"imageGrid\" => {\n      component,\n      items[]{\n        \"url\": asset->url,\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"alt\": alt\n      }\n    },\n    _type == \"textBlock\" => {\n      component,\n      title,\n      description\n    }\n  }\n  }\n": GetProjectQueryResult;
-    "\n*[_type == \"project\"]{\n  _id,\n  projectName,\n  slug,\n  description,\n  companyName,\n  heroImage{\n    asset->{\n      _id,\n      url\n    },\n    alt\n  },\n  client,\n  date,\n  deliverables,\n  websiteUrl,\n  body[]{\n    ...,\n    imageGrid{\n      ...,\n      items[]{\n        ...,\n        image{\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    },\n    textBlock{\n      ...,\n      items[]{\n        ...\n      }\n    }\n  }\n}\n": GetProjectsQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug] [0] {\n    projectName,\n    slug,\n    description,\n    companyName,\n    heroImage {\n      \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    client,\n    date,\n    deliverables[]->{\n    _id,\n    title\n  },\n    websiteUrl,\n    body[]{\n      _type == \"imageGrid\" => {\n        component,\n        items[]{\n          \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n        }\n      },\n      _type == \"textBlock\" => {\n        component,\n        title,\n        description\n      }\n    }\n  }\n": GetProjectQueryResult;
+    "\n*[_type == \"project\"]{\n  _id,\n  projectName,\n  \"slug\": slug.current,\n  description,\n  heroImage {\n    \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n  },\n  deliverables[]->{\n    _id,\n    title\n  }\n}\n": GetProjectsQueryResult;
   }
 }
