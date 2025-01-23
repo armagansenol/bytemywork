@@ -1,4 +1,4 @@
-import { SmoothScroll } from "@/components/smooth-scroll"
+import { R3fScrollRig } from "@/components/r3f-scroll-rig"
 import { StyleVariables } from "@/lib/style-variables"
 import { Providers } from "@/providers"
 import { colors, themes } from "@/styles/config.mjs"
@@ -40,7 +40,8 @@ export default function RootLayout({
       </head>
       <body className={`${alexandria.variable} antialiased`}>
         <Providers>{children}</Providers>
-        <SmoothScroll root={true} />
+        {/* <SmoothScroll root={true} /> */}
+        <R3fScrollRig />
       </body>
     </html>
   )

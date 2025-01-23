@@ -166,3 +166,34 @@ sup {
 .container-section {
   @apply container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0;
 }
+
+.Placeholder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  aspect-ratio: 10/10;
+}
+
+.ScrollScene,
+.ViewportScrollScene {
+  /* outline: 1px dashed rgba(255, 255, 255, 0.33); */
+  position: relative;
+  z-index: 1000;
+}
+/* .ScrollScene:after,
+.ViewportScrollScene:after {
+  content: "ScrollScene";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.33);
+  color: black;
+  font-size: 10px;
+  padding: 5px;
+} */
+
+.ViewportScrollScene:after {
+  content: "ViewportScrollScene";
+}

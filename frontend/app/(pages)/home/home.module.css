@@ -1,0 +1,13 @@
+.home {
+  position: relative;
+
+  .teeth {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: desktop-vw(400px);
+    height: desktop-vw(400px);
+    z-index: 1000;
+  }
+}

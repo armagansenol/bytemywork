@@ -1,7 +1,10 @@
+import s from "./home.module.css"
+
 import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
+import { SpinningBoxSection } from "@/components/shared/teeth"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/sanity/lib/live"
@@ -15,8 +18,11 @@ export default async function Home() {
   ])
 
   return (
-    <Wrapper theme="dark">
-      <section className="container-section pt-12 pb-24 flex flex-col">
+    <Wrapper className={s.home} theme="dark">
+      <section className="container-section pt-12 pb-24 flex flex-col relative">
+        <div className={s.teeth}>
+          <SpinningBoxSection />
+        </div>
         <div className="relative">
           <h1 className="text-[12vw] md:text-[8vw] font-bold leading-none tracking-tighter">
             <LogoText />
