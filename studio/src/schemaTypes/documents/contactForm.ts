@@ -7,6 +7,26 @@ export default defineType({
   icon: () => '📬',
   description: 'Submissions from the website contact form',
   readOnly: true,
+  validation: (Rule) =>
+    Rule.custom(async (document, context) => {
+      // Query for documents with the same email
+      const {getClient} = context
+      const client = getClient({apiVersion: '2023-01-01'})
+
+      const query = `count(*[_type == "contactForm" && email == $email && _id != $currentId])`
+      const params = {
+        email: document?.email,
+        currentId: document?._id,
+      }
+
+      const count = await client.fetch(query, params)
+
+      if (count >= 2) {
+        return 'This email has already submitted 2 times'
+      }
+
+      return true
+    }),
   fields: [
     defineField({
       name: 'submittedAt',

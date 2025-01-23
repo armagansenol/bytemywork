@@ -1,5 +1,6 @@
 import contactForm from './documents/contactForm'
 import project from './documents/project'
+import deliverable from './documents/deliverable'
 
 import blockContent from './objects/blockContent'
 import callToAction from './objects/callToAction'
@@ -16,6 +17,7 @@ export const schemaTypes = [
   // Documents
   project,
   contactForm,
+  deliverable,
   // Objects
   blockContent,
   infoSection,

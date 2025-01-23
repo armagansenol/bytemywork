@@ -62,7 +62,12 @@ export default defineType({
       name: 'deliverables',
       title: 'Deliverables',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'deliverable'}],
+        },
+      ],
     }),
     defineField({
       name: 'websiteUrl',
