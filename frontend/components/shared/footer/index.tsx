@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { LogoText } from "@/components/shared/icons"
+import { ScrambleText } from "../scramble-text"
 
 export function Footer() {
   return (
@@ -8,10 +9,14 @@ export function Footer() {
         <nav className="pb-8 md:pb-16">
           <ul className="flex justify-center md:justify-start space-x-8">
             <li>
-              <Link href="/work">WORKS</Link>
+              <Link href="/work">
+                <ScrambleText text={"WORKS"} />
+              </Link>
             </li>
             <li>
-              <Link href="/contact">CONTACT</Link>
+              <Link href="/contact">
+                <ScrambleText text={"CONTACT"} />
+              </Link>
             </li>
           </ul>
         </nav>
@@ -22,13 +27,13 @@ export function Footer() {
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row md:justify-start gap-8 md:gap-8 font-semibold">
             <Link href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="text-base">
-              [ DRIBBBLE ]
+              [ <ScrambleText text={"DRIBBLE"} scrambleSpeed={30} /> ]
             </Link>
             <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-base">
-              [ INSTAGRAM ]
+              [ <ScrambleText text={"INSTAGRAM"} scrambleSpeed={30} /> ]
             </Link>
             <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-base">
-              [ LINKEDIN ]
+              [ <ScrambleText text={"LINKEDIN"} scrambleSpeed={30} /> ]
             </Link>
           </div>
         </div>

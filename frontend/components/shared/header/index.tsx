@@ -5,7 +5,7 @@ import cn from "clsx"
 import Link from "next/link"
 
 import { Logo } from "@/components/shared/icons"
-import { ScrambleHover } from "@/components/shared/scramble-hover"
+import { ScrambleText } from "@/components/shared/scramble-text"
 
 const headerVariants = cva("container-section relative flex items-center justify-between", {
   variants: {
@@ -30,27 +30,13 @@ export function Header({ variant }: HeaderProps) {
       <nav className="order-2 md:order-1">
         <ul className="flex gap-4 md:gap-8 text-sm md:text-base">
           <li>
-            <Link href="/work">
-              <ScrambleHover
-                text={"WORK"}
-                scrambleSpeed={60}
-                sequential={true}
-                revealDirection="start"
-                useOriginalCharsOnly={false}
-                characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
-              />
+            <Link className={s.f} href="/work">
+              <ScrambleText text={"WORK"} />
             </Link>
           </li>
           <li>
             <Link href="/contact">
-              <ScrambleHover
-                text={"CONTACT"}
-                scrambleSpeed={60}
-                sequential={true}
-                revealDirection="start"
-                useOriginalCharsOnly={false}
-                characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
-              />
+              <ScrambleText text={"CONTACT"} />
             </Link>
           </li>
         </ul>

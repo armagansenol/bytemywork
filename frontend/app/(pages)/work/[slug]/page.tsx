@@ -8,8 +8,9 @@ import { ScrambleIn } from "@/components/shared/scramble-in"
 import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
-import { sanityFetch } from "@/lib/sanity/live"
-import { getProjectQuery } from "@/lib/sanity/queries"
+import { sanityFetch } from "@/sanity/lib/live"
+import { getProjectQuery } from "@/sanity/lib/queries"
+import { ScrambleText } from "@/components/shared/scramble-text"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -37,18 +38,13 @@ export default async function Page(props: Props) {
   const params = await props.params
   const [{ data: project }] = await Promise.all([sanityFetch({ query: getProjectQuery, params })])
 
-  console.log(
-    "project",
-    project?.body?.map((block) => block)
-  )
-
   return (
     <Wrapper theme="dark" headerVariant="withLogo">
       <section className="container-section">
         <div className="grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 pt-8">
           <div className="col-span-12 lg:col-span-9 space-y-12 lg:space-y-24">
             <Link className="text-sm text-namara-grey" href="/work">
-              [ BACK TO WORKS ]
+              [ <ScrambleText text="BACK TO WORKS" scrambleSpeed={50} /> ]
             </Link>
             <div className="space-y-4 lg:space-y-8">
               <h1 className="text-3xl sm:text-5xl md:text-7xl font-normal leading-none tracking-tighter">
@@ -99,7 +95,7 @@ export default async function Page(props: Props) {
               {Array.isArray(project?.deliverables) && project.deliverables.length > 0 && (
                 <ul className="space-y-2 text-sm font-light text-namara-grey">
                   {project.deliverables.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li key={index}>{item.title}</li>
                   ))}
                 </ul>
               )}

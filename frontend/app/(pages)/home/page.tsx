@@ -4,13 +4,15 @@ import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
-import { sanityFetch } from "@/lib/sanity/live"
-import { settingsQuery } from "@/lib/sanity/queries"
+import { sanityFetch } from "@/sanity/lib/live"
+import { settingsQuery } from "@/sanity/lib/queries"
 
 export default async function Home() {
-  const { data: settings } = await sanityFetch({
-    query: settingsQuery,
-  })
+  const [{ data: settings }] = await Promise.all([
+    sanityFetch({
+      query: settingsQuery,
+    }),
+  ])
 
   return (
     <Wrapper theme="dark">
@@ -97,14 +99,14 @@ export default async function Home() {
         </div>
       </section>
       <section className="container-section py-24 space-y-32">
-        {settings?.highlightedProjects?.map((project, index) => (
+        {settings?.highlightedProjects.map((project, index: number) => (
           <ProjectCard
             key={index}
-            title={project.projectName ?? ""}
-            tags={project.deliverables ?? []}
-            description={project.description ?? ""}
-            image={project.heroImage?.asset?.url ?? ""}
-            slug={project.slug?.current ?? ""}
+            projectName={project.projectName}
+            description={project.description}
+            heroImage={project.heroImage?.url ?? ""}
+            slug={project.slug}
+            deliverables={project.deliverables?.map((d) => d.title) ?? []}
           />
         ))}
       </section>

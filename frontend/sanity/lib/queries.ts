@@ -1,4 +1,5 @@
 import { defineQuery } from "next-sanity"
+import { IMAGE } from "../fragments/image"
 
 export const settingsQuery = defineQuery(`
   *[_type == "settings"][0]{
@@ -6,18 +7,18 @@ export const settingsQuery = defineQuery(`
     highlightedProjects[]->{
       _id,
       projectName,
-      slug,
+      "slug": slug.current,
       description,
       companyName,
       heroImage {
-        asset-> {
-          url
-        },
-        alt
+        ${IMAGE}
       },
       client,
       date,
-      deliverables,
+      deliverables[]->{
+        _id,
+        title
+      },
       websiteUrl
     }
   }
@@ -100,35 +101,32 @@ export const pagesSlugs = defineQuery(`
 export const getProjectQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug] [0] {
     projectName,
-  slug,
-  description,
-  companyName,
-  "heroImage": heroImage{
-    "url": asset->url,
-    "width": asset->metadata.dimensions.width,
-    "height": asset->metadata.dimensions.height,
-    "alt": alt
-  },
-  client,
-  date,
-  deliverables,
-  websiteUrl,
-  body[]{
-    _type == "imageGrid" => {
-      component,
-      items[]{
-        "url": asset->url,
-        "width": asset->metadata.dimensions.width,
-        "height": asset->metadata.dimensions.height,
-        "alt": alt
-      }
+    slug,
+    description,
+    companyName,
+    heroImage {
+      ${IMAGE}
     },
-    _type == "textBlock" => {
-      component,
-      title,
-      description
+    client,
+    date,
+    deliverables[]->{
+    _id,
+    title
+  },
+    websiteUrl,
+    body[]{
+      _type == "imageGrid" => {
+        component,
+        items[]{
+          ${IMAGE}
+        }
+      },
+      _type == "textBlock" => {
+        component,
+        title,
+        description
+      }
     }
-  }
   }
 `)
 
@@ -136,40 +134,14 @@ export const getProjectsQuery = defineQuery(`
 *[_type == "project"]{
   _id,
   projectName,
-  slug,
+  "slug": slug.current,
   description,
-  companyName,
-  heroImage{
-    asset->{
-      _id,
-      url
-    },
-    alt
+  heroImage {
+    ${IMAGE}
   },
-  client,
-  date,
-  deliverables,
-  websiteUrl,
-  body[]{
-    ...,
-    imageGrid{
-      ...,
-      items[]{
-        ...,
-        image{
-          asset->{
-            _id,
-            url
-          }
-        }
-      }
-    },
-    textBlock{
-      ...,
-      items[]{
-        ...
-      }
-    }
+  deliverables[]->{
+    _id,
+    title
   }
 }
 `)

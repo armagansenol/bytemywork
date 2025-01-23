@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server"
 
-export async function POST(request: Request) {
+// Define response types
+type ContactFormResponse = {
+  success: boolean
+  message: string
+}
+
+export async function POST(request: Request): Promise<NextResponse<ContactFormResponse>> {
   try {
     const data = await request.json()
 
@@ -34,8 +40,9 @@ export async function POST(request: Request) {
       throw new Error("Failed to submit to Sanity")
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, message: "Form submitted successfully" }, { status: 200 })
   } catch (error) {
-    return NextResponse.json({ error: "Failed to submit form" }, { status: 500 })
+    console.error("Form submission error:", error)
+    return NextResponse.json({ success: false, message: "Failed to submit form" }, { status: 500 })
   }
 }
