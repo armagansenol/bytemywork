@@ -1,5 +1,6 @@
-import {CogIcon} from '@sanity/icons'
+import {CogIcon, EnvelopeIcon} from '@sanity/icons'
 import type {StructureResolver} from 'sanity/structure'
+import {ContactFormList} from '../components/ContactFormList'
 
 /**
  * Structure builder is useful whenever you want to control how documents are grouped and
@@ -26,5 +27,9 @@ export const structure: StructureResolver = (S: any) =>
             ]),
         )
         .icon(CogIcon),
-      S.documentTypeListItem('contactForm').title('Contact Form Submissions'),
+      // Add Contact Form Submissions as another top-level item
+      S.listItem()
+        .title('Contact Form Submissions')
+        .child(S.component(ContactFormList).title('Contact Form Submissions'))
+        .icon(EnvelopeIcon),
     ])
