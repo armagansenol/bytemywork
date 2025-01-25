@@ -173,7 +173,7 @@ sup {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  aspect-ratio: 10/10;
+  height: 100%;
 }
 
 .ScrollScene,

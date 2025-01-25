@@ -1,6 +1,5 @@
 import s from "./home.module.css"
 
-import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
@@ -20,15 +19,15 @@ export default async function Home() {
   return (
     <Wrapper className={s.home} theme="dark">
       <section className="container-section pt-12 pb-24 flex flex-col relative">
-        <div className={s.teeth}>
-          <SpinningBoxSection />
-        </div>
-        <div className="relative">
-          <h1 className="text-[12vw] md:text-[8vw] font-bold leading-none tracking-tighter">
+        <div className="relative flex justify-center items-center">
+          {/* <h1 className="text-[12vw] md:text-[8vw] font-bold leading-none tracking-tighter">
             <LogoText />
-          </h1>
+          </h1> */}
+          <div className={s.teeth}>
+            <SpinningBoxSection />
+          </div>
         </div>
-        <p className="text-lg md:text-xl font-light mt-4 ml-0 md:ml-auto">
+        <p className="text-lg md:text-xl font-light -mt-20 ml-0 md:ml-auto ">
           <ScrambleIn text={"WEB DESIGN & DEV AGENCY"} scrambleSpeed={50} scrambledLetterCount={5} autoStart={true} />
         </p>
         <p className="max-w-lg text-sm md:text-base font-light mt-8">
@@ -36,6 +35,11 @@ export default async function Home() {
           PLATFORM IN THE DIGITAL SPACE.
         </p>
       </section>
+      {/* <section className="container-section relative hidden lg:flex items-center justify-center ">
+        <div className={s.teeth}>
+          <SpinningBoxSection />
+        </div>
+      </section> */}
       <section className="relative h-[600px] w-full">
         <Img src="/img/placeholder.jpg" alt="Aurora Background" className="object-cover" height={600} width={600} />
         <div className="absolute inset-0 bg-black/20" />
