@@ -35,6 +35,7 @@ export function ModelTooth() {
       transmission: { value: 0.6, min: 0, max: 1, step: 0.01 },
       anisotropicBlur: { value: 0.5, min: 0, max: 1, step: 0.01 },
       roughness: { value: 0.1, min: 0, max: 1, step: 0.01 },
+      chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
     },
     { collapsed: true }
   )
@@ -60,7 +61,7 @@ export function ModelTooth() {
           polar={[-Math.PI / 3, Math.PI / 3]}
           azimuth={[-Math.PI / 1.4, Math.PI / 2]}
         >
-          <group position={[0, -0.3, 0]} scale={0.025} rotation={[0, Math.PI / -3.2, 0]}>
+          <group position={[0, -0.3, 0]} scale={0.02} rotation={[0, Math.PI / -3.2, 0]}>
             <mesh
               castShadow
               receiveShadow

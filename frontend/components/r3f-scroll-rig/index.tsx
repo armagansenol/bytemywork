@@ -25,10 +25,6 @@ export function R3fScrollRig() {
         //   depth: false,
         // }}
       >
-        {/* <EffectComposer enableNormalPass={false} multisampling={8}>
-            <Bloom mipmapBlur levels={7} intensity={1} luminanceThreshold={0} />
-            </EffectComposer> */}
-
         {/* 
           <Environment preset="studio" />
           <ambientLight intensity={0.5} />

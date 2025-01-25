@@ -47,7 +47,7 @@ function SpinningBoxWebGL({ scale, scrollState }: SpinningBoxProps) {
         </Html>
       </Text> */}
       <ModelBytemywork />
-      <group scale={scale.xy.min() * 1.75} position={[500, -150, 300]}>
+      <group scale={scale.xy.min() * 1.75} position={[200, -80, 300]}>
         <mesh ref={mesh}>
           <ModelTooth />
         </mesh>
