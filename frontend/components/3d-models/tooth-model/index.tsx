@@ -62,7 +62,7 @@ export function ToothModel() {
           config={{ mass: 2, tension: 500 }}
           snap={{ mass: 4, tension: 1500 }}
           rotation={[0, 0, 0]}
-          polar={[-Math.PI / 3, Math.PI / 3]}
+          polar={[0, 0]}
           azimuth={[-Math.PI / 1.4, Math.PI / 2]}
         >
           <group position={[0, -0.3, 0]} scale={0.02} rotation={[0, Math.PI / -3.2, 0]}>
