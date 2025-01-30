@@ -230,7 +230,6 @@ export type Project = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
     _type: "image";
   };
   client?: string;
@@ -362,7 +361,6 @@ export type SettingsQueryResult = {
       };
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
-      alt?: string;
       _type: "image";
       altText: string | null;
       height: number | null;
@@ -406,7 +404,6 @@ export type GetProjectQueryResult = {
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
     _type: "image";
     altText: string | null;
     height: number | null;
@@ -469,7 +466,6 @@ export type GetProjectsQueryResult = Array<{
     };
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
     _type: "image";
     altText: string | null;
     height: number | null;
