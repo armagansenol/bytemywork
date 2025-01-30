@@ -33,7 +33,13 @@ export function R3fScrollRig({ children }: { children: React.ReactNode }) {
         {/* <Stats /> */}
         {/* <OrbitControls /> */}
       </GlobalCanvas>
-      <SmoothScrollbar>{(bind) => <div {...bind}>{children}</div>}</SmoothScrollbar>
+      <SmoothScrollbar>
+        {(bind) => (
+          <div className="flex flex-1 flex-col" {...bind}>
+            {children}
+          </div>
+        )}
+      </SmoothScrollbar>
     </div>
   )
 }
