@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import React from 'react'
+import {isUniqueOtherThanLanguage} from '../../utils'
 
 export default defineType({
   name: 'project',
@@ -18,7 +19,7 @@ export default defineType({
       type: 'slug',
       options: {
         source: 'projectName',
-        isUnique: (slug, context) => true,
+        isUnique: isUniqueOtherThanLanguage,
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -41,13 +42,6 @@ export default defineType({
       options: {
         hotspot: true,
       },
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alt Text',
-          type: 'string',
-        }),
-      ],
     }),
     defineField({
       name: 'client',
