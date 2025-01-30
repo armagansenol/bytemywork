@@ -23,10 +23,11 @@ export default defineType({
       title: 'title',
     },
     prepare({title}) {
-      // Get the first available title value from the internationalized array
-      const firstTitle = Array.isArray(title) ? title[0]?.value : ''
+      const englishTitle = Array.isArray(title)
+        ? title.find((t) => t._key === 'en')?.value || ''
+        : ''
       return {
-        title: firstTitle,
+        title: englishTitle,
         media: () => 'D',
       }
     },
