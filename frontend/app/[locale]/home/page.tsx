@@ -1,14 +1,17 @@
 import s from "./home.module.css"
 
-import { ProjectCard } from "@/components/shared/project-card"
-import { ScrambleHover } from "@/components/shared/scramble-hover"
-import { ScrambleIn } from "@/components/shared/scramble-in"
-import { HeroSection } from "@/components/hero-section"
-import { Img } from "@/components/utility/img"
-import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/sanity/lib/live"
 import { settingsQuery } from "@/sanity/lib/queries"
 import { getTranslations } from "next-intl/server"
+import cn from "clsx"
+
+import { HeroSection } from "@/components/hero-section"
+import { LogoText } from "@/components/shared/icons"
+import { ProjectCard } from "@/components/shared/project-card"
+import { ScrambleHover } from "@/components/shared/scramble-hover"
+import { ScrambleIn } from "@/components/shared/scramble-in"
+import { Img } from "@/components/utility/img"
+import { Wrapper } from "@/components/wrapper"
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const [{ data: settings }, t] = await Promise.all([
@@ -21,32 +24,25 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
   return (
     <Wrapper className={s.home} theme="dark">
-      <section>
+      <section className="hidden lg:block">
         <div className={s.teeth}>
           <HeroSection />
         </div>
       </section>
-      <section className="container-section pb-24 flex flex-col relative">
-        <div className="relative flex justify-center items-center">
-          {/* <h1 className="text-[12vw] md:text-[8vw] font-bold leading-none tracking-tighter">
-            <LogoText />
-          </h1> */}
+      <section className="container-section pb-12 lg:pb-24 flex flex-col relative">
+        <div className={cn(s.teeth, "block lg:hidden")}>
+          <LogoText />
         </div>
         <p className="text-lg md:text-xl font-light -mt-20 ml-0 md:ml-auto ">
           <ScrambleIn text={t("hero.tagline")} scrambleSpeed={50} scrambledLetterCount={5} autoStart={true} />
         </p>
         <p className="max-w-lg text-sm md:text-base font-light mt-8">{t("hero.description")}</p>
       </section>
-      {/* <section className="container-section relative hidden lg:flex items-center justify-center ">
-        <div className={s.teeth}>
-          <SpinningBoxSection />
-        </div>
-      </section> */}
-      <section className="relative h-[600px] w-full">
+      <section className="relative h-[240px] lg:h-[600px] w-full">
         <Img src="/img/placeholder.jpg" alt="Aurora Background" className="object-cover" height={600} width={600} />
         <div className="absolute inset-0 bg-black/20" />
       </section>
-      <section className="container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-24 border-b border-dynamic-black">
+      <section className="container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-12 lg:py-24 border-b border-dynamic-black">
         <div className="col-span-12 space-y-4">
           <h2 className="text-base font-semibold">{t("capabilities.title")}</h2>
           <p className="text-sm max-w-md font-light">{t("capabilities.description")}</p>
@@ -104,7 +100,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
           </h3>
         </div>
       </section>
-      <section className="container-section py-24 space-y-32">
+      <section className="container-section py-12 lg:py-24 space-y-32">
         {settings?.highlightedProjects.map((project, index: number) => (
           <ProjectCard
             key={index}

@@ -8,5 +8,10 @@
     margin-top: desktop-vw(-160px);
     position: relative;
     z-index: 10;
+
+    @include-media ('mobile') {
+      height: mobile-vw(80px);
+      margin: 0;
+    }
   }
 }

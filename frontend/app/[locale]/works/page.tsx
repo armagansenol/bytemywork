@@ -15,11 +15,11 @@ export default async function WorksPage({ params: { locale } }: { params: { loca
 
   return (
     <Wrapper theme="dark" headerVariant="withLogo">
-      <section className="container-section pt-16">
+      <section className="container-section pt-8 lg:pt-16">
         <h1 className="text-3xl font-bold leading-snug">{t.rich("title", { br: () => <br /> })}</h1>
       </section>
       <section className="container-section py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-24 gap-12 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-24 gap-16 lg:gap-8">
           {projects?.map((project, index: number) => (
             <div className="col-span-1 sm:col-span-6 md:col-span-12" key={index}>
               <ProjectCard

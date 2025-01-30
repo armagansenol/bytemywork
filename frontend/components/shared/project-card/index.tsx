@@ -8,8 +8,8 @@ import { Link } from "@/components/utility/link"
 const projectCardVariants = cva("cursor-pointer", {
   variants: {
     layout: {
-      horizontal: "grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 items-start",
-      vertical: "flex flex-col-reverse gap-6 lg:gap-10",
+      horizontal: "flex flex-col-reverse lg:grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 items-start",
+      vertical: "flex flex-col gap-6 lg:gap-10",
     },
   },
   defaultVariants: {
@@ -36,7 +36,9 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/works/${slug}`}>
-      <div className={cn(layout === "vertical" ? "w-full" : "col-span-12", "lg:order-1 order-2 space-y-10")}>
+      <div
+        className={cn(layout === "vertical" ? "order-2" : "lg:col-span-12 order-1", "w-full space-y-6 lg:space-y-10")}
+      >
         <div className="space-y-2">
           <h2 className="text-sm lg:text-base font-semibold">{projectName}</h2>
           <div className="flex flex-wrap gap-2 lg:gap-4">
@@ -57,7 +59,7 @@ export function ProjectCard({
         </button>
       </div>
       <div
-        className={cn("aspect-w-4 aspect-h-3", layout === "vertical" ? "w-full" : "col-span-12", "lg:order-2 order-1")}
+        className={cn("aspect-w-4 aspect-h-3", "w-full", layout === "vertical" ? "order-1" : "lg:col-span-12 order-2")}
       >
         <Img className="object-cover rounded-lg" src={image} alt="Project Cover Image" width={500} height={500} />
       </div>
