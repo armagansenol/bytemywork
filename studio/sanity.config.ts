@@ -11,6 +11,7 @@ import {structureTool} from 'sanity/structure'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
 import {LANGUAGES} from './src/lib/constants'
+import {AsteriskIcon} from '@sanity/icons'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -49,9 +50,9 @@ const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 // Main Sanity configuration
 export default defineConfig({
-  name: 'default',
+  name: 'bytemywork',
   title: 'Byte My Work',
-
+  icon: AsteriskIcon,
   projectId,
   dataset,
 
