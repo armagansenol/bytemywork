@@ -34,10 +34,18 @@ export function HeroSection() {
 
 function Hero({ scale, scrollState }: HeroSectionProps) {
   const mesh = useRef<THREE.Mesh>(null)
+  const lightRef = useRef<THREE.DirectionalLight>(null!)
 
-  useFrame(() => {
+  useFrame((state) => {
     if (mesh.current) {
       mesh.current.rotation.y = scrollState.progress * Math.PI * 2 * 0.2
+    }
+
+    if (lightRef.current) {
+      // Rotate light in a circular motion at a higher position
+      const time = state.clock.getElapsedTime()
+      lightRef.current.position.x = Math.cos(time * 0.5) * 400
+      lightRef.current.position.z = Math.sin(time * 0.5) * 400
     }
   })
 
@@ -49,8 +57,9 @@ function Hero({ scale, scrollState }: HeroSectionProps) {
           <ToothModel />
         </mesh>
       </group>
+      <directionalLight ref={lightRef} position={[200, 400, 300]} intensity={25} color="#22ff00" />
       <OrthographicCamera makeDefault position={[0, 0, 2000]} zoom={1} />
-      <Environment preset="studio" environmentIntensity={5} />
+      <Environment preset="studio" environmentIntensity={1} background blur={0.5} />
     </>
   )
 }

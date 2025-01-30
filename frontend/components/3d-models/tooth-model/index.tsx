@@ -36,9 +36,10 @@ export function ToothModel() {
       distortionScale: { value: 1.5, min: 0, max: 5, step: 0.1 },
       temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
       metalness: { value: 0.7, min: 0, max: 1, step: 0.01 },
+      roughness: { value: 0, min: 0, max: 1, step: 0.01 },
       chromaticAberration: { value: 1, min: 0, max: 1, step: 0.01 },
-      resolution: { value: 256, min: 64, max: 1024, step: 64 },
-      backsideResolution: { value: 256, min: 64, max: 1024, step: 64 },
+      resolution: { value: 1024, min: 64, max: 1024, step: 64 },
+      backsideResolution: { value: 512, min: 64, max: 1024, step: 64 },
     },
     { collapsed: true }
   )
@@ -56,7 +57,7 @@ export function ToothModel() {
 
   return (
     <group ref={group} onPointerEnter={handlePointerDown} onPointerLeave={handlePointerUp}>
-      <Float speed={1} floatingRange={[-0.01, 0.01]}>
+      <Float speed={0.5} floatingRange={[-0.01, 0.01]}>
         <PresentationControls
           config={{ mass: 2, tension: 500 }}
           snap={{ mass: 4, tension: 1500 }}
