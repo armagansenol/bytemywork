@@ -30,27 +30,32 @@ const homeLocation = {
   href: '/',
 } satisfies DocumentLocation
 
+const LANGUAGES = [
+  {id: 'en', title: 'English'},
+  {id: 'tr', title: 'Turkish'},
+]
+
 // Improve type safety with a more comprehensive DocumentTypes
-type DocumentTypes = 'project' | 'deliverable' | 'settings'
-type SluggedDocument = {
-  slug?: {current?: string}
-  name?: string
-  title?: string
-}
+// type DocumentTypes = 'project' | 'deliverable' | 'settings'
+// type SluggedDocument = {
+//   slug?: {current?: string}
+//   name?: string
+//   title?: string
+// }
 
 // Enhanced resolveHref with better type safety and path handling
-function resolveHref(documentType?: DocumentTypes, doc?: SluggedDocument): string | undefined {
-  const slug = doc?.slug?.current
-  if (!slug || !documentType) return undefined
+// function resolveHref(documentType?: DocumentTypes, doc?: SluggedDocument): string | undefined {
+//   const slug = doc?.slug?.current
+//   if (!slug || !documentType) return undefined
 
-  const paths = {
-    project: `/projects/${slug}`,
-    deliverable: `/deliverables/${slug}`,
-    settings: '/settings',
-  }
+//   const paths = {
+//     project: `/projects/${slug}`,
+//     deliverable: `/deliverables/${slug}`,
+//     settings: '/settings',
+//   }
 
-  return paths[documentType] || undefined
-}
+//   return paths[documentType] || undefined
+// }
 
 // Main Sanity configuration
 export default defineConfig({
@@ -64,19 +69,13 @@ export default defineConfig({
     // Presentation tool configuration for Visual Editing
     documentInternationalization({
       // Required configuration
-      supportedLanguages: [
-        {id: 'tr', title: 'Türkçe'},
-        {id: 'en', title: 'English'},
-      ],
+      supportedLanguages: LANGUAGES,
       schemaTypes: ['project', 'deliverable', 'settings'],
       languageField: 'language',
       weakReferences: true,
     }),
     internationalizedArray({
-      languages: [
-        {id: 'tr', title: 'Türkçe'},
-        {id: 'en', title: 'English'},
-      ],
+      languages: LANGUAGES,
       defaultLanguages: ['en'],
       fieldTypes: ['string'],
     }),
