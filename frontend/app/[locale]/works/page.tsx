@@ -28,7 +28,7 @@ export default async function WorksPage({ params: { locale } }: { params: { loca
                 description={project.description}
                 heroImage={project.heroImage?.url ?? ""}
                 slug={project.slug}
-                deliverables={project.deliverables?.map((d) => d.title) ?? []}
+                deliverables={project.deliverables?.map((d) => d.title) as string[]}
                 layout="vertical"
               />
             </div>
