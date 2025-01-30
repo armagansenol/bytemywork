@@ -1,4 +1,5 @@
 import {defineField, defineType} from 'sanity'
+import {DEFAULT_LANGUAGE} from '../../lib/constants'
 
 export default defineType({
   name: 'deliverable',
@@ -24,7 +25,7 @@ export default defineType({
     },
     prepare({title}) {
       const englishTitle = Array.isArray(title)
-        ? title.find((t) => t._key === 'en')?.value || ''
+        ? title.find((t) => t._key === DEFAULT_LANGUAGE)?.value || ''
         : ''
       return {
         title: englishTitle,

@@ -1,6 +1,6 @@
 import {CogIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
-
+import {DEFAULT_LANGUAGE} from '../../lib/constants'
 /**
  * Settings schema Singleton.  Singletons are single documents that are displayed not in a collection, handy for things like site settings and other global configurations.
  * Learn more: https://www.sanity.io/docs/create-a-link-to-a-single-edit-page-in-your-main-document-type-list
@@ -22,6 +22,23 @@ export default defineType({
           title: 'Project',
           type: 'reference',
           to: [{type: 'project'}],
+          options: {
+            filter: ({document, parent}) => {
+              // Get currently selected project IDs
+              const selectedProjectIds =
+                (parent as Array<{_ref: string}> | undefined)
+                  ?.map((item) => item._ref)
+                  .filter(Boolean) || []
+
+              return {
+                filter: '_type == "project" && language == $language && !(_id in $selectedIds)',
+                params: {
+                  language: document?.language || DEFAULT_LANGUAGE,
+                  selectedIds: selectedProjectIds,
+                },
+              }
+            },
+          },
         }),
       ],
       validation: (Rule) => Rule.required().min(1).error('At least one project must be selected'),

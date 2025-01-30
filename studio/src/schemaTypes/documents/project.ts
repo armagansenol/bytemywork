@@ -1,6 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import React from 'react'
-import {isUniqueOtherThanLanguage} from '../../utils'
+import {isUniqueOtherThanLanguage} from '../../lib/utils'
 
 export default defineType({
   name: 'project',
@@ -27,12 +27,6 @@ export default defineType({
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'companyName',
-      title: 'Company Name',
-      type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -154,7 +148,6 @@ export default defineType({
       ],
     }),
     defineField({
-      // should match 'languageField' plugin configuration setting, if customized
       name: 'language',
       type: 'string',
       readOnly: true,
