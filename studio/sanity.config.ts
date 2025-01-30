@@ -3,18 +3,19 @@
  * Learn more: https://www.sanity.io/docs/configuration
  */
 
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
+import {documentInternationalization} from '@sanity/document-internationalization'
 import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './src/schemaTypes'
-import {structure} from './src/structure'
+import {defineConfig} from 'sanity'
+import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import {
-  presentationTool,
   defineDocuments,
   defineLocations,
+  presentationTool,
   type DocumentLocation,
 } from 'sanity/presentation'
-import {assist} from '@sanity/assist'
+import {structureTool} from 'sanity/structure'
+import {schemaTypes} from './src/schemaTypes'
+import {structure} from './src/structure'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -30,7 +31,7 @@ const homeLocation = {
 } satisfies DocumentLocation
 
 // Improve type safety with a more comprehensive DocumentTypes
-type DocumentTypes = 'page' | 'post' | 'settings'
+type DocumentTypes = 'project' | 'deliverable' | 'settings'
 type SluggedDocument = {
   slug?: {current?: string}
   name?: string
@@ -43,8 +44,8 @@ function resolveHref(documentType?: DocumentTypes, doc?: SluggedDocument): strin
   if (!slug || !documentType) return undefined
 
   const paths = {
-    post: `/posts/${slug}`,
-    page: slug === 'home' ? '/' : `/${slug}`,
+    project: `/projects/${slug}`,
+    deliverable: `/deliverables/${slug}`,
     settings: '/settings',
   }
 
@@ -61,6 +62,24 @@ export default defineConfig({
 
   plugins: [
     // Presentation tool configuration for Visual Editing
+    documentInternationalization({
+      // Required configuration
+      supportedLanguages: [
+        {id: 'tr', title: 'Türkçe'},
+        {id: 'en', title: 'English'},
+      ],
+      schemaTypes: ['project', 'deliverable', 'settings'],
+      languageField: 'language',
+      weakReferences: true,
+    }),
+    internationalizedArray({
+      languages: [
+        {id: 'tr', title: 'Türkçe'},
+        {id: 'en', title: 'English'},
+      ],
+      defaultLanguages: ['en'],
+      fieldTypes: ['string'],
+    }),
     presentationTool({
       previewUrl: {
         origin: SANITY_STUDIO_PREVIEW_URL,
@@ -71,11 +90,11 @@ export default defineConfig({
         mainDocuments: defineDocuments([
           {
             route: '/',
-            filter: '_type == "page" && slug.current == "home"',
+            filter: '_type == "project" && slug.current == "home"',
           },
           {
             route: '/:slug',
-            filter: '_type in ["page", "post"] && slug.current == $slug',
+            filter: '_type in ["project", "deliverable"] && slug.current == $slug',
           },
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
@@ -85,36 +104,36 @@ export default defineConfig({
             message: 'This document is used globally',
             tone: 'positive',
           }),
-          page: defineLocations({
-            select: {
-              name: 'name',
-              slug: 'slug.current',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.name || 'Untitled',
-                  href: resolveHref('page', doc || undefined),
-                },
-              ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
-            }),
-          }),
-          post: defineLocations({
-            select: {
-              title: 'title',
-              slug: 'slug.current',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.title || 'Untitled',
-                  href: resolveHref('post', doc || undefined),
-                  children: [{title: 'Preview', href: resolveHref('post', doc || undefined)}],
-                },
-                homeLocation,
-              ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
-            }),
-          }),
+          // page: defineLocations({
+          //   select: {
+          //     name: 'name',
+          //     slug: 'slug.current',
+          //   },
+          //   resolve: (doc) => ({
+          //     locations: [
+          //       {
+          //         title: doc?.name || 'Untitled',
+          //         href: resolveHref('page', doc || undefined),
+          //       },
+          //     ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
+          //   }),
+          // }),
+          // post: defineLocations({
+          //   select: {
+          //     title: 'title',
+          //     slug: 'slug.current',
+          //   },
+          //   resolve: (doc) => ({
+          //     locations: [
+          //       {
+          //         title: doc?.title || 'Untitled',
+          //         href: resolveHref('post', doc || undefined),
+          //         children: [{title: 'Preview', href: resolveHref('post', doc || undefined)}],
+          //       },
+          //       homeLocation,
+          //     ].filter((loc): loc is DocumentLocation => Boolean(loc.href)),
+          //   }),
+          // }),
         },
       },
     }),
@@ -122,7 +141,7 @@ export default defineConfig({
       structure, // Custom studio structure configuration, imported from ./src/structure.ts
     }),
     // Additional plugins for enhanced functionality
-    assist(),
+    // assist(),
     visionTool(),
   ],
 

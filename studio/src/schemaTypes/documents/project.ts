@@ -18,6 +18,7 @@ export default defineType({
       type: 'slug',
       options: {
         source: 'projectName',
+        isUnique: (slug, context) => true,
       },
       validation: (Rule) => Rule.required(),
     }),
@@ -157,6 +158,13 @@ export default defineType({
           },
         }),
       ],
+    }),
+    defineField({
+      // should match 'languageField' plugin configuration setting, if customized
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
     }),
   ],
 })
