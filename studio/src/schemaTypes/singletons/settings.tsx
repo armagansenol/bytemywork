@@ -26,6 +26,13 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required().min(1).error('At least one project must be selected'),
     }),
+    defineField({
+      // should match 'languageField' plugin configuration setting, if customized
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
     // defineField({
     //   name: 'title',
     //   description: 'This field is the title of your blog.',

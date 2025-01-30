@@ -34,28 +34,9 @@ body {
   font-family: var(--font-alexandria), Arial, Helvetica, sans-serif;
 }
 
-/* html,
-body,
-#root,
-#__next {
-  overscroll-behavior: none;
-  min-height: 100%;
-} */
-
-/* main {
-  overflow: hidden;
-  position: relative;
-  z-index: z-index("main");
-} */
-
 *::selection {
   background-color: var(--pekin-chicken);
   color: var(--pine-needle);
-}
-
-sup {
-  font-size: xx-small;
-  vertical-align: super;
 }
 
 .gsap-marker-end,
@@ -75,85 +56,6 @@ sup {
   }
 }
 
-.animated-underline {
-  position: relative;
-  --color: var(--pekin-chicken);
-  --ease: cubic-bezier(0.165, 0.84, 0.44, 1);
-
-  &:before {
-    content: "";
-    position: absolute;
-    bottom: 0.1ch;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color);
-    transform-origin: right;
-    transform: scaleX(1) translateZ(0);
-    transition: transform 600ms var(--ease) 200ms;
-    will-change: transform;
-  }
-
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0.1ch;
-    right: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color);
-    transform-origin: left;
-    transform: scaleX(0) translateZ(0);
-    transition: transform 600ms var(--ease);
-    will-change: transform;
-  }
-
-  @include hover {
-    &:hover {
-      &:before {
-        transform: scaleX(0) translateZ(0);
-        transition: transform 600ms var(--ease);
-      }
-    }
-
-    &:hover {
-      &:after {
-        transform: scaleX(1) translateZ(0);
-        transition: transform 600ms var(--ease) 200ms;
-      }
-    }
-  }
-}
-
-.animated-underline-single {
-  position: relative;
-  --color: var(--pekin-chicken);
-  --ease: cubic-bezier(0.165, 0.84, 0.44, 1);
-
-  &:after {
-    content: "";
-    position: absolute;
-    bottom: 0.1ch;
-    right: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color);
-    transform-origin: left;
-    transform: scaleX(0) translateZ(0);
-    transition: transform 400ms var(--ease);
-    will-change: transform;
-  }
-
-  @include hover {
-    &:hover {
-      &:after {
-        transform: scaleX(1) translateZ(0);
-        transition: transform 400ms var(--ease) 200ms;
-      }
-    }
-  }
-}
-
 .inherit-dims {
   height: inherit;
   width: inherit;
@@ -167,33 +69,9 @@ sup {
   @apply container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0;
 }
 
-.Placeholder {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-}
-
-.ScrollScene,
-.ViewportScrollScene {
-  /* outline: 1px dashed rgba(255, 255, 255, 0.33); */
-  position: relative;
-  z-index: 1000;
-}
-/* .ScrollScene:after,
-.ViewportScrollScene:after {
-  content: "ScrollScene";
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: rgba(255, 255, 255, 0.33);
-  color: black;
-  font-size: 10px;
-  padding: 5px;
-} */
-
-.ViewportScrollScene:after {
-  content: "ViewportScrollScene";
+.with-bg {
+  background-image: url("../public/img/bg-attachment.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
 }

@@ -4,6 +4,9 @@ import { Providers } from "@/providers"
 import { colors, themes } from "@/styles/config.mjs"
 import "@/styles/globals.css"
 
+import { NextIntlClientProvider } from "next-intl"
+import { getMessages } from "next-intl/server"
+
 import type { Metadata } from "next"
 import { Alexandria } from "next/font/google"
 
@@ -28,20 +31,27 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode
+  params: { locale: string }
 }>) {
+  const messages = await getMessages()
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale}>
       <head>
         <StyleVariables colors={colors} themes={themes} />
       </head>
-      <body className={`${alexandria.variable} antialiased`}>
-        <Providers>{children}</Providers>
+      <body className={`${alexandria.variable} with-bg`}>
+        <Providers>
+          <NextIntlClientProvider messages={messages}>
+            <R3fScrollRig>{children}</R3fScrollRig>
+          </NextIntlClientProvider>
+        </Providers>
         {/* <SmoothScroll root={true} /> */}
-        <R3fScrollRig />
       </body>
     </html>
   )

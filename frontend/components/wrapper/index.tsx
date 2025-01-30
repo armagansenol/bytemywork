@@ -6,6 +6,7 @@ import type { themeNames } from "@/styles/config.mjs"
 import cn from "clsx"
 import type { LenisOptions } from "lenis"
 import { usePathname } from "next/navigation"
+import Script from "next/script"
 import { useEffect } from "react"
 
 import { Footer } from "@/components/shared/footer"
@@ -32,7 +33,7 @@ export function Wrapper({ children, theme = "dark", className, lenis, headerVari
       <Header variant={headerVariant} />
       <main className={cn(s.main, className)} {...props}>
         {children}
-        <script>{`document.documentElement.setAttribute('data-theme', '${theme}');`}</script>
+        <Script id="theme-script">{`document.documentElement.setAttribute('data-theme', '${theme}');`}</Script>
       </main>
       <Footer />
       {lenis && <SmoothScroll root />}

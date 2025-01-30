@@ -1,7 +1,8 @@
 import s from "./project-detail.module.css"
 
 import cn from "clsx"
-import Link from "next/link"
+import { getTranslations } from "next-intl/server"
+import { Link as LocalizedLink } from "@/i18n/routing"
 
 import { ImageGrid } from "@/components/shared/image-grid"
 import { ScrambleIn } from "@/components/shared/scramble-in"
@@ -11,9 +12,10 @@ import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { sanityFetch } from "@/sanity/lib/live"
 import { getProjectQuery } from "@/sanity/lib/queries"
+import { Link } from "@/components/utility/link"
 
 type Props = {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string; locale: string }>
 }
 
 type ImageGridBlock = {
@@ -36,16 +38,23 @@ type Block = ImageGridBlock | TextBlock
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const [{ data: project }] = await Promise.all([sanityFetch({ query: getProjectQuery, params })])
+  const [{ data: project }] = await Promise.all([
+    sanityFetch({
+      query: getProjectQuery,
+      params: { ...params, language: params.locale },
+    }),
+  ])
+
+  const t = await getTranslations("projectDetail")
 
   return (
     <Wrapper theme="dark" headerVariant="withLogo">
       <section className="container-section">
         <div className="grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 pt-8">
           <div className="col-span-12 lg:col-span-9 space-y-12 lg:space-y-24">
-            <Link className="text-sm text-namara-grey" href="/work">
-              [ <ScrambleText text="BACK TO WORKS" scrambleSpeed={50} /> ]
-            </Link>
+            <LocalizedLink className="text-sm text-namara-grey" href="/works">
+              [ <ScrambleText text={t("backToWorks")} scrambleSpeed={50} /> ]
+            </LocalizedLink>
             <div className="space-y-4 lg:space-y-8">
               <h1 className="text-3xl sm:text-5xl md:text-7xl font-normal leading-none tracking-tighter">
                 <ScrambleIn
@@ -75,23 +84,23 @@ export default async function Page(props: Props) {
                 className="object-cover"
               />
             </div>
-            <Link href="/" className="absolute bottom-4 right-4">
-              [ START A PROJECT ]
-            </Link>
+            <LocalizedLink href="/contact" className="absolute bottom-4 right-4">
+              [ {t("startProject")} ]
+            </LocalizedLink>
           </div>
         </div>
         <div className="grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 py-10 lg:py-20">
           <div className="col-span-12 lg:col-span-15 lg:col-start-10 flex flex-col sm:flex-row justify-between space-y-6 sm:space-y-0">
             <div className="space-y-2">
-              <h2 className="text-md font-medium">CLIENT</h2>
+              <h2 className="text-md font-medium">{t("clientLabel")}</h2>
               <p className="text-sm font-light text-namara-grey">{project?.client}</p>
             </div>
             <div className="space-y-2">
-              <h2 className="text-md font-medium">DATE</h2>
+              <h2 className="text-md font-medium">{t("dateLabel")}</h2>
               <p className="text-sm font-light text-namara-grey">{project?.date}</p>
             </div>
             <div className="space-y-2">
-              <h2 className="text-md font-medium">DELIVERABLES</h2>
+              <h2 className="text-md font-medium">{t("deliverablesLabel")}</h2>
               {Array.isArray(project?.deliverables) && project.deliverables.length > 0 && (
                 <ul className="space-y-2 text-sm font-light text-namara-grey">
                   {project.deliverables.map((item, index) => (
@@ -102,7 +111,7 @@ export default async function Page(props: Props) {
             </div>
             <div className="space-y-2">
               <Link href={project?.websiteUrl as string} className="inline-block hover:text-gray-300 transition-colors">
-                [ VISIT WEBSITE ]
+                [ {t("visitWebsite")} ]
               </Link>
             </div>
           </div>

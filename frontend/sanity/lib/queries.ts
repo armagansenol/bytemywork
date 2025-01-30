@@ -1,9 +1,13 @@
 import { defineQuery } from "next-sanity"
 import { IMAGE } from "../fragments/image"
+import { DELIVERABLE } from "../fragments/deliverable"
 
 export const settingsQuery = defineQuery(`
-  *[_type == "settings"][0]{
+  *[_type == "settings" && language == $language][0]{
     ...,
+    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+      language
+    },
     highlightedProjects[]->{
       _id,
       projectName,
@@ -16,103 +20,31 @@ export const settingsQuery = defineQuery(`
       client,
       date,
       deliverables[]->{
-        _id,
-        title
+        ${DELIVERABLE}
       },
       websiteUrl
     }
   }
 `)
 
-const postFields = /* groq */ `
-  _id,
-  "status": select(_originalId in path("drafts.**") => "draft", "published"),
-  "title": coalesce(title, "Untitled"),
-  "slug": slug.current,
-  excerpt,
-  coverImage,
-  "date": coalesce(date, _updatedAt),
-  "author": author->{firstName, lastName, picture},
-`
-
-const linkFields = /* groq */ `
-  link {
-      ...,
-      _type == "link" => {
-        "page": page->slug.current,
-        "post": post->slug.current
-        }
-      }
-`
-
-export const getPageQuery = defineQuery(`
-  *[_type == 'page' && slug.current == $slug][0]{
-    _id,
-    _type,
-    name,
-    slug,
-    heading,
-    subheading,
-    "pageBuilder": pageBuilder[]{
-      ...,
-      _type == "callToAction" => {
-        ...,
-        ${linkFields},
-      }
-    },
-  }
-`)
-
-export const allPostsQuery = defineQuery(`
-  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {
-    ${postFields}
-  }
-`)
-
-export const morePostsQuery = defineQuery(`
-  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
-    ${postFields}
-  }
-`)
-
-export const postQuery = defineQuery(`
-  *[_type == "post" && slug.current == $slug] [0] {
-    content[]{
-    ...,
-    markDefs[]{
-      ...,
-      ${linkFields}
-    }
-  },
-    ${postFields}
-  }
-`)
-
-export const postPagesSlugs = defineQuery(`
-  *[_type == "post" && defined(slug.current)]
-  {"slug": slug.current}
-`)
-
-export const pagesSlugs = defineQuery(`
-  *[_type == "page" && defined(slug.current)]
-  {"slug": slug.current}
-`)
-
 export const getProjectQuery = defineQuery(`
-  *[_type == "project" && slug.current == $slug] [0] {
+  *[_type == "project" && slug.current == $slug && language == $language][0]{
     projectName,
-    slug,
     description,
     companyName,
+    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+      projectName,
+      "slug": slug.current,
+      language
+    },
     heroImage {
       ${IMAGE}
     },
     client,
     date,
     deliverables[]->{
-    _id,
-    title
-  },
+      ${DELIVERABLE}
+    },
     websiteUrl,
     body[]{
       _type == "imageGrid" => {
@@ -131,17 +63,21 @@ export const getProjectQuery = defineQuery(`
 `)
 
 export const getProjectsQuery = defineQuery(`
-*[_type == "project"]{
-  _id,
-  projectName,
-  "slug": slug.current,
-  description,
-  heroImage {
-    ${IMAGE}
-  },
-  deliverables[]->{
+  *[_type == "project" && language == $language]{
     _id,
-    title
+    projectName,
+    "slug": slug.current,
+    description,
+    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+      projectName,
+      "slug": slug.current,
+      language
+    },
+    heroImage {
+      ${IMAGE}
+    },
+    deliverables[]->{
+      ${DELIVERABLE}
+    }
   }
-}
 `)

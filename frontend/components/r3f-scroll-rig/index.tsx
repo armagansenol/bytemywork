@@ -1,11 +1,9 @@
 "use client"
 
 import { GlobalCanvas, SmoothScrollbar } from "@14islands/r3f-scroll-rig"
-import { Environment, OrthographicCamera, Stats } from "@react-three/drei"
-import { Bloom, BrightnessContrast, EffectComposer, HueSaturation } from "@react-three/postprocessing"
 import { useRef } from "react"
 
-export function R3fScrollRig() {
+export function R3fScrollRig({ children }: { children: React.ReactNode }) {
   const eventSource = useRef<HTMLDivElement>(null)
 
   return (
@@ -13,10 +11,9 @@ export function R3fScrollRig() {
       <GlobalCanvas
         eventSource={eventSource as React.MutableRefObject<HTMLElement>}
         eventPrefix="client"
-        // disable the scrollscene render loop as the EffectComposer will render to the screen
-        globalRender={false}
+        globalRender={true}
         style={{ pointerEvents: "none" }}
-        dpr={[1, 2]} // Limit pixel ratio
+        dpr={[1, 2]}
         // performance={{ min: 0.5 }}
         // gl={{
         //   powerPreference: "high-performance",
@@ -25,32 +22,18 @@ export function R3fScrollRig() {
         //   depth: false,
         // }}
       >
-        {/* 
-          <Environment preset="studio" />
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          <pointLight position={[-10, -10, -10]} />
-          <EffectComposer multisampling={0}>
-          <Bloom mipmapBlur luminanceThreshold={1} intensity={0.3} kernelSize={2} />
-          </EffectComposer>
-          */}
-
-        <Stats />
-
-        {/* <OrbitControls /> */}
-
-        <EffectComposer enableNormalPass={false} multisampling={8}>
-          <Bloom mipmapBlur luminanceThreshold={1} intensity={0.1} />
+        {/* <EffectComposer enableNormalPass={false} multisampling={8}>
+          <Bloom mipmapBlur luminanceThreshold={1} intensity={0.05} />
           <BrightnessContrast brightness={0} contrast={0.1} />
           <HueSaturation hue={0} saturation={-0.25} />
-          {/* <Vignette eskil={false} offset={0.1} darkness={1} /> */}
-          {/* <WaterEffect factor={0.5} /> */}
-        </EffectComposer>
+          <Vignette eskil={false} offset={0.1} darkness={1} />
+          <WaterEffect factor={0.5} />
+        </EffectComposer> */}
 
-        <OrthographicCamera makeDefault position={[0, 0, 2000]} zoom={1} />
-        <Environment preset="studio" environmentIntensity={0.5} />
+        {/* <Stats /> */}
+        {/* <OrbitControls /> */}
       </GlobalCanvas>
-      <SmoothScrollbar />
+      <SmoothScrollbar>{(bind) => <div {...bind}>{children}</div>}</SmoothScrollbar>
     </div>
   )
 }

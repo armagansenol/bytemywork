@@ -1,11 +1,13 @@
 import s from "./header.module.css"
 
+import { Link as LocalizedLink } from "@/i18n/routing"
 import { cva, type VariantProps } from "class-variance-authority"
 import cn from "clsx"
-import Link from "next/link"
 
+import { LocaleSwitcher } from "@/components/locale-switcher"
 import { Logo } from "@/components/shared/icons"
 import { ScrambleText } from "@/components/shared/scramble-text"
+import { useTranslations } from "next-intl"
 
 const headerVariants = cva("container-section relative flex items-center justify-between", {
   variants: {
@@ -24,33 +26,32 @@ interface HeaderProps extends VariantProps<typeof headerVariants> {
 }
 
 export function Header({ variant }: HeaderProps) {
+  const t = useTranslations("routes")
+
   return (
     <header className={cn(s.header, headerVariants({ variant }))}>
       {/* Mobile-first approach with responsive nav */}
       <nav className="order-2 md:order-1">
         <ul className="flex gap-4 md:gap-8 text-sm md:text-base">
           <li>
-            <Link className={s.f} href="/work">
-              <ScrambleText text={"WORK"} />
-            </Link>
+            <LocalizedLink href="/works">
+              <ScrambleText text={t("works")} />
+            </LocalizedLink>
           </li>
           <li>
-            <Link href="/contact">
-              <ScrambleText text={"CONTACT"} />
-            </Link>
+            <LocalizedLink href="/contact">
+              <ScrambleText text={t("contact")} />
+            </LocalizedLink>
           </li>
         </ul>
       </nav>
       {variant === "withLogo" && (
-        <Link href="/" className={cn(s.logo, "order-1 md:order-2 w-8 md:w-auto")}>
+        <LocalizedLink href="/" className={cn(s.logo, "order-1 md:order-2 w-8 md:w-auto")}>
           <Logo />
-        </Link>
+        </LocalizedLink>
       )}
       <div className="flex items-center gap-2 md:gap-4 text-sm md:text-base order-3">
-        <Link href="/tr" aria-label="Switch to Turkish">
-          TR
-        </Link>
-        <Link href="/en">EN</Link>
+        <LocaleSwitcher />
       </div>
     </header>
   )

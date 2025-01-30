@@ -1,3 +1,23 @@
+import { useTranslations } from "next-intl"
+
+export interface FormTranslations {
+  inputs: {
+    name: { placeholder: string; error: string }
+    email: { placeholder: string; error: string }
+    phone: { placeholder: string; error: string }
+    budget: {
+      label: string
+      options: { low: string; medium: string; high: string }
+      error: string
+    }
+    projectDetails: { label: string; error: string }
+  }
+  submit: {
+    sending: string
+    default: string
+  }
+}
+
 export interface ProjectIntro {
   projectName: string
   description: string
@@ -39,3 +59,5 @@ export type CursorType = {
   default: "default"
   view: "view"
 }
+
+export type TFunction = ReturnType<typeof useTranslations<"contactForm">>

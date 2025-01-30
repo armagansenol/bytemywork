@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function ModelTooth() {
+export function ToothModel() {
   const group = useRef<THREE.Group>(null)
   const { nodes, animations } = useGLTF("/glb/tooth.glb") as GLTFResult
   const { actions } = useAnimations(animations, group)
@@ -29,13 +29,16 @@ export function ModelTooth() {
     "Material Properties",
     {
       backside: true,
-      backsideThickness: { value: 10, min: 0, max: 10, step: 0.1 },
-      samples: { value: 16, min: 1, max: 32, step: 1 },
-      thickness: { value: 10, min: 0, max: 10, step: 0.01 },
-      transmission: { value: 0.6, min: 0, max: 1, step: 0.01 },
-      anisotropicBlur: { value: 0.5, min: 0, max: 1, step: 0.01 },
-      roughness: { value: 0.1, min: 0, max: 1, step: 0.01 },
-      chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
+      thickness: { value: 0.3, min: 0, max: 10, step: 0.01 },
+      transmission: { value: 1, min: 0, max: 1, step: 0.01 },
+      anisotropy: { value: 0.5, min: 0, max: 1, step: 0.01 },
+      distortion: { value: 5, min: 0, max: 10, step: 0.1 },
+      distortionScale: { value: 1.5, min: 0, max: 5, step: 0.1 },
+      temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+      metalness: { value: 0.7, min: 0, max: 1, step: 0.01 },
+      chromaticAberration: { value: 1, min: 0, max: 1, step: 0.01 },
+      resolution: { value: 256, min: 64, max: 1024, step: 64 },
+      backsideResolution: { value: 256, min: 64, max: 1024, step: 64 },
     },
     { collapsed: true }
   )
@@ -57,7 +60,7 @@ export function ModelTooth() {
         <PresentationControls
           config={{ mass: 2, tension: 500 }}
           snap={{ mass: 4, tension: 1500 }}
-          rotation={[0, 0.3, 0]}
+          rotation={[0, 0, 0]}
           polar={[-Math.PI / 3, Math.PI / 3]}
           azimuth={[-Math.PI / 1.4, Math.PI / 2]}
         >

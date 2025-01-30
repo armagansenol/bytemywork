@@ -1,0 +1,92 @@
+{
+    "metadata": {
+        "default": {
+            "title": "Byte My Work",
+            "description": "WE COMBINE STRATEGY AND CREATIVITY WITH THE POWER OF TECHNOLOGY TO OFFER SOLUTIONS THAT ADAPT TO EVERY PLATFORM IN THE DIGITAL SPACE."
+        }
+    },
+    "localeSwitcher": {
+        "label": "en",
+        "locale": "{locale, select, en}"
+    },
+    "routes": {
+        "works": "WORKS",
+        "contact": "CONTACT"
+    },
+    "footer": {
+        "address": "Address",
+        "copyright": "© Byte My Work 2025"
+    },
+    "cursor": {
+        "view": "Watch the Video"
+    },
+    "projectDetail": {
+        "backToWorks": "BACK TO WORKS",
+        "startProject": "START A PROJECT",
+        "clientLabel": "CLIENT",
+        "dateLabel": "DATE",
+        "deliverablesLabel": "DELIVERABLES",
+        "visitWebsite": "VISIT WEBSITE"
+    },
+    "contact": {
+        "title": "DROP A LINE",
+        "description": "CURIOUS? EXCITED? <span>SO WE ARE!</span> <br></br> SINCE YOU'RE HERE, LET'S TALK ABOUT THE PROJECT ON YOUR MIND.",
+        "form": {
+            "inputs": {
+                "name": {
+                    "placeholder": "ENTER YOUR NAME*",
+                    "error": "Name is required"
+                },
+                "email": {
+                    "placeholder": "ENTER YOUR EMAIL*",
+                    "error": "Please enter a valid email address"
+                },
+                "phone": {
+                    "placeholder": "ENTER YOUR PHONE",
+                    "error": "Phone number is required"
+                },
+                "budget": {
+                    "label": "BUDGET*",
+                    "error": "Please select a budget range",
+                    "options": {
+                        "low": "< 2.000€",
+                        "medium": "2.000€ - 7.000€",
+                        "high": "> 7.000€"
+                    }
+                },
+                "projectDetails": {
+                    "label": "PLEASE SPECIFY YOUR NEEDS",
+                    "error": "Please specify your project needs"
+                }
+            },
+            "submit": {
+                "default": "[ SEND ]",
+                "sending": "SENDING..."
+            },
+            "messages": {
+                "error": "Failed to submit form",
+                "success": "Form submitted successfully"
+            }
+        }
+    },
+    "home": {
+        "hero": {
+            "tagline": "WEB DESIGN & DEV AGENCY",
+            "description": "WE COMBINE STRATEGY AND CREATIVITY WITH THE POWER OF TECHNOLOGY TO OFFER SOLUTIONS THAT ADAPT TO EVERY PLATFORM IN THE DIGITAL SPACE."
+        },
+        "capabilities": {
+            "title": "OUR CAPABILITIES",
+            "description": "WE LOVE BEING A TRUSTED PARTNER IN THE DIGITAL WORLD FOR BRANDS AND STARTUPS. UNDERSTANDING YOUR NEEDS, WE'RE THERE WITH SOLUTIONS AT EVERY STEP.",
+            "services": {
+                "webDesign": "WEB DESIGN",
+                "webDevelopment": "WEB DEVELOPMENT",
+                "branding": "BRANDING",
+                "contentCreation": "CONTENT CREATION",
+                "motionDesign": "MOTION DESIGN"
+            }
+        }
+    },
+    "works": {
+        "title": "TRANSFORMING IDEAS INTO BYTES - <br></br> EXPLORE OUR WORK!"
+    }
+}

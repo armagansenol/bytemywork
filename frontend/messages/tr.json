@@ -1,0 +1,92 @@
+{
+    "metadata": {
+        "default": {
+            "title": "Byte My Work",
+            "description": "WE COMBINE STRATEGY AND CREATIVITY WITH THE POWER OF TECHNOLOGY TO OFFER SOLUTIONS THAT ADAPT TO EVERY PLATFORM IN THE DIGITAL SPACE."
+        }
+    },
+    "localeSwitcher": {
+        "label": "tr",
+        "locale": "{locale, select, tr}"
+    },
+    "routes": {
+        "works": "PROJELER",
+        "contact": "İLETİŞİM"
+    },
+    "footer": {
+        "address": "Address",
+        "copyright": "© Byte My Work 2025"
+    },
+    "cursor": {
+        "view": "Watch the Video"
+    },
+    "projectDetail": {
+        "backToWorks": "GERİ DÖN",
+        "startProject": "İLEİTİŞİME GEÇ",
+        "clientLabel": "MÜŞTERİ",
+        "dateLabel": "TARİH",
+        "deliverablesLabel": "HİZMETLER",
+        "visitWebsite": "WEB SİTE LİNKİ"
+    },
+    "contact": {
+        "title": "BİZE ULAŞIN",
+        "description": "HEYECANLI MISINIZ? <span>BİZ DE ÖYLE!</span> <br></br> MADEM BURADASINIZ, HAYDİ AKLINIZDAKİ PROJE HAKKINDA KONUŞALIM.",
+        "form": {
+            "inputs": {
+                "name": {
+                    "placeholder": "ADINIZ*",
+                    "error": "Ad alanı zorunludur"
+                },
+                "email": {
+                    "placeholder": "E-POSTA ADRESİNİZ*",
+                    "error": "Lütfen geçerli bir e-posta adresi giriniz"
+                },
+                "phone": {
+                    "placeholder": "TELEFON NUMARANIZ",
+                    "error": "Telefon numarası zorunludur"
+                },
+                "budget": {
+                    "label": "BÜTÇE*",
+                    "error": "Lütfen bir bütçe aralığı seçiniz",
+                    "options": {
+                        "low": "< 100.000₺",
+                        "medium": "100.000₺ - 200.000₺",
+                        "high": "> 200.000₺"
+                    }
+                },
+                "projectDetails": {
+                    "label": "PROJENİZİN DETAYLARINI BELİRTİNİZ",
+                    "error": "Lütfen projenizin detaylarını belirtiniz"
+                }
+            },
+            "submit": {
+                "default": "[ GÖNDER ]",
+                "sending": "GÖNDERİLİYOR..."
+            },
+            "messages": {
+                "error": "Form gönderilirken bir hata oluştu",
+                "success": "Form başarıyla gönderildi"
+            }
+        }
+    },
+    "home": {
+        "hero": {
+            "tagline": "WEB DESIGN & DEV AGENCY",
+            "description": "DİJİTAL DÜNYADA HER PLATFORMA UYUM SAĞLAYAN ÇÖZÜMLER SUNMAK İÇİN STRATEJİ VE YARATICILIĞI TEKNOLOJİNİN GÜCÜYLE BİRLEŞTİRİYORUZ."
+        },
+        "capabilities": {
+            "title": "HİZMETLERİMİZ",
+            "description": "MARKALAR VE STARTUPLAR İÇİN DİJİTAL DÜNYADA GÜVENİLİR BİR ORTAK OLMAKTAN MUTLULUK DUYUYORUZ. İHTİYAÇLARINIZI ANLAYARAK HER ADIMDA ÇÖZÜMLERLE YANINIZDA OLUYORUZ.",
+            "services": {
+                "webDesign": "WEB TASARIM",
+                "webDevelopment": "WEB GELİŞTİRME",
+                "branding": "BRANDING",
+                "contentCreation": "İÇERİK ÜRETİMİ",
+                "motionDesign": "MOTION DESIGN"
+            }
+        }
+    },
+    "works": {
+        "title": "FİKİRLERİ BYTE'LARA DÖNÜŞTÜRÜYORUZ - <br></br> PROJELERİMİZİ KEŞFEDİN!"
+    }
+}

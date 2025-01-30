@@ -1,0 +1,12 @@
+.home {
+  position: relative;
+
+  .teeth {
+    height: desktop-vw(600px);
+    width: 100%;
+    margin-bottom: desktop-vw(-80px);
+    margin-top: desktop-vw(-160px);
+    position: relative;
+    z-index: 10;
+  }
+}

@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
-import Link from "next/link"
 
 import { ScrambleText } from "@/components/shared/scramble-text"
 import { Img } from "@/components/utility/img"
+import { Link } from "@/components/utility/link"
 
 const projectCardVariants = cva("cursor-pointer", {
   variants: {
@@ -35,7 +35,7 @@ export function ProjectCard({
   layout,
 }: ProjectCardProps) {
   return (
-    <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/work/${slug}`}>
+    <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/works/${slug}`}>
       <div className={cn(layout === "vertical" ? "w-full" : "col-span-12", "lg:order-1 order-2 space-y-10")}>
         <div className="space-y-2">
           <h2 className="text-sm lg:text-base font-semibold">{projectName}</h2>

@@ -130,15 +130,6 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
-export type Deliverable = {
-  _id: string;
-  _type: "deliverable";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-};
-
 export type ContactForm = {
   _id: string;
   _type: "contactForm";
@@ -151,6 +142,73 @@ export type ContactForm = {
   phone: string;
   budget: "<100000" | "100000-200000" | ">200000";
   projectDetails: string;
+};
+
+export type InternationalizedArrayStringValue = {
+  _type: "internationalizedArrayStringValue";
+  value?: string;
+};
+
+export type InternationalizedArrayString = Array<{
+  _key: string;
+} & InternationalizedArrayStringValue>;
+
+export type TranslationMetadata = {
+  _id: string;
+  _type: "translation.metadata";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  translations?: Array<{
+    _key: string;
+  } & InternationalizedArrayReferenceValue>;
+  schemaTypes?: Array<string>;
+};
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue";
+  value?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "project";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "deliverable";
+  } | {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "settings";
+  };
+};
+
+export type Settings = {
+  _id: string;
+  _type: "settings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  highlightedProjects: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "project";
+  }>;
+  language?: string;
+};
+
+export type Deliverable = {
+  _id: string;
+  _type: "deliverable";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: InternationalizedArrayString;
+  language?: string;
 };
 
 export type Project = {
@@ -208,59 +266,7 @@ export type Project = {
     _type: "textBlock";
     _key: string;
   }>;
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
-export type Settings = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
-    _type: "image";
-  };
-  highlightedProjects: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "project";
-  }>;
+  language?: string;
 };
 
 export type SanityImageCrop = {
@@ -320,170 +326,27 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type SanityAssistInstructionTask = {
-  _type: "sanity.assist.instructionTask";
-  path?: string;
-  instructionKey?: string;
-  started?: string;
-  updated?: string;
-  info?: string;
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
 };
 
-export type SanityAssistTaskStatus = {
-  _type: "sanity.assist.task.status";
-  tasks?: Array<{
-    _key: string;
-  } & SanityAssistInstructionTask>;
-};
-
-export type SanityAssistSchemaTypeAnnotations = {
-  _type: "sanity.assist.schemaType.annotations";
-  title?: string;
-  fields?: Array<{
-    _key: string;
-  } & SanityAssistSchemaTypeField>;
-};
-
-export type SanityAssistOutputType = {
-  _type: "sanity.assist.output.type";
-  type?: string;
-};
-
-export type SanityAssistOutputField = {
-  _type: "sanity.assist.output.field";
-  path?: string;
-};
-
-export type SanityAssistInstructionContext = {
-  _type: "sanity.assist.instruction.context";
-  reference: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "assist.instruction.context";
-  };
-};
-
-export type AssistInstructionContext = {
-  _id: string;
-  _type: "assist.instruction.context";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  context?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: null;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-};
-
-export type SanityAssistInstructionUserInput = {
-  _type: "sanity.assist.instruction.userInput";
-  message: string;
-  description?: string;
-};
-
-export type SanityAssistInstructionPrompt = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  } | {
-    _key: string;
-  } & SanityAssistInstructionFieldRef | {
-    _key: string;
-  } & SanityAssistInstructionContext | {
-    _key: string;
-  } & SanityAssistInstructionUserInput>;
-  style?: "normal";
-  listItem?: never;
-  markDefs?: null;
-  level?: number;
-  _type: "block";
+export type InternationalizedArrayReference = Array<{
   _key: string;
-}>;
+} & InternationalizedArrayReferenceValue>;
 
-export type SanityAssistInstructionFieldRef = {
-  _type: "sanity.assist.instruction.fieldRef";
-  path?: string;
-};
-
-export type SanityAssistInstruction = {
-  _type: "sanity.assist.instruction";
-  prompt?: SanityAssistInstructionPrompt;
-  icon?: string;
-  title?: string;
-  userId?: string;
-  createdById?: string;
-  output?: Array<{
-    _key: string;
-  } & SanityAssistOutputField | {
-    _key: string;
-  } & SanityAssistOutputType>;
-};
-
-export type SanityAssistSchemaTypeField = {
-  _type: "sanity.assist.schemaType.field";
-  path?: string;
-  instructions?: Array<{
-    _key: string;
-  } & SanityAssistInstruction>;
-};
-
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | Deliverable | ContactForm | Project | Slug | Settings | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | ContactForm | InternationalizedArrayStringValue | InternationalizedArrayString | TranslationMetadata | InternationalizedArrayReferenceValue | Settings | Deliverable | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    ...,    highlightedProjects[]->{      _id,      projectName,      "slug": slug.current,      description,      companyName,      heroImage {          ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,      },      client,      date,      deliverables[]->{        _id,        title      },      websiteUrl    }  }
+// Query: *[_type == "settings" && language == $language][0]{    ...,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      language    },    highlightedProjects[]->{      _id,      projectName,      "slug": slug.current,      description,      companyName,      heroImage {          ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,      },      client,      date,      deliverables[]->{          _id,  "title": title[_key == $language][0].value      },      websiteUrl    }  }
 export type SettingsQueryResult = {
   _id: string;
   _type: "settings";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      href: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
-    _type: "image";
-  };
   highlightedProjects: Array<{
     _id: string;
     projectName: string;
@@ -510,36 +373,30 @@ export type SettingsQueryResult = {
     date: string | null;
     deliverables: Array<{
       _id: string;
-      title: string;
+      title: string | null;
     }> | null;
     websiteUrl: string | null;
   }>;
+  language?: string;
+  _translations: Array<{
+    language: string | null;
+  } | null>;
 } | null;
-// Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {        ...,          link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current        }      },      }    },  }
-export type GetPageQueryResult = null;
-// Variable: allPostsQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type AllPostsQueryResult = Array<never>;
-// Variable: morePostsQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type MorePostsQueryResult = Array<never>;
-// Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        link {      ...,      _type == "link" => {        "page": page->slug.current,        "post": post->slug.current        }      }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type PostQueryResult = null;
-// Variable: postPagesSlugs
-// Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
-export type PostPagesSlugsResult = Array<never>;
-// Variable: pagesSlugs
-// Query: *[_type == "page" && defined(slug.current)]  {"slug": slug.current}
-export type PagesSlugsResult = Array<never>;
 // Variable: getProjectQuery
-// Query: *[_type == "project" && slug.current == $slug] [0] {    projectName,    slug,    description,    companyName,    heroImage {        ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    client,    date,    deliverables[]->{    _id,    title  },    websiteUrl,    body[]{      _type == "imageGrid" => {        component,        items[]{            ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,        }      },      _type == "textBlock" => {        component,        title,        description      }    }  }
+// Query: *[_type == "project" && slug.current == $slug && language == $language][0]{    projectName,    description,    companyName,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    client,    date,    deliverables[]->{        _id,  "title": title[_key == $language][0].value    },    websiteUrl,    body[]{      _type == "imageGrid" => {        component,        items[]{            ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,        }      },      _type == "textBlock" => {        component,        title,        description      }    }  }
 export type GetProjectQueryResult = {
   projectName: string;
-  slug: Slug;
   description: string;
   companyName: string;
+  _translations: Array<{
+    projectName: null;
+    slug: null;
+    language: string | null;
+  } | {
+    projectName: string;
+    slug: string;
+    language: string | null;
+  } | null>;
   heroImage: {
     asset?: {
       _ref: string;
@@ -560,7 +417,7 @@ export type GetProjectQueryResult = {
   date: string | null;
   deliverables: Array<{
     _id: string;
-    title: string;
+    title: string | null;
   }> | null;
   websiteUrl: string | null;
   body: Array<{
@@ -588,12 +445,21 @@ export type GetProjectQueryResult = {
   }> | null;
 } | null;
 // Variable: getProjectsQuery
-// Query: *[_type == "project"]{  _id,  projectName,  "slug": slug.current,  description,  heroImage {      ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,  },  deliverables[]->{    _id,    title  }}
+// Query: *[_type == "project" && language == $language]{    _id,    projectName,    "slug": slug.current,    description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    deliverables[]->{        _id,  "title": title[_key == $language][0].value    }  }
 export type GetProjectsQueryResult = Array<{
   _id: string;
   projectName: string;
   slug: string;
   description: string;
+  _translations: Array<{
+    projectName: null;
+    slug: null;
+    language: string | null;
+  } | {
+    projectName: string;
+    slug: string;
+    language: string | null;
+  } | null>;
   heroImage: {
     asset?: {
       _ref: string;
@@ -612,7 +478,7 @@ export type GetProjectsQueryResult = Array<{
   } | null;
   deliverables: Array<{
     _id: string;
-    title: string;
+    title: string | null;
   }> | null;
 }>;
 
@@ -620,14 +486,8 @@ export type GetProjectsQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"settings\"][0]{\n    ...,\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      \"slug\": slug.current,\n      description,\n      companyName,\n      heroImage {\n        \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n      },\n      client,\n      date,\n      deliverables[]->{\n        _id,\n        title\n      },\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
-    "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n        }\n      }\n,\n      }\n    },\n  }\n": GetPageQueryResult;
-    "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
-    "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;
-    "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  link {\n      ...,\n      _type == \"link\" => {\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n        }\n      }\n\n    }\n  },\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": PostQueryResult;
-    "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
-    "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
-    "\n  *[_type == \"project\" && slug.current == $slug] [0] {\n    projectName,\n    slug,\n    description,\n    companyName,\n    heroImage {\n      \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    client,\n    date,\n    deliverables[]->{\n    _id,\n    title\n  },\n    websiteUrl,\n    body[]{\n      _type == \"imageGrid\" => {\n        component,\n        items[]{\n          \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n        }\n      },\n      _type == \"textBlock\" => {\n        component,\n        title,\n        description\n      }\n    }\n  }\n": GetProjectQueryResult;
-    "\n*[_type == \"project\"]{\n  _id,\n  projectName,\n  \"slug\": slug.current,\n  description,\n  heroImage {\n    \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n  },\n  deliverables[]->{\n    _id,\n    title\n  }\n}\n": GetProjectsQueryResult;
+    "\n  *[_type == \"settings\" && language == $language][0]{\n    ...,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      language\n    },\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      \"slug\": slug.current,\n      description,\n      companyName,\n      heroImage {\n        \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n      },\n      client,\n      date,\n      deliverables[]->{\n        \n  _id,\n  \"title\": title[_key == $language][0].value\n\n      },\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug && language == $language][0]{\n    projectName,\n    description,\n    companyName,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    client,\n    date,\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    },\n    websiteUrl,\n    body[]{\n      _type == \"imageGrid\" => {\n        component,\n        items[]{\n          \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n        }\n      },\n      _type == \"textBlock\" => {\n        component,\n        title,\n        description\n      }\n    }\n  }\n": GetProjectQueryResult;
+    "\n  *[_type == \"project\" && language == $language]{\n    _id,\n    projectName,\n    \"slug\": slug.current,\n    description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    }\n  }\n": GetProjectsQueryResult;
   }
 }
