@@ -78,7 +78,7 @@ export default async function Page(props: Props) {
             <div className="relative aspect-w-4 aspect-h-3">
               <Img
                 src={project?.heroImage?.url as string}
-                alt={project?.heroImage?.alt as string}
+                alt="Project Cover Image"
                 width={project?.heroImage?.width as number}
                 height={project?.heroImage?.height as number}
                 className="object-cover"

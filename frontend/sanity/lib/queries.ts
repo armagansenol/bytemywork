@@ -13,7 +13,6 @@ export const settingsQuery = defineQuery(`
       projectName,
       "slug": slug.current,
       description,
-      companyName,
       heroImage {
         ${IMAGE}
       },
@@ -31,7 +30,6 @@ export const getProjectQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug && language == $language][0]{
     projectName,
     description,
-    companyName,
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
       projectName,
       "slug": slug.current,
