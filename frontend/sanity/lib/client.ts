@@ -1,4 +1,4 @@
-import { createClient } from "next-sanity"
+import { createClient, QueryParams } from "next-sanity"
 
 import { apiVersion, dataset, projectId, studioUrl } from "./api"
 
@@ -21,3 +21,34 @@ export const client = createClient({
     },
   },
 })
+
+export async function sanityFetch<QueryResponse>({
+  query,
+  qParams,
+  tags,
+}: {
+  query: string
+  qParams?: QueryParams
+  tags: string[]
+}): Promise<QueryResponse> {
+  try {
+    return await client.fetch<QueryResponse>(
+      query,
+      { ...qParams },
+      {
+        cache: "no-store",
+        next: { tags },
+      }
+    )
+  } catch (error) {
+    // Log the error for debugging
+    console.error("Sanity query error:", {
+      error,
+      query,
+      params: qParams,
+    })
+
+    // Rethrow with a more informative error message
+    throw new Error(`Failed to fetch data from Sanity: ${error instanceof Error ? error.message : "Unknown error"}`)
+  }
+}
