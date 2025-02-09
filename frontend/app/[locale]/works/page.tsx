@@ -1,14 +1,16 @@
 import { ProjectCard } from "@/components/shared/project-card"
 import { Wrapper } from "@/components/wrapper"
-import { sanityFetch } from "@/sanity/lib/live"
+import { GetProjectsQueryResult } from "@/sanity.types"
+import { sanityFetch } from "@/sanity/lib/client"
 import { getProjectsQuery } from "@/sanity/lib/queries"
 import { getTranslations } from "next-intl/server"
 
 export default async function WorksPage({ params: { locale } }: { params: { locale: string } }) {
-  const [{ data: projects }, t] = await Promise.all([
-    sanityFetch({
+  const [projects, t] = await Promise.all([
+    sanityFetch<GetProjectsQueryResult>({
       query: getProjectsQuery,
-      params: { language: locale },
+      qParams: { language: locale },
+      tags: ["project"],
     }),
     getTranslations("works"),
   ])

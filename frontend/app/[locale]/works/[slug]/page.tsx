@@ -10,9 +10,10 @@ import { ScrambleText } from "@/components/shared/scramble-text"
 import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
-import { sanityFetch } from "@/sanity/lib/live"
 import { getProjectQuery } from "@/sanity/lib/queries"
 import { Link } from "@/components/utility/link"
+import { sanityFetch } from "@/sanity/lib/client"
+import { GetProjectQueryResult } from "@/sanity.types"
 
 type Props = {
   params: Promise<{ slug: string; locale: string }>
@@ -38,12 +39,11 @@ type Block = ImageGridBlock | TextBlock
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const [{ data: project }] = await Promise.all([
-    sanityFetch({
-      query: getProjectQuery,
-      params: { ...params, language: params.locale },
-    }),
-  ])
+  const project = await sanityFetch<GetProjectQueryResult>({
+    query: getProjectQuery,
+    qParams: { ...params, language: params.locale },
+    tags: ["project"],
+  })
 
   const t = await getTranslations("projectDetail")
 
