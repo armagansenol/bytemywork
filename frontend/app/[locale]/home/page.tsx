@@ -1,9 +1,8 @@
 import s from "./home.module.css"
 
-import { sanityFetch } from "@/sanity/lib/live"
 import { settingsQuery } from "@/sanity/lib/queries"
-import { getTranslations } from "next-intl/server"
 import cn from "clsx"
+import { getTranslations } from "next-intl/server"
 
 import { HeroSection } from "@/components/hero-section"
 import { LogoText } from "@/components/shared/icons"
@@ -12,15 +11,20 @@ import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
+import { SettingsQueryResult } from "@/sanity.types"
+import { sanityFetch } from "@/sanity/lib/client"
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
-  const [{ data: settings }, t] = await Promise.all([
-    sanityFetch({
+  const [settings, t] = await Promise.all([
+    sanityFetch<SettingsQueryResult>({
       query: settingsQuery,
-      params: { language: locale },
+      qParams: { language: locale },
+      tags: ["settings"],
     }),
     getTranslations("home"),
   ])
+
+  console.log("settings", settings)
 
   return (
     <Wrapper className={s.home} theme="dark">
