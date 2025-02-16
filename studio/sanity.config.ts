@@ -71,7 +71,7 @@ export default defineConfig({
       defaultLanguages: [...LANGUAGES.map((lang) => lang.id)],
       fieldTypes: ['string'],
     }),
-    muxInput(),
+    muxInput({encoding_tier: 'baseline'}),
     // presentationTool({
     //   previewUrl: {
     //     origin: SANITY_STUDIO_PREVIEW_URL,
