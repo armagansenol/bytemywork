@@ -21,19 +21,11 @@ interface ProjectCardProps extends VariantProps<typeof projectCardVariants> {
   layout?: "horizontal" | "vertical"
   projectName: string
   deliverables?: string[]
-  description: string
   heroImage: string
   slug: string
 }
 
-export function ProjectCard({
-  projectName,
-  deliverables,
-  description,
-  heroImage: image,
-  slug,
-  layout,
-}: ProjectCardProps) {
+export function ProjectCard({ projectName, deliverables, heroImage: image, slug, layout }: ProjectCardProps) {
   return (
     <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/works/${slug}`}>
       <div
@@ -49,7 +41,7 @@ export function ProjectCard({
             ))}
           </div>
         </div>
-        <p className="text-sm lg:text-base font-light max-w-md">{description}</p>
+        {/* <p className="text-sm lg:text-base font-light max-w-md">{description}</p> */}
         <button className="cursor-pointer font-semibold flex items-center gap-2 mt-auto text-sm lg:text-base">
           <span className="block"> [ </span>
           <span className="block">
