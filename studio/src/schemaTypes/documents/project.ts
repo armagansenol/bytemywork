@@ -94,10 +94,11 @@ export default defineType({
               title: 'Component',
               type: 'string',
               readOnly: true,
+              hidden: true,
             }),
             defineField({
               name: 'items',
-              title: 'Images',
+              title: 'Media',
               type: 'array',
               of: [
                 {type: 'image'},
@@ -122,6 +123,7 @@ export default defineType({
               type: 'string',
               initialValue: 'TextBlock',
               readOnly: true,
+              hidden: true,
             }),
             defineField({
               name: 'title',
