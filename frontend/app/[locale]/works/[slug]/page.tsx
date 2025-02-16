@@ -21,12 +21,19 @@ type Props = {
 
 type ImageGridBlock = {
   component: "ImageGrid"
-  items?: Array<{
-    url: string | null
-    width: number | null
-    height: number | null
-    alt: string | null
-  }>
+  items?: Array<
+    | {
+        url: string | null
+        width: number | null
+        height: number | null
+        alt: string | null
+      }
+    | {
+        playbackId: string
+        assetId: string
+        filename: string
+      }
+  >
 }
 
 type TextBlock = {
@@ -46,6 +53,8 @@ export default async function Page(props: Props) {
   })
 
   const t = await getTranslations("projectDetail")
+
+  console.log("p", project?.body)
 
   return (
     <Wrapper theme="dark" headerVariant="withLogo">
@@ -122,12 +131,24 @@ export default async function Page(props: Props) {
           {((project?.body || []) as Block[]).map((block: Block, index) => {
             if (block.component === "ImageGrid") {
               const gridItems =
-                block.items?.map((item) => ({
-                  url: item.url || "",
-                  width: String(item.width || 0),
-                  height: String(item.height || 0),
-                  alt: item.alt || "",
-                })) || []
+                block.items
+                  ?.map((item) => {
+                    if ("url" in item) {
+                      return {
+                        url: item.url || "",
+                        width: String(item.width || 0),
+                        height: String(item.height || 0),
+                        alt: item.alt || "",
+                      }
+                    }
+                    // Handle video items differently or skip them
+                    return {
+                      playbackId: item.playbackId,
+                      assetId: item.assetId,
+                      filename: item.filename,
+                    }
+                  })
+                  .filter(Boolean) || []
               return (
                 <div key={index}>
                   <ImageGrid items={gridItems} />

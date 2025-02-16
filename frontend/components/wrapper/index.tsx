@@ -29,7 +29,7 @@ export function Wrapper({ children, theme = "dark", className, lenis, headerVari
   }, [pathname, theme])
 
   return (
-    <>
+    <div className={s.wrapper}>
       <Header variant={headerVariant} />
       <main className={cn(s.main, className)} {...props}>
         {children}
@@ -37,6 +37,6 @@ export function Wrapper({ children, theme = "dark", className, lenis, headerVari
       </main>
       <Footer />
       {lenis && <SmoothScroll root />}
-    </>
+    </div>
   )
 }

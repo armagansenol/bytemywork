@@ -1,6 +1,7 @@
 import { defineQuery } from "next-sanity"
 import { IMAGE } from "../fragments/image"
 import { DELIVERABLE } from "../fragments/deliverable"
+import { VIDEO } from "../fragments/video"
 
 export const settingsQuery = defineQuery(`
   *[_type == "settings" && language == $language][0]{
@@ -48,7 +49,12 @@ export const getProjectQuery = defineQuery(`
       _type == "imageGrid" => {
         component,
         items[]{
-          ${IMAGE}
+          _type == "image" => {
+            ${IMAGE}
+          },
+          _type == "video" => {
+            ${VIDEO}
+          }
         }
       },
       _type == "textBlock" => {

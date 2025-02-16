@@ -38,6 +38,12 @@ export interface ImageGridItem {
   height: string
 }
 
+export interface VideoGridItem {
+  playbackId: string
+  assetId: string
+  filename: string
+}
+
 export interface TextBlockItem {
   heading?: string
   content: string

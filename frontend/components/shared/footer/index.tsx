@@ -9,7 +9,7 @@ export function Footer() {
   const t = useTranslations("routes")
 
   return (
-    <footer className="container-section pb-16 md:pb-28">
+    <footer className="container-section pb-16 md:pb-28 z-10 relative">
       <div className="flex flex-col items-stretch gap-10 lg:gap-6 border-t border-dynamic-black pt-8 md:pt-16">
         <nav className="pb-8 md:pb-16">
           <ul className="flex justify-center md:justify-start space-x-8">

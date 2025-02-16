@@ -29,6 +29,7 @@ export function ToothModel() {
     "Material Properties",
     {
       backside: true,
+      backsideResolution: { value: 512, min: 64, max: 1024, step: 64 },
       thickness: { value: 0.3, min: 0, max: 10, step: 0.01 },
       transmission: { value: 1, min: 0, max: 1, step: 0.01 },
       anisotropy: { value: 0.5, min: 0, max: 1, step: 0.01 },
@@ -36,10 +37,8 @@ export function ToothModel() {
       distortionScale: { value: 1.5, min: 0, max: 5, step: 0.1 },
       temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
       metalness: { value: 0.7, min: 0, max: 1, step: 0.01 },
-      roughness: { value: 0, min: 0, max: 1, step: 0.01 },
       chromaticAberration: { value: 1, min: 0, max: 1, step: 0.01 },
       resolution: { value: 1024, min: 64, max: 1024, step: 64 },
-      backsideResolution: { value: 512, min: 64, max: 1024, step: 64 },
     },
     { collapsed: true }
   )

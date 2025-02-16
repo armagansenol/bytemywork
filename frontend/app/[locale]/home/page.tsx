@@ -1,6 +1,7 @@
 import s from "./home.module.css"
 
 import { settingsQuery } from "@/sanity/lib/queries"
+import MuxPlayer from "@mux/mux-player-react"
 import cn from "clsx"
 import { getTranslations } from "next-intl/server"
 
@@ -9,7 +10,6 @@ import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
-import { Img } from "@/components/utility/img"
 import { Wrapper } from "@/components/wrapper"
 import { SettingsQueryResult } from "@/sanity.types"
 import { sanityFetch } from "@/sanity/lib/client"
@@ -42,9 +42,22 @@ export default async function HomePage({ params: { locale } }: { params: { local
         </p>
         <p className="max-w-lg text-sm md:text-base font-light mt-8">{t("hero.description")}</p>
       </section>
-      <section className="relative h-[240px] lg:h-[600px] w-full">
-        <Img src="/img/placeholder.jpg" alt="Aurora Background" className="object-cover" height={600} width={600} />
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="relative h-[240px] lg:h-[600px] w-full overflow-hidden flex items-center justify-center">
+        {/* <Img src="/img/placeholder.jpg" alt="Aurora Background" className="object-cover" height={600} width={600} />
+        <div className="absolute inset-0 bg-black/20" /> */}
+        <MuxPlayer
+          className="w-full h-full"
+          playbackId="3T00jE5oLtkvIRik9018b01QjL7FyRMcxu9Oq024lsIVMJc"
+          metadataVideoTitle="Placeholder (optional)"
+          metadata-viewer-user-id="Placeholder (optional)"
+          primary-color="#ffffff"
+          secondary-color="#000000"
+          accent-color="#76fb51"
+          autoPlay={true}
+          playsInline={true}
+          muted={true}
+          loop={true}
+        />
       </section>
       <section className="container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-12 lg:py-24 border-b border-dynamic-black">
         <div className="col-span-12 space-y-4">

@@ -1,9 +1,10 @@
 import cn from "clsx"
-import { ImageGridItem } from "@/types"
+import { ImageGridItem, VideoGridItem } from "@/types"
 import Image from "next/image"
+import MuxVideo from "@/components/mux-player"
 
 export interface ImageGridProps {
-  items: ImageGridItem[]
+  items: (ImageGridItem | VideoGridItem)[]
 }
 
 export function ImageGrid({ items }: ImageGridProps) {
@@ -20,22 +21,37 @@ export function ImageGrid({ items }: ImageGridProps) {
         "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3": items.length === 3,
       })}
     >
-      {items.slice(0, 3).map((image, index) => (
-        <div
-          key={index}
-          className={cn("relative aspect-[4/3] overflow-hidden rounded-lg", {
-            "sm:col-span-2 lg:col-span-1": items.length === 3 && index === 0,
-          })}
-        >
-          <Image
-            src={image.url}
-            alt="Project Image"
-            width={parseInt(image.width)}
-            height={parseInt(image.height)}
-            className="object-cover transition-transform duration-500 w-full h-full"
-          />
-        </div>
-      ))}
+      {items.map((item, index) => {
+        if ("playbackId" in item) {
+          return (
+            <div
+              key={index}
+              className={cn("relative overflow-hidden rounded-lg", {
+                "sm:col-span-2 lg:col-span-1": items.length === 3 && index === 0,
+              })}
+            >
+              <MuxVideo playbackId={item.playbackId} title={item.filename} />
+            </div>
+          )
+        }
+
+        return (
+          <div
+            key={index}
+            className={cn("relative overflow-hidden rounded-lg", {
+              "sm:col-span-2 lg:col-span-1": items.length === 3 && index === 0,
+            })}
+          >
+            <Image
+              src={item.url}
+              alt="Project Image"
+              width={parseInt(item.width)}
+              height={parseInt(item.height)}
+              className="object-cover transition-transform duration-500 w-full h-full"
+            />
+          </div>
+        )
+      })}
     </div>
   )
 }
