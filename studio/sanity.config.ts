@@ -140,5 +140,7 @@ export default defineConfig({
   // Schema configuration, imported from ./src/schemaTypes/index.ts
   schema: {
     types: schemaTypes,
+    templates: (prev) =>
+      prev.filter((template) => !['project', 'deliverable'].includes(template.id)),
   },
 })
