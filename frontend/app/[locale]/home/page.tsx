@@ -122,7 +122,6 @@ export default async function HomePage({ params: { locale } }: { params: { local
           <ProjectCard
             key={index}
             projectName={project.projectName}
-            description={project.description}
             heroImage={project.heroImage?.url ?? ""}
             slug={project.slug}
             deliverables={project.deliverables?.map((d) => d.title) as string[]}
