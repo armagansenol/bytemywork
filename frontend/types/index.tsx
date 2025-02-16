@@ -32,7 +32,7 @@ export interface ProjectIntro {
   websiteUrl: string
 }
 
-export interface ImageGridItem {
+export interface MediaGridItem {
   url: string
   width: string
   height: string
@@ -49,11 +49,11 @@ export interface TextBlockItem {
   content: string
 }
 
-export type ComponentType = "ImageGrid" | "TextBlock"
+export type ComponentType = "MediaGrid" | "TextBlock"
 
 export interface ContentBlock {
   component: ComponentType
-  items: (ImageGridItem | TextBlockItem)[]
+  items: (MediaGridItem | TextBlockItem)[]
 }
 
 export interface ProjectDetail extends ProjectIntro {

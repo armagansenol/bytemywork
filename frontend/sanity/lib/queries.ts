@@ -46,7 +46,7 @@ export const getProjectQuery = defineQuery(`
     },
     websiteUrl,
     body[]{
-      _type == "imageGrid" => {
+      _type == "mediaGrid" => {
         component,
         items[]{
           _type == "image" => {

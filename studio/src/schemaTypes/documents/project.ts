@@ -68,8 +68,8 @@ export default defineType({
       type: 'array',
       of: [
         defineField({
-          name: 'imageGrid',
-          title: 'Image Grid',
+          name: 'mediaGrid',
+          title: 'Media Grid',
           type: 'object',
           preview: {
             select: {
@@ -93,7 +93,6 @@ export default defineType({
               name: 'component',
               title: 'Component',
               type: 'string',
-              initialValue: 'ImageGrid',
               readOnly: true,
             }),
             defineField({

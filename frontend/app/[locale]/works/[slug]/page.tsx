@@ -4,7 +4,7 @@ import cn from "clsx"
 import { getTranslations } from "next-intl/server"
 import { Link as LocalizedLink } from "@/i18n/routing"
 
-import { ImageGrid } from "@/components/shared/image-grid"
+import { MediaGrid } from "@/components/shared/image-grid"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { ScrambleText } from "@/components/shared/scramble-text"
 import { TextBlock } from "@/components/shared/text-block"
@@ -19,8 +19,8 @@ type Props = {
   params: Promise<{ slug: string; locale: string }>
 }
 
-type ImageGridBlock = {
-  component: "ImageGrid"
+type MediaGridBlock = {
+  component: "MediaGrid"
   items?: Array<
     | {
         url: string | null
@@ -42,7 +42,7 @@ type TextBlock = {
   description: string
 }
 
-type Block = ImageGridBlock | TextBlock
+type Block = MediaGridBlock | TextBlock
 
 export default async function Page(props: Props) {
   const params = await props.params
@@ -129,7 +129,7 @@ export default async function Page(props: Props) {
       <section className="container-section pb-16 lg:pb-28">
         <div className="space-y-4">
           {((project?.body || []) as Block[]).map((block: Block, index) => {
-            if (block.component === "ImageGrid") {
+            if (block.component === "MediaGrid") {
               const gridItems =
                 block.items
                   ?.map((item) => {
@@ -151,7 +151,7 @@ export default async function Page(props: Props) {
                   .filter(Boolean) || []
               return (
                 <div key={index}>
-                  <ImageGrid items={gridItems} />
+                  <MediaGrid items={gridItems} />
                 </div>
               )
             }

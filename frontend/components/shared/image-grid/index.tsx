@@ -1,16 +1,16 @@
 import cn from "clsx"
-import { ImageGridItem, VideoGridItem } from "@/types"
+import { MediaGridItem, VideoGridItem } from "@/types"
 import Image from "next/image"
 import MuxVideo from "@/components/mux-player"
 
-export interface ImageGridProps {
-  items: (ImageGridItem | VideoGridItem)[]
+export interface MediaGridProps {
+  items: (MediaGridItem | VideoGridItem)[]
 }
 
-export function ImageGrid({ items }: ImageGridProps) {
+export function MediaGrid({ items }: MediaGridProps) {
   if (!items || items.length === 0) return null
   if (items.length > 3) {
-    console.warn("ImageGrid supports maximum of 3 images. Additional images will be ignored.")
+    console.warn("MediaGrid supports maximum of 3 images. Additional images will be ignored.")
   }
 
   return (
