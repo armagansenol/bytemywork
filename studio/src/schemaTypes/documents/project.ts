@@ -101,7 +101,14 @@ export default defineType({
               name: 'items',
               title: 'Images',
               type: 'array',
-              of: [{type: 'image'}],
+              of: [
+                {type: 'image'},
+                {
+                  title: 'Video file',
+                  name: 'video',
+                  type: 'mux.video',
+                },
+              ],
               validation: (Rule) => Rule.max(3),
             }),
           ],

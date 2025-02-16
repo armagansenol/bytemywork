@@ -4,14 +4,15 @@
  */
 
 import {documentInternationalization} from '@sanity/document-internationalization'
+import {AsteriskIcon} from '@sanity/icons'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
+import {muxInput} from 'sanity-plugin-mux-input'
 import {structureTool} from 'sanity/structure'
+import {LANGUAGES} from './src/lib/constants'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
-import {LANGUAGES} from './src/lib/constants'
-import {AsteriskIcon} from '@sanity/icons'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -70,6 +71,7 @@ export default defineConfig({
       defaultLanguages: [...LANGUAGES.map((lang) => lang.id)],
       fieldTypes: ['string'],
     }),
+    muxInput(),
     // presentationTool({
     //   previewUrl: {
     //     origin: SANITY_STUDIO_PREVIEW_URL,
