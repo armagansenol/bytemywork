@@ -1,5 +1,7 @@
 "use client"
 
+import "./mux-player.css"
+
 import MuxPlayer from "@mux/mux-player-react"
 
 interface MuxVideoProps {

@@ -1,0 +1,6 @@
+mux-player {
+  --media-object-fit: cover;
+  --media-object-position: center;
+
+  --controls: none;
+}
