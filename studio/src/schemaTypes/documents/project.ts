@@ -27,7 +27,6 @@ export default defineType({
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'heroImage',
@@ -104,7 +103,7 @@ export default defineType({
               of: [
                 {type: 'image'},
                 {
-                  title: 'Video file',
+                  title: 'Video',
                   name: 'video',
                   type: 'mux.video',
                 },
