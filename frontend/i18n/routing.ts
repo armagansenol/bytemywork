@@ -3,20 +3,20 @@ import { defineRouting } from "next-intl/routing"
 
 export const routing = defineRouting({
   locales: ["tr", "en"],
-  defaultLocale: "tr",
+  defaultLocale: "en",
   localeDetection: false,
+  localePrefix: "as-needed",
   pathnames: {
     "/": "/",
     "/works": {
-      tr: "/projeler",
       en: "/works",
+      tr: "/projeler",
     },
     "/contact": {
-      tr: "/iletisim",
       en: "/contact",
+      tr: "/iletisim",
     },
   },
-  localePrefix: "as-needed",
 })
 
 export type Pathnames = keyof typeof routing.pathnames
