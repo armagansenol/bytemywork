@@ -47,21 +47,21 @@ export const getProjectQuery = defineQuery(`
     websiteUrl,
     body[]{
       _type == "mediaGrid" => {
-        component,
-        items[]{
-          _type == "image" => {
-            ${IMAGE}
-          },
-          _type == "video" => {
-            ${VIDEO}
-          }
+      component,
+      items[]{
+        _type == "image" => {
+          ${IMAGE}
+        },
+        _type == "video" => {
+          ${VIDEO}
         }
-      },
-      _type == "textBlock" => {
-        component,
-        title,
-        description
       }
+    },
+    _type == "textBlock" => {
+      component,
+      title,
+      description
+    }
     }
   }
 `)

@@ -144,6 +144,85 @@ export type ContactForm = {
   projectDetails: string;
 };
 
+export type MuxVideo = {
+  _type: "mux.video";
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
+  };
+};
+
+export type MuxVideoAsset = {
+  _type: "mux.videoAsset";
+  status?: string;
+  assetId?: string;
+  playbackId?: string;
+  filename?: string;
+  thumbTime?: number;
+  data?: MuxAssetData;
+};
+
+export type MuxAssetData = {
+  _type: "mux.assetData";
+  resolution_tier?: string;
+  upload_id?: string;
+  created_at?: string;
+  id?: string;
+  status?: string;
+  max_stored_resolution?: string;
+  passthrough?: string;
+  encoding_tier?: string;
+  master_access?: string;
+  aspect_ratio?: string;
+  duration?: number;
+  max_stored_frame_rate?: number;
+  mp4_support?: string;
+  max_resolution_tier?: string;
+  tracks?: Array<{
+    _key: string;
+  } & MuxTrack>;
+  playback_ids?: Array<{
+    _key: string;
+  } & MuxPlaybackId>;
+  static_renditions?: MuxStaticRenditions;
+};
+
+export type MuxStaticRenditions = {
+  _type: "mux.staticRenditions";
+  status?: string;
+  files?: Array<{
+    _key: string;
+  } & MuxStaticRenditionFile>;
+};
+
+export type MuxStaticRenditionFile = {
+  _type: "mux.staticRenditionFile";
+  ext?: string;
+  name?: string;
+  width?: number;
+  bitrate?: number;
+  filesize?: number;
+  height?: number;
+};
+
+export type MuxPlaybackId = {
+  _type: "mux.playbackId";
+  id?: string;
+  policy?: string;
+};
+
+export type MuxTrack = {
+  _type: "mux.track";
+  id?: string;
+  type?: string;
+  max_width?: number;
+  max_frame_rate?: number;
+  duration?: number;
+  max_height?: number;
+};
+
 export type InternationalizedArrayStringValue = {
   _type: "internationalizedArrayStringValue";
   value?: string;
@@ -219,8 +298,24 @@ export type Project = {
   _rev: string;
   projectName: string;
   slug: Slug;
-  description: string;
-  companyName: string;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   heroImage?: {
     asset?: {
       _ref: string;
@@ -255,13 +350,32 @@ export type Project = {
       crop?: SanityImageCrop;
       _type: "image";
       _key: string;
-    }>;
-    _type: "imageGrid";
+    } | {
+      _key: string;
+    } & MuxVideo>;
+    _type: "mediaGrid";
     _key: string;
   } | {
     component?: string;
     title?: string;
-    description?: string;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
     _type: "textBlock";
     _key: string;
   }>;
@@ -335,11 +449,11 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | ContactForm | InternationalizedArrayStringValue | InternationalizedArrayString | TranslationMetadata | InternationalizedArrayReferenceValue | Settings | Deliverable | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CallToAction | Link | InfoSection | BlockContent | ContactForm | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | InternationalizedArrayStringValue | InternationalizedArrayString | TranslationMetadata | InternationalizedArrayReferenceValue | Settings | Deliverable | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings" && language == $language][0]{    ...,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      language    },    highlightedProjects[]->{      _id,      projectName,      "slug": slug.current,      description,      heroImage {          ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,      },      client,      date,      deliverables[]->{          _id,  "title": title[_key == $language][0].value      },      websiteUrl    }  }
+// Query: *[_type == "settings" && language == $language][0]{    ...,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      language    },    highlightedProjects[]->{      _id,      projectName,      "slug": slug.current,      description,      heroImage {          ...,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,      },      client,      date,      deliverables[]->{          _id,  "title": title[_key == $language][0].value      },      websiteUrl    }  }
 export type SettingsQueryResult = {
   _id: string;
   _type: "settings";
@@ -350,7 +464,24 @@ export type SettingsQueryResult = {
     _id: string;
     projectName: string;
     slug: string;
-    description: string;
+    description: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
     heroImage: {
       asset?: {
         _ref: string;
@@ -361,7 +492,6 @@ export type SettingsQueryResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: "image";
-      altText: string | null;
       height: number | null;
       url: string | null;
       width: number | null;
@@ -380,10 +510,27 @@ export type SettingsQueryResult = {
   } | null>;
 } | null;
 // Variable: getProjectQuery
-// Query: *[_type == "project" && slug.current == $slug && language == $language][0]{    projectName,    description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    client,    date,    deliverables[]->{        _id,  "title": title[_key == $language][0].value    },    websiteUrl,    body[]{      _type == "mediaGrid" => {        component,        items[]{          _type == "image" => {              ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,          },          _type == "video" => {              ...,    "playbackId": asset->playbackId,    "assetId": asset->assetId,    "filename": asset->filename          }        }      },      _type == "textBlock" => {        component,        title,        description      }    }  }
+// Query: *[_type == "project" && slug.current == $slug && language == $language][0]{    projectName,    description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    client,    date,    deliverables[]->{        _id,  "title": title[_key == $language][0].value    },    websiteUrl,    body[]{      _type == "mediaGrid" => {      component,      items[]{        _type == "image" => {            ...,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,        },        _type == "video" => {            ...,    "playbackId": asset->playbackId,    "assetId": asset->assetId,    "filename": asset->filename        }      }    },    _type == "textBlock" => {      component,      title,      description    }    }  }
 export type GetProjectQueryResult = {
   projectName: string;
-  description: string;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
   _translations: Array<{
     projectName: null;
     slug: null;
@@ -403,7 +550,6 @@ export type GetProjectQueryResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
-    altText: string | null;
     height: number | null;
     url: string | null;
     width: number | null;
@@ -415,19 +561,70 @@ export type GetProjectQueryResult = {
     title: string | null;
   }> | null;
   websiteUrl: string | null;
-  body: Array<{} | {
+  body: Array<{
     component: string | null;
     title: string | null;
-    description: string | null;
+    description: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+  } | {
+    component: string | null;
+    items: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+      height: number | null;
+      url: string | null;
+      width: number | null;
+    } | {}> | null;
   }> | null;
 } | null;
 // Variable: getProjectsQuery
-// Query: *[_type == "project" && language == $language]{    _id,    projectName,    "slug": slug.current,    description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  "altText": asset->altText,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    deliverables[]->{        _id,  "title": title[_key == $language][0].value    }  }
+// Query: *[_type == "project" && language == $language]{    _id,    projectName,    "slug": slug.current,    description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    deliverables[]->{        _id,  "title": title[_key == $language][0].value    }  }
 export type GetProjectsQueryResult = Array<{
   _id: string;
   projectName: string;
   slug: string;
-  description: string;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
   _translations: Array<{
     projectName: null;
     slug: null;
@@ -447,7 +644,6 @@ export type GetProjectsQueryResult = Array<{
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
-    altText: string | null;
     height: number | null;
     url: string | null;
     width: number | null;
@@ -462,8 +658,8 @@ export type GetProjectsQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"settings\" && language == $language][0]{\n    ...,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      language\n    },\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      \"slug\": slug.current,\n      description,\n      heroImage {\n        \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n      },\n      client,\n      date,\n      deliverables[]->{\n        \n  _id,\n  \"title\": title[_key == $language][0].value\n\n      },\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
-    "\n  *[_type == \"project\" && slug.current == $slug && language == $language][0]{\n    projectName,\n    description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    client,\n    date,\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    },\n    websiteUrl,\n    body[]{\n      _type == \"mediaGrid\" => {\n        component,\n        items[]{\n          _type == \"image\" => {\n            \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n          },\n          _type == \"video\" => {\n            \n  ...,\n    \"playbackId\": asset->playbackId,\n    \"assetId\": asset->assetId,\n    \"filename\": asset->filename\n\n          }\n        }\n      },\n      _type == \"textBlock\" => {\n        component,\n        title,\n        description\n      }\n    }\n  }\n": GetProjectQueryResult;
-    "\n  *[_type == \"project\" && language == $language]{\n    _id,\n    projectName,\n    \"slug\": slug.current,\n    description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  \"altText\": asset->altText,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    }\n  }\n": GetProjectsQueryResult;
+    "\n  *[_type == \"settings\" && language == $language][0]{\n    ...,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      language\n    },\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      \"slug\": slug.current,\n      description,\n      heroImage {\n        \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n      },\n      client,\n      date,\n      deliverables[]->{\n        \n  _id,\n  \"title\": title[_key == $language][0].value\n\n      },\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug && language == $language][0]{\n    projectName,\n    description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    client,\n    date,\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    },\n    websiteUrl,\n    body[]{\n      _type == \"mediaGrid\" => {\n      component,\n      items[]{\n        _type == \"image\" => {\n          \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n        },\n        _type == \"video\" => {\n          \n  ...,\n    \"playbackId\": asset->playbackId,\n    \"assetId\": asset->assetId,\n    \"filename\": asset->filename\n\n        }\n      }\n    },\n    _type == \"textBlock\" => {\n      component,\n      title,\n      description\n    }\n    }\n  }\n": GetProjectQueryResult;
+    "\n  *[_type == \"project\" && language == $language]{\n    _id,\n    projectName,\n    \"slug\": slug.current,\n    description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    }\n  }\n": GetProjectsQueryResult;
   }
 }

@@ -24,8 +24,6 @@ export default async function HomePage({ params: { locale } }: { params: { local
     getTranslations("home"),
   ])
 
-  console.log("settings", settings)
-
   return (
     <Wrapper className={s.home} theme="dark">
       <section className="hidden lg:block">

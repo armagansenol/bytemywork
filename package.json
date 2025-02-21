@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:next": "npm run dev --workspace=frontend",
-    "dev:studio": "npm run dev --workspace=studio"
+    "dev:studio": "npm run dev --workspace=studio",
+    "prebuild:frontend": "npm run prebuild --workspace=frontend",
+    "prebuild:studio": "npm run prebuild --workspace=studio",
+    "prebuild:all": "npm run prebuild:frontend && npm run prebuild:studio"
   },
   "keywords": [
     "Sanity",

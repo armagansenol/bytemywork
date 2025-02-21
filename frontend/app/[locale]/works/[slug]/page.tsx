@@ -1,45 +1,35 @@
 import s from "./project-detail.module.css"
 
+import { Link as LocalizedLink } from "@/i18n/routing"
+import { PortableTextBlock } from "@portabletext/react"
 import cn from "clsx"
 import { getTranslations } from "next-intl/server"
-import { Link as LocalizedLink } from "@/i18n/routing"
 
+import { CustomizedPortableText } from "@/components/shared/customized-portable-text"
 import { MediaGrid } from "@/components/shared/image-grid"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { ScrambleText } from "@/components/shared/scramble-text"
 import { TextBlock } from "@/components/shared/text-block"
 import { Img } from "@/components/utility/img"
-import { Wrapper } from "@/components/wrapper"
-import { getProjectQuery } from "@/sanity/lib/queries"
 import { Link } from "@/components/utility/link"
-import { sanityFetch } from "@/sanity/lib/client"
+import { Wrapper } from "@/components/wrapper"
 import { GetProjectQueryResult } from "@/sanity.types"
-
+import { sanityFetch } from "@/sanity/lib/client"
+import { getProjectQuery } from "@/sanity/lib/queries"
+import { MediaGridItem, VideoGridItem } from "@/types"
 type Props = {
   params: Promise<{ slug: string; locale: string }>
 }
 
 type MediaGridBlock = {
   component: "MediaGrid"
-  items?: Array<
-    | {
-        url: string | null
-        width: number | null
-        height: number | null
-        alt: string | null
-      }
-    | {
-        playbackId: string
-        assetId: string
-        filename: string
-      }
-  >
+  items?: Array<MediaGridItem | VideoGridItem>
 }
 
 type TextBlock = {
   component: "TextBlock"
   title: string
-  description: string
+  description: PortableTextBlock[]
 }
 
 type Block = MediaGridBlock | TextBlock
@@ -51,10 +41,7 @@ export default async function Page(props: Props) {
     qParams: { ...params, language: params.locale },
     tags: ["project"],
   })
-
   const t = await getTranslations("projectDetail")
-
-  console.log("p", project?.body)
 
   return (
     <Wrapper theme="dark" headerVariant="withLogo">
@@ -73,14 +60,9 @@ export default async function Page(props: Props) {
                   autoStart={true}
                 />
               </h1>
-              <p className="text-base lg:text-lg font-light">
-                <ScrambleIn
-                  text={`${project?.description}`}
-                  scrambleSpeed={5}
-                  scrambledLetterCount={5}
-                  autoStart={true}
-                />
-              </p>
+              <div className="text-base lg:text-lg font-light">
+                <CustomizedPortableText content={project?.description as PortableTextBlock[]} />
+              </div>
             </div>
           </div>
           <div className={cn(s.heroImage, "col-span-12 lg:col-span-15 relative")}>
@@ -91,6 +73,7 @@ export default async function Page(props: Props) {
                 width={project?.heroImage?.width as number}
                 height={project?.heroImage?.height as number}
                 className="object-cover"
+                priority
               />
             </div>
             <LocalizedLink href="/contact" className="absolute bottom-4 right-4">
@@ -133,19 +116,17 @@ export default async function Page(props: Props) {
               const gridItems =
                 block.items
                   ?.map((item) => {
-                    if ("url" in item) {
+                    if ("playbackId" in item) {
                       return {
-                        url: item.url || "",
-                        width: String(item.width || 0),
-                        height: String(item.height || 0),
-                        alt: item.alt || "",
+                        playbackId: item.playbackId,
+                        assetId: item.assetId,
+                        filename: item.filename,
                       }
                     }
-                    // Handle video items differently or skip them
                     return {
-                      playbackId: item.playbackId,
-                      assetId: item.assetId,
-                      filename: item.filename,
+                      url: item.url,
+                      width: String(item.width),
+                      height: String(item.height),
                     }
                   })
                   .filter(Boolean) || []

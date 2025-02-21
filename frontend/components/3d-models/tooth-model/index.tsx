@@ -44,7 +44,6 @@ export function ToothModel() {
   )
 
   function handlePointerDown() {
-    console.log("handlePointerDown")
     actions["Dis UstAction"]?.reset().setEffectiveTimeScale(15).play()
     actions["Dis AltAction"]?.reset().setEffectiveTimeScale(15).play()
   }

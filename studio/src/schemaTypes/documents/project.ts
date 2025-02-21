@@ -1,5 +1,5 @@
-import {defineField, defineType} from 'sanity'
 import React from 'react'
+import {defineField, defineType} from 'sanity'
 import {isUniqueOtherThanLanguage} from '../../lib/utils'
 
 export default defineType({
@@ -26,7 +26,21 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+          marks: {
+            // Only allow these decorators
+            decorators: [
+              {title: 'Strong', value: 'strong'},
+              {title: 'Emphasis', value: 'em'},
+              {title: 'Underline', value: 'underline'},
+            ],
+          },
+        },
+      ],
     }),
     defineField({
       name: 'heroImage',
@@ -93,8 +107,8 @@ export default defineType({
               name: 'component',
               title: 'Component',
               type: 'string',
+              initialValue: 'MediaGrid',
               readOnly: true,
-              hidden: true,
             }),
             defineField({
               name: 'items',
@@ -123,7 +137,6 @@ export default defineType({
               type: 'string',
               initialValue: 'TextBlock',
               readOnly: true,
-              hidden: true,
             }),
             defineField({
               name: 'title',
@@ -133,8 +146,21 @@ export default defineType({
             defineField({
               name: 'description',
               title: 'Description',
-              type: 'text',
-              rows: 3,
+              type: 'array',
+              of: [
+                {
+                  type: 'block',
+                  styles: [{title: 'Normal', value: 'normal'}],
+                  marks: {
+                    // Only allow these decorators
+                    decorators: [
+                      {title: 'Strong', value: 'strong'},
+                      {title: 'Emphasis', value: 'em'},
+                      {title: 'Underline', value: 'underline'},
+                    ],
+                  },
+                },
+              ],
             }),
           ],
           preview: {
@@ -143,9 +169,9 @@ export default defineType({
               description: 'description',
               component: 'component',
             },
-            prepare({title, description, component}) {
+            prepare({title, description}) {
               return {
-                title: title || 'Untitled Text Block',
+                title: title || 'Text Block',
                 subtitle: description?.substring(0, 50) + (description?.length > 50 ? '...' : ''),
                 media: () => React.createElement('span', {style: {fontSize: '1.5em'}}, 'T'),
               }
