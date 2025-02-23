@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { ScrambleText } from "@/components/shared/scramble-text"
 import { Img } from "@/components/utility/img"
-import { Link } from "@/components/utility/link"
+import { Link as LocaleLink } from "@/i18n/routing"
 
 const projectCardVariants = cva("cursor-pointer", {
   variants: {
@@ -27,7 +27,13 @@ interface ProjectCardProps extends VariantProps<typeof projectCardVariants> {
 
 export function ProjectCard({ projectName, deliverables, heroImage: image, slug, layout }: ProjectCardProps) {
   return (
-    <Link className={cn(projectCardVariants({ layout }), "cursor-pointer")} href={`/works/${slug}`}>
+    <LocaleLink
+      className={cn(projectCardVariants({ layout }), "cursor-pointer")}
+      href={{
+        pathname: "/works/[slug]",
+        params: { slug },
+      }}
+    >
       <div
         className={cn(layout === "vertical" ? "order-2" : "lg:col-span-12 order-1", "w-full space-y-6 lg:space-y-10")}
       >
@@ -55,6 +61,6 @@ export function ProjectCard({ projectName, deliverables, heroImage: image, slug,
       >
         <Img className="object-cover rounded-lg" src={image} alt="Project Cover Image" width={500} height={500} />
       </div>
-    </Link>
+    </LocaleLink>
   )
 }
