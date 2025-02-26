@@ -19,7 +19,7 @@ interface MuxVideoProps {
 export default function MuxVideo({
   playbackId,
   title,
-  className = "w-full h-full",
+  className,
   primaryColor = "#ffffff",
   secondaryColor = "#000000",
   accentColor = "#76fb51",
