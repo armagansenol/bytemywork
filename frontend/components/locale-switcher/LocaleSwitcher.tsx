@@ -26,7 +26,7 @@ export default function LocaleSwitcher() {
   const getLocaleButtonClasses = (loc: Locale) => {
     const isActive = locale === loc
     return cn(
-      "flex items-center justify-center w-8 h-8 lg:w-7 lg:h-7 xl:w-8 xl:h-8",
+      "flex items-center justify-center",
       "text-xs xl:text-sm",
       "leading-none font-medium transition duration-100 cursor-pointer",
       "hover:opacity-75",
@@ -36,7 +36,7 @@ export default function LocaleSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-2 lg:gap-0">
+    <div className="flex items-center gap-2 lg:gap-4">
       {routing.locales.map((loc) => (
         <div
           key={loc}

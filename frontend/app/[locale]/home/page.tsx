@@ -34,7 +34,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
         <div className={cn(s.teeth, "block lg:hidden")}>
           <LogoText />
         </div>
-        <p className="text-lg md:text-xl font-light -mt-20 ml-0 md:ml-auto ">
+        <p className="text-sm md:text-xl font-light md:-mt-20 ml-0 md:ml-auto ">
           <ScrambleIn text={t("hero.tagline")} scrambleSpeed={50} scrambledLetterCount={5} autoStart={true} />
         </p>
         <p className="max-w-lg text-sm md:text-base font-light mt-8">{t("hero.description")}</p>
@@ -101,7 +101,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
           </h3>
         </div>
       </section>
-      <section className="container-section py-12 lg:py-24 space-y-32">
+      <section className="container-section py-12 lg:py-24 space-y-16 lg:space-y-32">
         {settings?.highlightedProjects.map((project, index: number) => (
           <ProjectCard
             key={index}

@@ -32,7 +32,7 @@ export function Header({ variant }: HeaderProps) {
     <header className={cn(s.header, headerVariants({ variant }))}>
       {/* Mobile-first approach with responsive nav */}
       <nav className="order-2 md:order-1">
-        <ul className="flex gap-4 md:gap-8 text-sm md:text-base">
+        <ul className="flex gap-4 md:gap-8 text-xs md:text-base">
           <li>
             <LocalizedLink href="/works">
               <ScrambleText text={t("works")} />
@@ -50,7 +50,7 @@ export function Header({ variant }: HeaderProps) {
           <Logo />
         </LocalizedLink>
       )}
-      <div className="flex items-center gap-2 md:gap-4 text-sm md:text-base order-3">
+      <div className="order-3">
         <LocaleSwitcher />
       </div>
     </header>
