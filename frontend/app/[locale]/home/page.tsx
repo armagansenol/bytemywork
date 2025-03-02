@@ -12,6 +12,7 @@ import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Wrapper } from "@/components/wrapper"
+import { Video } from "@/components/utility/video"
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const [settings, t] = await Promise.all([
@@ -25,12 +26,15 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
   return (
     <Wrapper className={s.home} theme="dark">
-      <section className="hidden lg:block">
+      <div className={cn(s.bgVideo, "z-20")}>
+        <Video className="object-cover" primaryVideoUrl="/video/intro-bg.mp4" autoPlay muted loop />
+      </div>
+      <section className="hidden lg:block z-50">
         <div className={s.teeth}>
           <HeroSection />
         </div>
       </section>
-      <section className="container-section pb-12 lg:pb-24 flex flex-col relative">
+      <section className="container-section pb-12 lg:pb-24 flex flex-col relative z-50">
         <div className={cn(s.teeth, "block lg:hidden")}>
           <LogoText />
         </div>

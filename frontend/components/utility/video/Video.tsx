@@ -1,6 +1,6 @@
 import { forwardRef } from "react"
 
-import s from "./video.module.scss"
+import s from "./video.module.css"
 
 import cx from "clsx"
 
