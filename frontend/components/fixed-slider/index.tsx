@@ -48,15 +48,6 @@ export function FixedSlider() {
             ease: "power3.inOut",
           }
         )
-        .fromTo(
-          ".gsap-slide-4",
-          { clipPath: "inset(0% 0% 0% 0%)" },
-          {
-            clipPath: "inset(0% 100% 0% 0%)",
-            duration: 1.2,
-            ease: "power3.inOut",
-          }
-        )
 
       ScrollTrigger.create({
         animation: menuTL.current,
@@ -80,6 +71,7 @@ export function FixedSlider() {
           alt="Foggy mountains landscape"
           width={2000}
           height={2000}
+          priority={true}
         />
       </div>
       <div className={cn(s.frame, s.slide, "gsap-slide-2 z-40")}>
@@ -89,6 +81,7 @@ export function FixedSlider() {
           alt="Modern architecture"
           width={2000}
           height={2000}
+          priority={true}
         />
       </div>
       <div className={cn(s.frame, s.slide, "gsap-slide-3 z-30")}>
@@ -98,6 +91,7 @@ export function FixedSlider() {
           alt="Coastal landscape"
           width={2000}
           height={2000}
+          priority={true}
         />
       </div>
       <div className={cn(s.slide, "z-20")}>
@@ -107,6 +101,7 @@ export function FixedSlider() {
           alt="City skyline"
           width={2000}
           height={2000}
+          priority={true}
         />
       </div>
     </div>
