@@ -310,24 +310,6 @@ export type Project = {
   _rev: string;
   projectName: string;
   slug: Slug;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
   heroImage?: {
     asset?: {
       _ref: string;
@@ -589,7 +571,7 @@ export type GetProjectQueryResult = {
   }> | null;
 } | null;
 // Variable: getProjectsQuery
-// Query: *[_type == "project" && language == $language]{    _id,    projectName,    "slug": slug.current,    // description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    deliverables[]->{        _id,  "title": title[_key == $language][0].value    }  }
+// Query: *[_type == "project" && language == $language]|order(orderRank){    _id,    projectName,    "slug": slug.current,    // description,    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      projectName,      "slug": slug.current,      language    },    heroImage {        ...,  'height': asset->metadata.dimensions.height,  'url': asset->url,  'width': asset->metadata.dimensions.width,    },    deliverables[]->{        _id,  "title": title[_key == $language][0].value    }  }
 export type GetProjectsQueryResult = Array<{
   _id: string;
   projectName: string;
@@ -629,6 +611,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"settings\" && language == $language][0]{\n    ...,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      language\n    },\n    highlightedProjects[]->{\n      _id,\n      projectName,\n      \"slug\": slug.current,\n      // description,\n      heroImage {\n        \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n      },\n      client,\n      date,\n      deliverables[]->{\n        \n  _id,\n  \"title\": title[_key == $language][0].value\n\n      },\n      websiteUrl\n    }\n  }\n": SettingsQueryResult;
     "\n  *[_type == \"project\" && slug.current == $slug && language == $language][0]{\n    projectName,\n    // description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    client,\n    date,\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    },\n    techStack[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    },\n    websiteUrl,\n    body[]{\n      _type == \"mediaGrid\" => {\n      component,\n      items[]{\n        _type == \"image\" => {\n          \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n        },\n        _type == \"video\" => {\n          \n  ...,\n    \"playbackId\": asset->playbackId,\n    \"assetId\": asset->assetId,\n    \"filename\": asset->filename\n\n        }\n      }\n    },\n    _type == \"textBlock\" => {\n      component,\n      title,\n      description\n    }\n    }\n  }\n": GetProjectQueryResult;
-    "\n  *[_type == \"project\" && language == $language]{\n    _id,\n    projectName,\n    \"slug\": slug.current,\n    // description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    }\n  }\n": GetProjectsQueryResult;
+    "\n  *[_type == \"project\" && language == $language]|order(orderRank){\n    _id,\n    projectName,\n    \"slug\": slug.current,\n    // description,\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      projectName,\n      \"slug\": slug.current,\n      language\n    },\n    heroImage {\n      \n  ...,\n  'height': asset->metadata.dimensions.height,\n  'url': asset->url,\n  'width': asset->metadata.dimensions.width,\n\n    },\n    deliverables[]->{\n      \n  _id,\n  \"title\": title[_key == $language][0].value\n\n    }\n  }\n": GetProjectsQueryResult;
   }
 }

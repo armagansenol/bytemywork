@@ -1,5 +1,6 @@
 import {AsteriskIcon, CogIcon, EmptyIcon, EnvelopeIcon} from '@sanity/icons'
 import type {StructureResolver} from 'sanity/structure'
+import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 import {ContactFormList} from '../components/ContactFormList'
 import {LANGUAGES} from '../lib/constants'
 
@@ -9,7 +10,7 @@ import {LANGUAGES} from '../lib/constants'
  * Learn more: https://www.sanity.io/docs/structure-builder-introduction
  */
 
-export const structure: StructureResolver = (S: any) =>
+export const structure: StructureResolver = (S: any, context: any) =>
   S.list()
     .title('Website Content')
     .items([
@@ -20,19 +21,22 @@ export const structure: StructureResolver = (S: any) =>
         .child(
           S.list()
             .title('Projects')
-            .items(
-              LANGUAGES.map((language) =>
-                S.listItem()
-                  .title(` Projects (${language.id.toLocaleUpperCase()} ${language.flag})`)
-                  .child(
-                    S.documentTypeList('project')
-                      .title(`Projects (${language.id.toLocaleUpperCase()} ${language.flag})`)
-                      .filter('_type == "project" && language == $language')
-                      .params({language: language.id}),
-                  )
-                  .icon(AsteriskIcon),
+            .items([
+              // Language-specific project lists with create buttons
+              ...LANGUAGES.map((language) =>
+                orderableDocumentListDeskItem({
+                  type: 'project',
+                  title: `Projects (${language.id.toLocaleUpperCase()} ${language.flag})`,
+                  icon: AsteriskIcon,
+                  filter: '_type == "project" && language == $language',
+                  params: {language: language.id},
+                  S,
+                  context,
+                  id: `orderable-project-${language.id}`,
+                  createIntent: true,
+                }),
               ),
-            ),
+            ]),
         )
         .icon(AsteriskIcon),
       S.listItem()

@@ -1,12 +1,21 @@
 import React from 'react'
 import {defineField, defineType} from 'sanity'
 import {isUniqueOtherThanLanguage} from '../../lib/utils'
+import {orderRankField, orderRankOrdering} from '@sanity/orderable-document-list'
 
 export default defineType({
   name: 'project',
   title: 'Project',
   type: 'document',
+  preview: {
+    select: {
+      title: 'projectName',
+      media: 'heroImage',
+    },
+  },
+  orderings: [orderRankOrdering],
   fields: [
+    orderRankField({type: 'project'}),
     defineField({
       name: 'projectName',
       title: 'Project Name',

@@ -71,7 +71,7 @@ export const getProjectQuery = defineQuery(`
 `)
 
 export const getProjectsQuery = defineQuery(`
-  *[_type == "project" && language == $language]{
+  *[_type == "project" && language == $language]|order(orderRank){
     _id,
     projectName,
     "slug": slug.current,
