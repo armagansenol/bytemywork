@@ -45,15 +45,15 @@ export default async function Page(props: Props) {
   const t = await getTranslations("projectDetail")
 
   return (
-    <Wrapper className="space-y-32" theme="dark" headerVariant="withLogo">
+    <Wrapper className="space-y-8 lg:space-y-16 xl:space-y-32" theme="dark" headerVariant="withLogo">
       <section className="container-section">
-        <div className="grid grid-cols-12 lg:grid-cols-24 gap-4 lg:gap-8 pt-8">
-          <div className="col-span-12 lg:col-span-9 space-y-12 lg:space-y-24">
-            <LocalizedLink className="text-sm text-namara-grey" href="/works">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-24 gap-4 lg:gap-8 pt-8">
+          <div className="col-span-12 lg:col-span-9 space-y-4 lg:space-y-6 xl:space-y-24">
+            <LocalizedLink className="text-sm lg:text-xs xl:text-sm text-namara-grey hidden lg:block" href="/works">
               [ <ScrambleText text={t("backToWorks")} scrambleSpeed={50} /> ]
             </LocalizedLink>
-            <div className="space-y-4 lg:space-y-12">
-              <h1 className="text-3xl sm:text-5xl md:text-4xl font-normal leading-none tracking-tighter">
+            <div className="space-y-4 lg:space-y-6 xl:space-y-12">
+              <h1 className="text-3xl sm:text-5xl lg:text-3xl xl:text-4xl font-normal leading-none tracking-tighter">
                 <ScrambleIn
                   text={`${project?.projectName}`}
                   scrambleSpeed={50}
@@ -64,23 +64,23 @@ export default async function Page(props: Props) {
               {/* <div className="text-base lg:text-lg font-light">
                 <CustomizedPortableText content={project?.description as PortableTextBlock[]} />
               </div> */}
-              <div className="grid grid-cols-12 lg:grid-cols-24 gap-y-6">
+              <div className="grid grid-cols-12 lg:grid-cols-24 gap-y-4 xl:gap-y-6">
                 {project?.client && (
-                  <div className="col-span-12 lg:col-span-12 space-y-2 border-b border-namara-grey/30 pb-6">
-                    <h2 className="text-md font-medium">{t("clientLabel")}</h2>
-                    <p className="text-sm font-light text-namara-grey">{project?.client}</p>
+                  <div className="col-span-12 lg:col-span-12 space-y-2 border-b border-namara-grey/30 pb-4 xl:pb-6">
+                    <h2 className="text-sm lg:text-xs xl:text-md font-medium">{t("clientLabel")}</h2>
+                    <p className="text-xs lg:text-xs xl:text-sm font-light text-namara-grey">{project?.client}</p>
                   </div>
                 )}
                 {project?.date && (
-                  <div className="col-span-12 lg:col-span-12 space-y-2 border-b border-namara-grey/30 pb-6">
-                    <h2 className="text-md font-medium">{t("dateLabel")}</h2>
-                    <p className="text-sm font-light text-namara-grey">{project?.date}</p>
+                  <div className="col-span-12 lg:col-span-12 space-y-2 border-b border-namara-grey/30 pb-4 xl:pb-6">
+                    <h2 className="text-sm lg:text-xs xl:text-md font-medium">{t("dateLabel")}</h2>
+                    <p className="text-xs lg:text-xs xl:text-sm font-light text-namara-grey">{project?.date}</p>
                   </div>
                 )}
                 {Array.isArray(project?.deliverables) && project.deliverables.length > 0 && (
-                  <div className="col-span-12 lg:col-span-24 space-y-2 border-b border-namara-grey/30 pb-6">
-                    <h2 className="text-md font-medium">{t("deliverablesLabel")}</h2>
-                    <ul className="space-y-2 text-sm font-light text-namara-grey">
+                  <div className="col-span-12 lg:col-span-24 space-y-2 border-b border-namara-grey/30 pb-4 xl:pb-6">
+                    <h2 className="text-sm lg:text-xs xl:text-md font-medium">{t("deliverablesLabel")}</h2>
+                    <ul className="space-y-2 text-xs lg:text-xs xl:text-sm font-light text-namara-grey">
                       {project.deliverables.map((item, index) => (
                         <li key={index}>{item.title}</li>
                       ))}
@@ -88,9 +88,9 @@ export default async function Page(props: Props) {
                   </div>
                 )}
                 {Array.isArray(project?.techStack) && project.techStack.length > 0 && (
-                  <div className="col-span-12 lg:col-span-24 space-y-2 border-b border-namara-grey/30 pb-6">
-                    <h2 className="text-md font-medium">{t("techStackLabel")}</h2>
-                    <ul className="text-sm font-light text-namara-grey flex flex-wrap gap-2">
+                  <div className="col-span-12 lg:col-span-24 space-y-2 border-b border-namara-grey/30 pb-4 xl:pb-6">
+                    <h2 className="text-sm lg:text-xs xl:text-md font-medium">{t("techStackLabel")}</h2>
+                    <ul className="text-xs lg:text-xs xl:text-sm font-light text-namara-grey flex flex-wrap gap-2">
                       {project.techStack.map((item, index) => (
                         <li key={index}>
                           {item.title}
@@ -102,10 +102,10 @@ export default async function Page(props: Props) {
                 )}
                 {project?.websiteUrl && (
                   <div className="col-span-12 lg:col-span-24 space-y-2">
-                    <h2 className="text-md font-medium">{t("visitWebsite")}</h2>
+                    <h2 className="text-md lg:text-xs xl:text-md font-medium">{t("visitWebsite")}</h2>
                     <Link
                       href={project?.websiteUrl as string}
-                      className="inline-block text-sm font-light text-namara-grey hover:text-gray-300 transition-colors"
+                      className="inline-block text-sm lg:text-xs xl:text-sm font-light text-namara-grey hover:text-gray-300 transition-colors"
                     >
                       {removeHttps(project?.websiteUrl as string)}
                     </Link>
@@ -129,9 +129,12 @@ export default async function Page(props: Props) {
               [ {t("startProject")} ]
             </LocalizedLink> */}
           </div>
+          <LocalizedLink className="text-sm lg:text-xs xl:text-sm text-namara-grey lg:hidden" href="/works">
+            [ <ScrambleText text={t("backToWorks")} scrambleSpeed={50} /> ]
+          </LocalizedLink>
         </div>
       </section>
-      <section className="container-section pb-16 lg:pb-28">
+      <section className="container-section pb-4 lg:pb-8 xl:pb-16">
         <div className="space-y-4">
           {((project?.body || []) as Block[]).map((block: Block, index) => {
             if (block.component === "MediaGrid") {
