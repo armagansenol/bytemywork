@@ -31,14 +31,11 @@ export function Footer() {
             <p>BASED IN ISTANBUL</p>
           </div>
           <div className="flex flex-col items-center justify-center md:flex-row md:justify-start gap-8 md:gap-8 font-semibold">
-            <Link href="https://dribbble.com" className="text-base">
+            <Link href="https://dribbble.com/bytemywork" className="text-base">
               [ <ScrambleText text={"DRIBBLE"} scrambleSpeed={30} /> ]
             </Link>
-            <Link href="https://instagram.com" className="text-base">
+            <Link href="https://instagram.com/bytemywork" className="text-base">
               [ <ScrambleText text={"INSTAGRAM"} scrambleSpeed={30} /> ]
-            </Link>
-            <Link href="https://linkedin.com" className="text-base">
-              [ <ScrambleText text={"LINKEDIN"} scrambleSpeed={30} /> ]
             </Link>
           </div>
         </div>

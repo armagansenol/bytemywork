@@ -2,6 +2,7 @@ import { defineQuery } from "next-sanity"
 import { IMAGE } from "../fragments/image"
 import { DELIVERABLE } from "../fragments/deliverable"
 import { VIDEO } from "../fragments/video"
+import { TECH_STACK } from "../fragments/techStack"
 
 export const settingsQuery = defineQuery(`
   *[_type == "settings" && language == $language][0]{
@@ -13,7 +14,7 @@ export const settingsQuery = defineQuery(`
       _id,
       projectName,
       "slug": slug.current,
-      description,
+      // description,
       heroImage {
         ${IMAGE}
       },
@@ -30,7 +31,7 @@ export const settingsQuery = defineQuery(`
 export const getProjectQuery = defineQuery(`
   *[_type == "project" && slug.current == $slug && language == $language][0]{
     projectName,
-    description,
+    // description,
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
       projectName,
       "slug": slug.current,
@@ -43,6 +44,9 @@ export const getProjectQuery = defineQuery(`
     date,
     deliverables[]->{
       ${DELIVERABLE}
+    },
+    techStack[]->{
+      ${TECH_STACK}
     },
     websiteUrl,
     body[]{
@@ -71,7 +75,7 @@ export const getProjectsQuery = defineQuery(`
     _id,
     projectName,
     "slug": slug.current,
-    description,
+    // description,
     "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
       projectName,
       "slug": slug.current,

@@ -46,6 +46,7 @@ export const structure: StructureResolver = (S: any) =>
                 .icon(CogIcon)
                 .child(S.document().schemaType('settings').documentId('siteSettings')),
               S.documentTypeListItem('deliverable').title('Deliverables').icon(EmptyIcon),
+              S.documentTypeListItem('techStack').title('Tech Stack').icon(EmptyIcon),
             ]),
         )
         .icon(CogIcon),

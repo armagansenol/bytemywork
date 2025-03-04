@@ -23,25 +23,25 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
-          marks: {
-            // Only allow these decorators
-            decorators: [
-              {title: 'Strong', value: 'strong'},
-              {title: 'Emphasis', value: 'em'},
-              {title: 'Underline', value: 'underline'},
-            ],
-          },
-        },
-      ],
-    }),
+    // defineField({
+    //   name: 'description',
+    //   title: 'Description',
+    //   type: 'array',
+    //   of: [
+    //     {
+    //       type: 'block',
+    //       styles: [{title: 'Normal', value: 'normal'}],
+    //       marks: {
+    //         // Only allow these decorators
+    //         decorators: [
+    //           {title: 'Strong', value: 'strong'},
+    //           {title: 'Emphasis', value: 'em'},
+    //           {title: 'Underline', value: 'underline'},
+    //         ],
+    //       },
+    //     },
+    //   ],
+    // }),
     defineField({
       name: 'heroImage',
       title: 'Hero Image',
@@ -72,6 +72,17 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'techStack',
+      title: 'Tech Stack',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'techStack'}],
+        },
+      ],
+    }),
+    defineField({
       name: 'websiteUrl',
       title: 'Website URL',
       type: 'url',
@@ -98,7 +109,7 @@ export default defineType({
                 title: component,
                 media: images[0],
                 imageUrls: images,
-                subtitle: `Image grid (${images.length} images)`,
+                subtitle: `(${images.length} images)`,
               }
             },
           },
@@ -166,13 +177,13 @@ export default defineType({
           preview: {
             select: {
               title: 'title',
-              description: 'description',
+              // description: 'description',
               component: 'component',
             },
-            prepare({title, description}) {
+            prepare({title}) {
               return {
                 title: title || 'Text Block',
-                subtitle: description?.substring(0, 50) + (description?.length > 50 ? '...' : ''),
+                // subtitle: description?.substring(0, 50) + (description?.length > 50 ? '...' : ''),
                 media: () => React.createElement('span', {style: {fontSize: '1.5em'}}, 'T'),
               }
             },
