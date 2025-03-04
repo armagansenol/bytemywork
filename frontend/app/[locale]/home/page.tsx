@@ -13,6 +13,7 @@ import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Wrapper } from "@/components/wrapper"
 import { Video } from "@/components/utility/video"
+import { FixedSlider } from "@/components/fixed-slider"
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const [settings, t] = await Promise.all([
@@ -43,9 +44,8 @@ export default async function HomePage({ params: { locale } }: { params: { local
         </p>
         <p className="max-w-lg text-sm md:text-base font-light mt-8">{t("hero.description")}</p>
       </section>
-      <section className="relative h-[240px] lg:h-[600px] w-full overflow-hidden flex items-center justify-center">
-        {/* <Img src="/img/placeholder.jpg" alt="Aurora Background" className="object-cover" height={600} width={600} />
-        <div className="absolute inset-0 bg-black/20" /> */}
+      <section className="relative">
+        <FixedSlider />
       </section>
       <section className="container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-12 lg:py-24 border-b border-dynamic-black">
         <div className="col-span-12 space-y-4">
