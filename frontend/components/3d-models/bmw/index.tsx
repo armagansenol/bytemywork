@@ -20,7 +20,7 @@ export function ModelBytemywork(props: JSX.IntrinsicElements["group"]) {
 
   useEffect(() => {
     // Calculate scale relative to viewport width, similar to desktop-vw calculation
-    const baseScale = 230
+    const baseScale = 235
     const scaleVw = (baseScale * 100) / screens.desktop.width
     const scale = (scaleVw * viewport.width) / 100
     setModelScale(scale)
