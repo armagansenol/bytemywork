@@ -83,7 +83,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
               characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
             />
           </h3>
-          <h3 className="text-2xl md:text-4xl font-bold">
+          {/* <h3 className="text-2xl md:text-4xl font-bold">
             <ScrambleHover
               text={t("capabilities.services.contentCreation")}
               scrambleSpeed={60}
@@ -102,7 +102,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
               useOriginalCharsOnly={false}
               characters="abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;':\,./<>?"
             />
-          </h3>
+          </h3> */}
         </div>
       </section>
       <section className="container-section py-12 lg:py-24 space-y-16 lg:space-y-32">
