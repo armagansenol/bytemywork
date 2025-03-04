@@ -27,7 +27,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
   return (
     <Wrapper className={s.home} theme="dark">
-      <div className={cn(s.bgVideo, "z-20")}>
+      <div className={cn(s.bgVideo, "-z-[1]")}>
         <Video className="object-cover" primaryVideoUrl="/video/intro-bg.mp4" autoPlay muted loop />
       </div>
       <section className="hidden lg:block z-50">
@@ -39,10 +39,12 @@ export default async function HomePage({ params: { locale } }: { params: { local
         <div className={cn(s.teeth, "block lg:hidden")}>
           <LogoText />
         </div>
-        <p className="text-sm md:text-xl font-light md:-mt-20 ml-0 md:ml-auto ">
-          <ScrambleIn text={t("hero.tagline")} scrambleSpeed={50} scrambledLetterCount={5} autoStart={true} />
-        </p>
-        <p className="max-w-lg text-sm md:text-base font-light mt-8">{t("hero.description")}</p>
+        <div className="w-full flex flex-col-reverse lg:flex-row gap-12 lg:gap-0 lg:-mt-12 xl:-mt-20">
+          <p className="text-sm xl:text-base font-light max-w-lg">{t("hero.description")}</p>
+          <p className="text-sm lg:text-base xl:text-xl font-light ml-auto">
+            <ScrambleIn text={t("hero.tagline")} scrambleSpeed={50} scrambledLetterCount={5} autoStart={true} />
+          </p>
+        </div>
       </section>
       <section className="relative">
         <FixedSlider />
