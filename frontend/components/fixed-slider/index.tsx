@@ -15,6 +15,7 @@ export function FixedSlider() {
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger)
+
       menuTL.current = gsap.timeline({
         paused: true,
       })
@@ -72,7 +73,7 @@ export function FixedSlider() {
 
   return (
     <div className="relative w-screen h-screen" ref={ref}>
-      <div className={cn(s.frame, "gsap-slide-1 absolute top-8 left-8 right-8 bottom-8 z-50")}>
+      <div className={cn(s.frame, s.slide, "gsap-slide-1 z-50")}>
         <Img
           className="w-full h-full object-cover"
           src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05"
@@ -81,7 +82,7 @@ export function FixedSlider() {
           height={2000}
         />
       </div>
-      <div className={cn(s.frame, "gsap-slide-2 absolute top-8 left-8 right-8 bottom-8 z-40")}>
+      <div className={cn(s.frame, s.slide, "gsap-slide-2 z-40")}>
         <Img
           className="w-full h-full object-cover"
           src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2"
@@ -90,7 +91,7 @@ export function FixedSlider() {
           height={2000}
         />
       </div>
-      <div className={cn(s.frame, "gsap-slide-3 absolute top-8 left-8 right-8 bottom-8 z-30")}>
+      <div className={cn(s.frame, s.slide, "gsap-slide-3 z-30")}>
         <Img
           className="w-full h-full object-cover"
           src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e"
@@ -99,7 +100,7 @@ export function FixedSlider() {
           height={2000}
         />
       </div>
-      <div className={cn("absolute top-8 left-8 right-8 bottom-8 z-20")}>
+      <div className={cn(s.slide, "z-20")}>
         <Img
           className="w-full h-full object-cover"
           src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000"
