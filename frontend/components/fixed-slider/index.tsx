@@ -3,6 +3,7 @@
 import s from "./fixed-slider.module.css"
 
 import { ScrollTrigger, gsap, useGSAP } from "@/lib/gsap"
+import { useWindowSize } from "@14islands/r3f-scroll-rig"
 import cn from "clsx"
 import { useRef } from "react"
 
@@ -11,6 +12,7 @@ import { Img } from "@/components/utility/img"
 export function FixedSlider() {
   const ref = useRef<HTMLDivElement>(null)
   const menuTL = useRef<gsap.core.Timeline>()
+  const { width } = useWindowSize()
 
   useGSAP(
     () => {
@@ -50,8 +52,11 @@ export function FixedSlider() {
     },
     {
       scope: ref,
+      dependencies: [width],
     }
   )
+
+  if (width < 1025) return null
 
   return (
     <div className="relative w-screen h-screen" ref={ref}>
