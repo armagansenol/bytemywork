@@ -59,7 +59,7 @@ export function ProjectCard({ projectName, deliverables, heroImage: image, slug,
       <div
         className={cn("aspect-w-4 aspect-h-3", "w-full", layout === "vertical" ? "order-1" : "lg:col-span-12 order-2")}
       >
-        <Img className="object-cover rounded-lg" src={image} alt="Project Cover Image" width={500} height={500} />
+        <Img className="object-cover rounded-lg" src={image} alt="Project Cover Image" width={1000} height={1000} />
       </div>
     </LocaleLink>
   )
