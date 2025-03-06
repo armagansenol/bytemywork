@@ -39,15 +39,6 @@ export function FixedSlider() {
             ease: "power3.inOut",
           }
         )
-        .fromTo(
-          ".gsap-slide-3",
-          { clipPath: "inset(0% 0% 0% 0%)" },
-          {
-            clipPath: "inset(0% 100% 0% 0%)",
-            duration: 1.2,
-            ease: "power3.inOut",
-          }
-        )
 
       ScrollTrigger.create({
         animation: menuTL.current,
@@ -67,7 +58,7 @@ export function FixedSlider() {
       <div className={cn(s.frame, s.slide, "gsap-slide-1 z-50")}>
         <Img
           className="w-full h-full object-cover"
-          src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05"
+          src="/img/s-1.jpg"
           alt="Foggy mountains landscape"
           width={2000}
           height={2000}
@@ -77,7 +68,7 @@ export function FixedSlider() {
       <div className={cn(s.frame, s.slide, "gsap-slide-2 z-40")}>
         <Img
           className="w-full h-full object-cover"
-          src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2"
+          src="/img/s-2.jpg"
           alt="Modern architecture"
           width={2000}
           height={2000}
@@ -87,18 +78,8 @@ export function FixedSlider() {
       <div className={cn(s.frame, s.slide, "gsap-slide-3 z-30")}>
         <Img
           className="w-full h-full object-cover"
-          src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e"
+          src="/img/s-3.jpg"
           alt="Coastal landscape"
-          width={2000}
-          height={2000}
-          priority={true}
-        />
-      </div>
-      <div className={cn(s.slide, "z-20")}>
-        <Img
-          className="w-full h-full object-cover"
-          src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000"
-          alt="City skyline"
           width={2000}
           height={2000}
           priority={true}
