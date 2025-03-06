@@ -6,6 +6,7 @@ import "@/styles/globals.css"
 
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
+import { Analytics } from "@vercel/analytics/react"
 
 import type { Metadata } from "next"
 import { Alexandria } from "next/font/google"
@@ -51,7 +52,7 @@ export default async function LocaleLayout({
             <R3fScrollRig>{children}</R3fScrollRig>
           </NextIntlClientProvider>
         </Providers>
-        {/* <SmoothScroll root={true} /> */}
+        <Analytics />
       </body>
     </html>
   )
