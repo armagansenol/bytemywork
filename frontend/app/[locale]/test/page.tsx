@@ -7,7 +7,6 @@ import { ReactNode, useRef } from "react"
 import * as THREE from "three"
 
 import { ModelBytemywork } from "@/components/3d-models/bmw"
-import { ToothModel } from "@/components/3d-models/tooth-model"
 import { Wrapper } from "@/components/wrapper"
 
 export default function Test() {
@@ -69,8 +68,6 @@ function ToothSection() {
     <View className="w-screen h-screen" ref={ref}>
       <Common />
       <ModelBytemywork />
-      <ToothAnimation teethRef={teethRef} containerRef={ref} />
-      <ToothModel ref={teethRef} />
     </View>
   )
 }
