@@ -51,7 +51,7 @@ export function Preloader() {
 
 function Loop({ factor = 0.2 }) {
   const motion = useMotion()
-  useFrame((state, delta) => (motion.current += Math.min(0.1, delta) * factor))
+  useFrame((_, delta) => (motion.current += Math.min(0.1, delta) * factor))
   return null
 }
 
@@ -150,7 +150,7 @@ const StickerBmw = forwardRef<THREE.Mesh, StickerBmwProps>((props, ref) => {
 StickerBmw.displayName = "StickerBmw"
 
 function Loader() {
-  const { active, progress, errors, item, loaded, total } = useProgress()
+  const { progress } = useProgress()
   return (
     <Html className="w-screen h-screen bg-black" center>
       {progress} % loaded
