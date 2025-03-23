@@ -12,14 +12,13 @@ import {
   useMotion,
   useProgress,
   useTexture,
-  View,
 } from "@react-three/drei"
 import { Canvas, useFrame } from "@react-three/fiber"
 import * as THREE from "three"
 
 import { DotScreen, EffectComposer, HueSaturation, TiltShift2 } from "@react-three/postprocessing"
 import { useControls } from "leva"
-import { forwardRef, ReactNode, Suspense, useRef } from "react"
+import { forwardRef, Suspense, useRef } from "react"
 
 export function Preloader() {
   return (
