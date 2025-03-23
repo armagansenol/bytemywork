@@ -13,6 +13,7 @@ import {structureTool} from 'sanity/structure'
 import {LANGUAGES} from './src/lib/constants'
 import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
+import {contactFormPlugin} from './src/hooks/contactFormHook'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -135,6 +136,7 @@ export default defineConfig({
     // Additional plugins for enhanced functionality
     // assist(),
     visionTool(),
+    contactFormPlugin(),
   ],
 
   // Schema configuration, imported from ./src/schemaTypes/index.ts

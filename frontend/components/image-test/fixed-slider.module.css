@@ -1,0 +1,29 @@
+.frame {
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.slide {
+  position: absolute;
+
+  height: mobile-vw(400px);
+  width: mobile-vw(350px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @include-media ("tablet") {
+    height: tablet-vw(400px);
+    width: tablet-vw(350px);
+    transform: translate(0, 0);
+  }
+
+  @include-media ("desktop") {
+    top: desktop-vw(32px);
+    left: desktop-vw(32px);
+    right: desktop-vw(32px);
+    bottom: desktop-vw(32px);
+    transform: translate(0, 0);
+    height: auto;
+    width: auto;
+  }
+}
