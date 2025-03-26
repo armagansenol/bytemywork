@@ -10,6 +10,8 @@ import { useEffect } from "react"
 
 import { Footer } from "@/components/shared/footer"
 import { Header } from "@/components/shared/header"
+import lenis from "lenis"
+import { SmoothScroll } from "../smooth-scroll"
 
 interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: (typeof themeNames)[number]
@@ -33,7 +35,7 @@ export function Wrapper({ children, theme = "dark", className, headerVariant, ..
         <Script id="theme-script">{`document.documentElement.setAttribute('data-theme', '${theme}');`}</Script>
       </main>
       <Footer />
-      {/* {lenis && <SmoothScroll root />} */}
+      {lenis && <SmoothScroll root />}
     </div>
   )
 }
