@@ -4,9 +4,10 @@ import { Providers } from "@/providers"
 import { colors, themes } from "@/styles/config.mjs"
 import "@/styles/globals.css"
 
+import { Analytics } from "@vercel/analytics/react"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
-import { Analytics } from "@vercel/analytics/react"
+import { ViewTransitions } from "next-view-transitions"
 
 import type { Metadata } from "next"
 import { Alexandria } from "next/font/google"
@@ -42,18 +43,20 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale}>
-      <head>
-        <StyleVariables colors={colors} themes={themes} />
-      </head>
-      <body className={`${alexandria.variable} with-bg`}>
-        <Providers>
-          <NextIntlClientProvider messages={messages}>
-            <R3fScrollRig>{children}</R3fScrollRig>
-          </NextIntlClientProvider>
-        </Providers>
-        <Analytics />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang={locale}>
+        <head>
+          <StyleVariables colors={colors} themes={themes} />
+        </head>
+        <body className={`${alexandria.variable} with-bg`}>
+          <Providers>
+            <NextIntlClientProvider messages={messages}>
+              <R3fScrollRig>{children}</R3fScrollRig>
+            </NextIntlClientProvider>
+          </Providers>
+          <Analytics />
+        </body>
+      </html>
+    </ViewTransitions>
   )
 }

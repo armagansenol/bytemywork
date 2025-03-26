@@ -1,6 +1,8 @@
 import s from "./header.module.css"
 
 import { Link as LocalizedLink } from "@/i18n/routing"
+import { Link as ViewTransitionLink } from "next-view-transitions"
+
 import { cva, type VariantProps } from "class-variance-authority"
 import cn from "clsx"
 
@@ -34,12 +36,15 @@ export function Header({ variant }: HeaderProps) {
       <nav className="order-2 md:order-1">
         <ul className="flex gap-4 md:gap-8 text-xs md:text-base">
           <li>
-            <LocalizedLink href="/works">
+            {/* <LocalizedLink href="/works">
               <ScrambleText text={t("works")} />
-            </LocalizedLink>
+            </LocalizedLink> */}
+            <ViewTransitionLink href="/works" prefetch={true}>
+              <ScrambleText text={t("works")} />
+            </ViewTransitionLink>
           </li>
           <li>
-            <LocalizedLink href="/contact">
+            <LocalizedLink href="/contact" prefetch={true}>
               <ScrambleText text={t("contact")} />
             </LocalizedLink>
           </li>

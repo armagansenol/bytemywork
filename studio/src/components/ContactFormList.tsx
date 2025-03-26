@@ -1,5 +1,5 @@
 import {Box, Button, Card, Checkbox, Stack, Text, Inline, Label, Flex} from '@sanity/ui'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, forwardRef} from 'react'
 import {useClient} from 'sanity'
 
 export type Budget = '<100000' | '100000-200000' | '>200000'
@@ -17,12 +17,12 @@ export interface ContactFormDocument {
 
 const ITEMS_PER_PAGE = 10
 
-export function ContactFormList() {
+export const ContactFormList = forwardRef<HTMLDivElement>((props, ref) => {
   const [selectedItems, setSelectedItems] = useState<string[]>([])
   const [submissions, setSubmissions] = useState<ContactFormDocument[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalItems, setTotalItems] = useState(0)
-  const client = useClient()
+  const client = useClient({apiVersion: '2021-06-07'})
 
   useEffect(() => {
     // Fetch total count
@@ -89,7 +89,7 @@ export function ContactFormList() {
   }
 
   return (
-    <Stack space={4} padding={4}>
+    <Stack space={4} padding={4} ref={ref}>
       <Box>
         <Flex align="center" justify="flex-end" gap={5}>
           <Inline space={2}>
@@ -195,4 +195,7 @@ export function ContactFormList() {
       </Flex>
     </Stack>
   )
-}
+})
+
+// Add a display name for better debugging
+ContactFormList.displayName = 'ContactFormList'

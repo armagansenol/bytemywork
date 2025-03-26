@@ -29,44 +29,65 @@ export const contactFormPlugin = definePlugin(() => {
   return {
     name: 'contact-form-notifications',
     setup(config: SanityConfig) {
-      // Only run this code on the client (in the browser)
-      if (typeof window === 'undefined') return
-
-      // Get the document store from the config
       const {documentStore} = config
 
-      // Set up a listener for new contact form submissions
-      const subscription = documentStore
-        .listenQuery(
-          `*[_type == "contactForm"] | order(_createdAt desc)[0]`,
-          {},
-          // @ts-ignore - includeResult is a valid option but not in the type definition
-          {includeResult: true},
-        )
-        .subscribe({
-          next: (update: DocumentUpdate) => {
-            // Only proceed if we have a result and it's a new document
-            if (!update.result || !update.result._createdAt) return
+      // Set up a listener for new contact form submissions with retry logic
+      let retryCount = 0
+      const maxRetries = 3
 
-            // Check if this is a new document (created in the last minute)
-            const createdAt = new Date(update.result._createdAt)
-            const now = new Date()
-            const isNew = now.getTime() - createdAt.getTime() < 60000 // 1 minute
+      const setupSubscription = () => {
+        console.log('Setting up subscription...')
+        const subscription = documentStore
+          .listenQuery(`*[_type == "contactForm"] | order(_createdAt desc)`, {}, {})
+          .subscribe({
+            next: (update: DocumentUpdate) => {
+              console.log('Subscription update received:', {
+                update,
+                timestamp: new Date().toISOString(),
+                hasResult: !!update.result,
+                createdAt: update.result?._createdAt,
+              })
 
-            if (isNew) {
-              const document = update.result as SanityDocument
+              if (!update.result || !update.result._createdAt) {
+                console.log('Skipping: No result or creation date')
+                return
+              }
 
-              // Send email notification
-              sendEmailNotification(document).catch(console.error)
-            }
-          },
-          error: (err: Error) => {
-            console.error('Error listening for contact form submissions:', err)
-          },
-        })
+              const createdAt = new Date(update.result._createdAt)
+              const now = new Date()
+              const timeDiff = now.getTime() - createdAt.getTime()
 
-      // Clean up subscription when the plugin is destroyed
+              console.log('Processing update:', {
+                timeDiff,
+                isNew: timeDiff < 300000,
+                createdAt: createdAt.toISOString(),
+                now: now.toISOString(),
+              })
+
+              if (timeDiff < 300000) {
+                console.log('Processing new submission:', update.result)
+                sendEmailNotification(update.result as SanityDocument)
+                  .then(() => console.log('Email sent successfully'))
+                  .catch((error) => console.error('Email sending failed:', error))
+              }
+            },
+            error: (err: Error) => {
+              console.error('Subscription error:', err)
+              if (retryCount < maxRetries) {
+                retryCount++
+                console.log(`Retrying subscription (${retryCount}/${maxRetries})...`)
+                setTimeout(setupSubscription, 5000) // Retry after 5 seconds
+              }
+            },
+          })
+
+        return subscription
+      }
+
+      const subscription = setupSubscription()
+
       return () => {
+        console.log('Cleaning up subscription')
         subscription.unsubscribe()
       }
     },
