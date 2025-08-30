@@ -6,14 +6,13 @@ import { settingsQuery } from "@/sanity/lib/queries"
 import cn from "clsx"
 import { getTranslations } from "next-intl/server"
 
+import { FixedSlider } from "@/components/fixed-slider"
 import { HeroSection } from "@/components/hero-section"
 import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Wrapper } from "@/components/wrapper"
-import { Video } from "@/components/utility/video"
-import { FixedSlider } from "@/components/fixed-slider"
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const [settings, t] = await Promise.all([
@@ -27,9 +26,9 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
   return (
     <Wrapper className={s.home} theme="dark">
-      <div className={cn(s.bgVideo, "-z-[1]")}>
+      {/* <div className={cn(s.bgVideo, "-z-[1]")}>
         <Video className="object-cover" primaryVideoUrl="/video/intro-bg.mp4" autoPlay muted loop />
-      </div>
+      </div> */}
       <section className="hidden lg:block z-50">
         <div className={s.teeth}>
           <HeroSection />
