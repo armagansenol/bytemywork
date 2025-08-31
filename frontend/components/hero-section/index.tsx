@@ -64,7 +64,7 @@ function Hero({ scale, scrollState }: HeroSectionProps) {
       <directionalLight ref={lightRef} position={[200, 400, 300]} intensity={25} color="#22ff00" />
       <OrthographicCamera makeDefault position={[0, 0, 2000]} zoom={1} />
       <Environment preset="studio" environmentIntensity={1} background blur={0.5} />
-      {process.env.NODE_ENV === "development" && <Leva />}
+      <Leva hidden={process.env.NODE_ENV === "production"} />
     </>
   )
 }
