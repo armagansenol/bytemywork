@@ -3,16 +3,15 @@ import s from "./home.module.css"
 import { SettingsQueryResult } from "@/sanity.types"
 import { sanityFetch } from "@/sanity/lib/client"
 import { settingsQuery } from "@/sanity/lib/queries"
-import cn from "clsx"
 import { getTranslations } from "next-intl/server"
 
 import { FixedSlider } from "@/components/fixed-slider"
-import { HeroSection } from "@/components/hero-section"
 import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Wrapper } from "@/components/wrapper"
+import { ThreeDModelWrapper } from "@/components/3d-models/3d-model-wrapper"
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const [settings, t] = await Promise.all([
@@ -29,16 +28,17 @@ export default async function HomePage({ params: { locale } }: { params: { local
       {/* <div className={cn(s.bgVideo, "-z-[1]")}>
         <Video className="object-cover" primaryVideoUrl="/video/intro-bg.mp4" autoPlay muted loop />
       </div> */}
-      <section className="hidden lg:block z-50">
+      {/* <section className="hidden lg:block z-50">
         <div className={s.teeth}>
           <HeroSection />
         </div>
-      </section>
+      </section> */}
       <section className="container-section pb-12 lg:pb-24 flex flex-col relative z-50">
-        <div className={cn(s.teeth, "block lg:hidden")}>
+        <ThreeDModelWrapper />
+        <div className="w-full">
           <LogoText />
         </div>
-        <div className="w-full flex flex-col-reverse lg:flex-row gap-12 lg:gap-0 lg:-mt-12 xl:-mt-20">
+        <div className="w-full flex flex-col-reverse lg:flex-row gap-12 lg:gap-0 mt-8">
           <p className="text-sm xl:text-base font-light max-w-lg">{t("hero.description")}</p>
           <p className="text-sm lg:text-base xl:text-xl font-light ml-auto">
             <ScrambleIn text={t("hero.tagline")} scrambleSpeed={50} scrambledLetterCount={5} autoStart={true} />

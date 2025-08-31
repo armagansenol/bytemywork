@@ -30,7 +30,7 @@ export function ToothModel() {
     {
       backside: true,
       backsideResolution: { value: 512, min: 64, max: 1024, step: 64 },
-      thickness: { value: 0.3, min: 0, max: 10, step: 0.01 },
+      thickness: { value: 5, min: 0, max: 10, step: 0.01 },
       transmission: { value: 1, min: 0, max: 1, step: 0.01 },
       anisotropy: { value: 0.5, min: 0, max: 1, step: 0.01 },
       distortion: { value: 5, min: 0, max: 10, step: 0.1 },
@@ -72,7 +72,7 @@ export function ToothModel() {
               position={[-0.109, 14.822, -2.212]}
               rotation={[Math.PI / 2, 0, 0]}
             >
-              <MeshTransmissionMaterial {...materialProps} />
+              <MeshTransmissionMaterial key="ust-material" {...materialProps} />
             </mesh>
             <mesh
               castShadow
@@ -82,7 +82,7 @@ export function ToothModel() {
               position={[0.169, 9.668, -2.886]}
               rotation={[Math.PI / 2, 0, 0]}
             >
-              <MeshTransmissionMaterial {...materialProps} />
+              <MeshTransmissionMaterial key="alt-material" {...{ ...materialProps }} />
             </mesh>
           </group>
         </PresentationControls>

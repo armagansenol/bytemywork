@@ -6,9 +6,9 @@ import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import * as THREE from "three"
 
-import { ModelBytemywork } from "@/components/3d-models/bmw"
 import { ToothModel } from "@/components/3d-models/tooth-model"
 import { Leva } from "leva"
+import { LogoText } from "../shared/icons"
 
 interface HeroSectionProps {
   scale: {
@@ -52,7 +52,10 @@ function Hero({ scale, scrollState }: HeroSectionProps) {
 
   return (
     <>
-      <ModelBytemywork />
+      {/* <ModelBytemywork /> */}
+      <div className="flex justify-center md:justify-start">
+        <LogoText />
+      </div>
       <group scale={scale.xy.min() * 1.25} position={[200, -80, 300]}>
         <mesh ref={mesh}>
           <ToothModel />

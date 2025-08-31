@@ -1,3 +1,5 @@
+"use client"
+
 import { colors } from "@/styles/config.mjs"
 import { useGLTF } from "@react-three/drei"
 import * as THREE from "three"
