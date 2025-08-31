@@ -7,11 +7,7 @@
 
 import {defineCliConfig} from 'sanity/cli'
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID
-
-if (!projectId) {
-  throw new Error('Missing environment variable: SANITY_STUDIO_PROJECT_ID')
-}
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || '5v5zqldl'
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production'
 
 export default defineCliConfig({
