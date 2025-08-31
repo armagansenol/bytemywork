@@ -7,7 +7,6 @@ import { useRef } from "react"
 import * as THREE from "three"
 
 import { ToothModel } from "@/components/3d-models/tooth-model"
-import { Leva } from "leva"
 import { LogoText } from "../shared/icons"
 
 interface HeroSectionProps {
@@ -52,7 +51,6 @@ function Hero({ scale, scrollState }: HeroSectionProps) {
 
   return (
     <>
-      {/* <ModelBytemywork /> */}
       <div className="flex justify-center md:justify-start">
         <LogoText />
       </div>
@@ -64,7 +62,6 @@ function Hero({ scale, scrollState }: HeroSectionProps) {
       <directionalLight ref={lightRef} position={[200, 400, 300]} intensity={25} color="#22ff00" />
       <OrthographicCamera makeDefault position={[0, 0, 2000]} zoom={1} />
       <Environment preset="studio" environmentIntensity={1} background blur={0.5} />
-      <Leva hidden={process.env.NODE_ENV === "production"} />
     </>
   )
 }

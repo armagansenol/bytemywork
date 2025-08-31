@@ -14,6 +14,7 @@ import { View } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import lenis from "lenis"
 import { SmoothScroll } from "../smooth-scroll"
+import { Leva } from "leva"
 
 interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: (typeof themeNames)[number]
@@ -54,6 +55,7 @@ export function Wrapper({ children, theme = "dark", className, headerVariant, ..
       >
         <View.Port />
       </Canvas>
+      <Leva hidden={process.env.NODE_ENV === "production"} />
     </div>
   )
 }
