@@ -26,7 +26,7 @@ function ScrollAnimatedGroup() {
 
 export function ThreeDModelWrapper() {
   return (
-    <View className="hidden xl:block fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] z-[150] pointer-events-auto">
+    <View className="hidden xl:block fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] z-[50] pointer-events-none">
       <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={200} />
       <ambientLight intensity={10.8} />
       <directionalLight position={[3, 3, 3]} intensity={20} />
