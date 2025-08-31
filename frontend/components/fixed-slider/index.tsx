@@ -53,6 +53,7 @@ export function FixedSlider() {
     {
       scope: ref,
       dependencies: [width],
+      revertOnUpdate: true,
     }
   )
 
