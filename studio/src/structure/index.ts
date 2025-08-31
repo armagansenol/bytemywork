@@ -13,6 +13,7 @@ import {LANGUAGES} from '../lib/constants'
 export const structure: StructureResolver = (S: any, context: any) =>
   S.list()
     .title('Website Content')
+    .id('content')
     .items([
       // Projects with language variants
       S.listItem()

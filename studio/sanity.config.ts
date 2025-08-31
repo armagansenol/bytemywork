@@ -58,6 +58,10 @@ export default defineConfig({
   dataset,
 
   plugins: [
+    // Structure tool should be first to make it the default tab
+    structureTool({
+      structure, // Custom studio structure configuration, imported from ./src/structure.ts
+    }),
     // Presentation tool configuration for Visual Editing
     documentInternationalization({
       // Required configuration
@@ -129,9 +133,6 @@ export default defineConfig({
     //     },
     //   },
     // }),
-    structureTool({
-      structure, // Custom studio structure configuration, imported from ./src/structure.ts
-    }),
     // Additional plugins for enhanced functionality
     visionTool(),
   ] as any,
