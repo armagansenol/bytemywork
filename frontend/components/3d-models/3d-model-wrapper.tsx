@@ -1,13 +1,16 @@
 "use client"
 
-import { View, OrthographicCamera } from "@react-three/drei"
-import { ToothModel } from "./tooth-model"
-import { useLenis } from "lenis/react"
+import { PostProcessing } from "@/components/dithering-shader/post-processing"
+import { Environment, OrthographicCamera, View } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
+import { useLenis } from "lenis/react"
 import { useRef } from "react"
+import { useMedia } from "react-use"
 import * as THREE from "three"
+import { ToothModel } from "./tooth-model"
 
 function ScrollAnimatedGroup() {
+  const scale = 5
   const lenis = useLenis()
   const group = useRef<THREE.Group>(null)
 
@@ -18,19 +21,26 @@ function ScrollAnimatedGroup() {
   })
 
   return (
-    <group scale={[5, 5, 5]} position={[0, 0, 0]} ref={group}>
+    <group scale={[scale, scale, scale]} position={[0.5, 0.1, 0]} ref={group}>
       <ToothModel />
     </group>
   )
 }
 
 export function ThreeDModelWrapper() {
+  const isTabletUp = useMedia("(min-width: 768px)", false)
+
+  if (!isTabletUp) return null
+
   return (
-    <View className="hidden xl:block fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] z-[50] pointer-events-none">
+    <View className='block w-full h-full pointer-events-auto'>
       <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={200} />
       <ambientLight intensity={10.8} />
       <directionalLight position={[3, 3, 3]} intensity={20} />
+      <hemisphereLight color={0xffffff} groundColor={0x444444} intensity={0.6} />
+      <Environment preset='studio' background={false} environmentIntensity={1.5} />
       <ScrollAnimatedGroup />
+      <PostProcessing />
     </View>
   )
 }
