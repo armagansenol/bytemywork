@@ -92,6 +92,6 @@ export function ToothModel() {
   )
 }
 
-if (typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches) {
+if (typeof window !== "undefined" && window.matchMedia("(min-width: 1200px)").matches) {
   useGLTF.preload("/glb/tooth.glb")
 }

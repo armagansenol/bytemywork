@@ -28,7 +28,7 @@ function ScrollAnimatedGroup() {
 }
 
 export function ThreeDModelWrapper() {
-  const isTabletUp = useMedia("(min-width: 768px)", false)
+  const isTabletUp = useMedia("(min-width: 1200px)", false)
 
   if (!isTabletUp) return null
 
