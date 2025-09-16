@@ -1,8 +1,10 @@
+"use client"
+
 import { useEffect, useRef, useState, useCallback } from "react"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
 import { EffectComposer, RenderPass, BloomEffect, EffectPass } from "postprocessing"
-import { useControls, folder } from "leva"
+import { useDevControls, folder } from "@/hooks/use-dev-controls"
 
 import { DitheringEffect } from "./DitheringEffect"
 
@@ -17,8 +19,8 @@ export const PostProcessing = () => {
   const [scene, setScene] = useState<THREE.Scene | null>(null)
   const [camera, setCamera] = useState<THREE.Camera | null>(null)
 
-  // Effect controls
-  const { bloom1Enabled, bloom1Threshold, bloom1Intensity, bloom1Radius } = useControls({
+  // Effect controls (hidden in production)
+  const bloom1Controls = useDevControls("Bloom 1", {
     "Bloom 1": folder({
       bloom1Enabled: { value: true, label: "Enable Bloom 1 (Pre-Dithering)" },
       bloom1Threshold: { value: 0.01, min: 0, max: 2, step: 0.01, label: "Threshold" },
@@ -27,7 +29,7 @@ export const PostProcessing = () => {
     }),
   })
 
-  const { ditheringGridSize, pixelSizeRatio, grayscaleOnly } = useControls({
+  const ditheringControls = useDevControls("Dithering", {
     Dithering: folder({
       ditheringGridSize: { value: 2, min: 1, max: 20, step: 1, label: "Effect Resolution" },
       pixelSizeRatio: { value: 1, min: 1, max: 10, step: 1, label: "Pixelation Strength" },
@@ -35,7 +37,7 @@ export const PostProcessing = () => {
     }),
   })
 
-  const { bloom2Enabled, bloom2Threshold, bloom2Intensity, bloom2Radius, bloom2Smoothing } = useControls({
+  const bloom2Controls = useDevControls("Bloom 2", {
     "Bloom 2": folder({
       bloom2Enabled: { value: false, label: "Enable Bloom 2 (Post-Dithering)" },
       bloom2Threshold: { value: 0.0, min: 0, max: 2, step: 0.01, label: "Threshold" },
@@ -44,6 +46,22 @@ export const PostProcessing = () => {
       bloom2Smoothing: { value: 0.22, min: 0, max: 1, step: 0.01, label: "Smoothing" },
     }),
   })
+
+  // Extract values with type assertions
+  const bloom1Enabled = bloom1Controls.bloom1Enabled as boolean
+  const bloom1Threshold = bloom1Controls.bloom1Threshold as number
+  const bloom1Intensity = bloom1Controls.bloom1Intensity as number
+  const bloom1Radius = bloom1Controls.bloom1Radius as number
+
+  const ditheringGridSize = ditheringControls.ditheringGridSize as number
+  const pixelSizeRatio = ditheringControls.pixelSizeRatio as number
+  const grayscaleOnly = ditheringControls.grayscaleOnly as boolean
+
+  const bloom2Enabled = bloom2Controls.bloom2Enabled as boolean
+  const bloom2Threshold = bloom2Controls.bloom2Threshold as number
+  const bloom2Intensity = bloom2Controls.bloom2Intensity as number
+  const bloom2Radius = bloom2Controls.bloom2Radius as number
+  const bloom2Smoothing = bloom2Controls.bloom2Smoothing as number
 
   // Memoized resize handler (fallback for window resizes)
   const handleResize = useCallback(() => {

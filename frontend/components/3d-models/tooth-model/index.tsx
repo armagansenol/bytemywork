@@ -4,7 +4,7 @@ import { Float, PresentationControls, useAnimations, useGLTF } from "@react-thre
 import { useRef } from "react"
 import * as THREE from "three"
 import { GLTF } from "three-stdlib"
-import { useControls } from "leva"
+import { useDevControls } from "@/hooks/use-dev-controls"
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -22,8 +22,8 @@ export function ToothModel() {
   const { nodes, animations } = useGLTF("/glb/tooth.glb") as GLTFResult
   const { actions } = useAnimations(animations, group)
 
-  // Metallic silver material with Leva controls
-  const silverMaterialProps = useControls("Silver Material", {
+  // Metallic silver material with development controls (hidden in production)
+  const silverMaterialProps = useDevControls("Silver Material", {
     color: { value: "#c0c0c0", label: "Color" },
     metalness: { value: 1, min: 0, max: 1, step: 0.01, label: "Metalness" },
     roughness: { value: 0.25, min: 0, max: 1, step: 0.01, label: "Roughness" },
@@ -38,10 +38,16 @@ export function ToothModel() {
     // temporalDistortion: { value: 0.1, min: 0, max: 0.5, step: 0.01, label: "Temporal Distortion" },
   })
 
-  // Convert color string to THREE.Color
+  // Convert color string to THREE.Color with type assertions
   const materialProps = {
-    ...silverMaterialProps,
-    color: new THREE.Color(silverMaterialProps.color),
+    color: new THREE.Color(silverMaterialProps.color as string),
+    metalness: silverMaterialProps.metalness as number,
+    roughness: silverMaterialProps.roughness as number,
+    clearcoat: silverMaterialProps.clearcoat as number,
+    clearcoatRoughness: silverMaterialProps.clearcoatRoughness as number,
+    transmission: silverMaterialProps.transmission as number,
+    envMapIntensity: silverMaterialProps.envMapIntensity as number,
+    reflectivity: silverMaterialProps.reflectivity as number,
   }
 
   function handlePointerDown() {
@@ -64,7 +70,7 @@ export function ToothModel() {
           polar={[-Math.PI / 4, Math.PI / 4]}
           azimuth={[-Math.PI, Math.PI]}
         >
-          <group position={[0, -0.3, 0]} scale={0.02} rotation={[0, Math.PI / -3.2, 0]}>
+          <group position={[0, -0.3, 0]} scale={0.02} rotation={[0, Math.PI / -5.2, 0]}>
             <mesh
               castShadow
               receiveShadow

@@ -11,12 +11,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  @include-media ("tablet") {
-    height: tablet-vw(400px);
-    width: tablet-vw(350px);
-    transform: translate(0, 0);
-  }
-
   @include-media ("desktop") {
     top: desktop-vw(32px);
     left: desktop-vw(32px);

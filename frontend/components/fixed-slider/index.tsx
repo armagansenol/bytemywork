@@ -3,7 +3,7 @@
 import s from "./fixed-slider.module.css"
 
 import { ScrollTrigger, gsap, useGSAP } from "@/lib/gsap"
-import { useWindowSize } from "@14islands/r3f-scroll-rig"
+import { useWindowSize } from "react-use"
 import cn from "clsx"
 import { useRef } from "react"
 
@@ -60,12 +60,12 @@ export function FixedSlider() {
   if (width < 1025) return null
 
   return (
-    <div className="relative w-screen h-screen" ref={ref}>
+    <div className='relative w-screen h-screen' ref={ref}>
       <div className={cn(s.frame, s.slide, "gsap-slide-1 z-50")}>
         <Img
-          className="w-full h-full object-cover"
-          src="/img/s-1.jpg"
-          alt="Foggy mountains landscape"
+          className='w-full h-full object-cover'
+          src='/img/s-1.jpg'
+          alt='Foggy mountains landscape'
           width={2000}
           height={2000}
           priority={true}
@@ -73,9 +73,9 @@ export function FixedSlider() {
       </div>
       <div className={cn(s.frame, s.slide, "gsap-slide-2 z-40")}>
         <Img
-          className="w-full h-full object-cover"
-          src="/img/s-2.jpg"
-          alt="Modern architecture"
+          className='w-full h-full object-cover'
+          src='/img/s-2.jpg'
+          alt='Modern architecture'
           width={2000}
           height={2000}
           priority={true}
@@ -83,9 +83,9 @@ export function FixedSlider() {
       </div>
       <div className={cn(s.frame, s.slide, "gsap-slide-3 z-30")}>
         <Img
-          className="w-full h-full object-cover"
-          src="/img/s-3.jpg"
-          alt="Coastal landscape"
+          className='w-full h-full object-cover'
+          src='/img/s-3.jpg'
+          alt='Coastal landscape'
           width={2000}
           height={2000}
           priority={true}

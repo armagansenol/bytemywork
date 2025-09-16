@@ -46,21 +46,21 @@ export default async function LocaleLayout({
       <head>
         <StyleVariables colors={colors} themes={themes} />
       </head>
-      <body className={`${alexandria.variable} with-bg`}>
+      <body className={`${alexandria.variable}`}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MDNSRZXZ"
-            height="0"
-            width="0"
+            src='https://www.googletagmanager.com/ns.html?id=GTM-MDNSRZXZ'
+            height='0'
+            width='0'
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         {/* Google Tag Manager */}
         <Script
-          id="gtm"
-          strategy="afterInteractive"
+          id='gtm'
+          strategy='afterInteractive'
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

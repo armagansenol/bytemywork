@@ -5,13 +5,19 @@ import { sanityFetch } from "@/sanity/lib/client"
 import { settingsQuery } from "@/sanity/lib/queries"
 import { getTranslations } from "next-intl/server"
 
-import { FixedSlider } from "@/components/fixed-slider"
 import { LogoText } from "@/components/shared/icons"
 import { ProjectCard } from "@/components/shared/project-card"
 import { ScrambleHover } from "@/components/shared/scramble-hover"
 import { ScrambleIn } from "@/components/shared/scramble-in"
 import { Wrapper } from "@/components/wrapper"
-import { ThreeDModelWrapper } from "@/components/3d-models/3d-model-wrapper"
+
+import { BarrelCarousel } from "@/components/barrel-carousel"
+import dynamic from "next/dynamic"
+
+const ThreeDModelWrapper = dynamic(
+  () => import("@/components/3d-models/3d-model-wrapper").then((m) => m.ThreeDModelWrapper),
+  { ssr: false }
+)
 
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const [settings, t] = await Promise.all([
@@ -40,9 +46,9 @@ export default async function HomePage({ params: { locale } }: { params: { local
           </p>
         </div>
       </section>
-      <section className='relative'>
+      {/* <section className='relative'>
         <FixedSlider />
-      </section>
+      </section> */}
       <section className='container-section grid grid-cols-12 md:grid-cols-24 gap-4 md:gap-8 py-12 lg:py-24 border-b border-dynamic-black'>
         <div className='col-span-12 space-y-4'>
           <h2 className='text-base font-semibold'>{t("capabilities.title")}</h2>
@@ -101,14 +107,17 @@ export default async function HomePage({ params: { locale } }: { params: { local
           </h3> */}
         </div>
       </section>
-      <section className='container-section py-12 lg:py-24 space-y-16 lg:space-y-32'>
+      <section className='hidden xl:block'>
+        <BarrelCarousel />
+      </section>
+      <section className='block xl:hidden container-section py-12 lg:py-24 space-y-16 lg:space-y-32'>
         {settings?.highlightedProjects.map((project, index: number) => (
           <ProjectCard
             key={index}
             projectName={project.projectName}
             heroImage={project.heroImage?.url ?? ""}
             slug={project.slug}
-            deliverables={project.deliverables?.map((d) => d.title) as string[]}
+            deliverables={project.deliverables?.flatMap((d) => (d?.title ? [d.title] : [])) ?? []}
           />
         ))}
       </section>

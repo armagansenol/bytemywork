@@ -12,10 +12,10 @@
     "typegen": "sanity typegen generate"
   },
   "dependencies": {
-    "@14islands/r3f-scroll-rig": "^8.15.0",
     "@darkroom.engineering/hamo": "^0.6.46",
     "@gsap/react": "^2.1.1",
     "@hookform/resolvers": "^3.10.0",
+    "@mux/mux-player-react": "^3.5.3",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-radio-group": "^1.2.2",
     "@radix-ui/react-slot": "^1.1.1",
@@ -45,6 +45,7 @@
     "resend": "^4.2.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+    "tempus": "^1.0.0-dev.10",
     "three": "^0.172.0",
     "zod": "^3.24.1",
     "zustand": "^5.0.2"

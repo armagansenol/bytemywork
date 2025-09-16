@@ -10,7 +10,7 @@ import * as THREE from "three"
 import { ToothModel } from "./tooth-model"
 
 function ScrollAnimatedGroup() {
-  const scale = 5
+  const scale = 4.5
   const lenis = useLenis()
   const group = useRef<THREE.Group>(null)
 

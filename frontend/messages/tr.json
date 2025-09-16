@@ -31,7 +31,7 @@
     },
     "contact": {
         "title": "BİZE ULAŞIN",
-        "description": "HEYECANLI MISINIZ? <span>BİZ DE ÖYLE!</span> <br></br> MADEM BURADASINIZ, HAYDİ AKLINIZDAKİ PROJE HAKKINDA KONUŞALIM.",
+        "description": "HEYECANLI MISINIZ? <span>BİZ DE ÖYLE!</span> <br></br> MADEM BURADASINIZ, AKLINIZDAKİ PROJE HAKKINDA KONUŞALIM.",
         "form": {
             "inputs": {
                 "name": {
@@ -88,6 +88,6 @@
         }
     },
     "works": {
-        "title": "FİKİRLERİ BYTE'LARA DÖNÜŞTÜRÜYORUZ - <br></br> PROJELERİMİZİ KEŞFEDİN!"
+        "title": "FİKİRLERİNİZİ DİJİTALE DÖNÜŞTÜRÜYORUZ - <br></br> PROJELERİMİZİ KEŞFEDİN!"
     }
 }
