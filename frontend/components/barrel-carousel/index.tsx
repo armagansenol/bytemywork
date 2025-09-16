@@ -229,13 +229,15 @@ function CameraController({ camX, camY, camZ, fov }: { camX: number; camY: numbe
       initialized.current = true
     }
 
+    const speed = 0.15
+
     // Use smoothed pointer values to prevent jitter from HTML interactions
-    smoothPointer.current.x += (pointer.x - smoothPointer.current.x) * 0.05
-    smoothPointer.current.y += (pointer.y - smoothPointer.current.y) * 0.05
+    smoothPointer.current.x += (pointer.x - smoothPointer.current.x) * speed
+    smoothPointer.current.y += (pointer.y - smoothPointer.current.y) * speed
 
     // Apply mouse parallax effect on top of base camera position
-    const mouseX = smoothPointer.current.x * 0.15 // Increased from 0.05 to 0.15 for 3x faster parallax
-    const mouseY = smoothPointer.current.y * 0.15 // Increased from 0.05 to 0.15 for 3x faster parallax
+    const mouseX = smoothPointer.current.x * speed // Increased from 0.05 to 0.15 for 3x faster parallax
+    const mouseY = smoothPointer.current.y * speed // Increased from 0.05 to 0.15 for 3x faster parallax
     // Use faster lerping for more responsive camera movement
     camera.position.lerp(vec.set(camX + mouseX, camY + mouseY, camZ), 0.3) // Increased from 0.1 to 0.3
 
