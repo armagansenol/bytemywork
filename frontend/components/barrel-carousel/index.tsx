@@ -2,7 +2,7 @@
 
 import { gsap, ScrollTrigger } from "@/lib/gsap"
 import { useGSAP } from "@gsap/react"
-import { AdaptiveDpr, Html, shaderMaterial, Stats, useTexture } from "@react-three/drei"
+import { AdaptiveDpr, Html, shaderMaterial, useTexture } from "@react-three/drei"
 import { Canvas, extend, useFrame, useThree } from "@react-three/fiber"
 import cn from "clsx"
 
@@ -510,7 +510,7 @@ export function BarrelCarousel() {
           {/* <MouseTrackingSphere isActive={isSphereActive} /> */}
         </Suspense>
         <AdaptiveDpr pixelated />
-        <Stats />
+        {/* <Stats /> */}
         <CameraController camX={params.camX} camY={params.camY} camZ={params.camZ} fov={params.fov} />
         <Html fullscreen pointerEvents='auto'>
           <Link href={ITEMS[currentSlide].link} className='absolute top-64 left-48 z-50'>
